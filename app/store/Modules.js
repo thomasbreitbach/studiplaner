@@ -9,7 +9,7 @@ Ext.define("studiplaner.store.Modules", {
         model: "studiplaner.model.Module",
         proxy: {
             type: 'localstorage',
-            id: 'notes-app-store'
+            id: 'modules-store'
         },
         sorters: [{ property: 'name', direction: 'DESC'}],
         grouper: {

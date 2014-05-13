@@ -21,10 +21,13 @@ Ext.application({
         'ModulesListContainer', 'ModulesList', 'Main', 'Navigation', 'Viewport'
     ],
     controllers: [
-    	'App',
+    	'App', 'Modules'
+    ],
+    forms: [
+    	'ModuleForm'
     ],
     models: ['Module'],
-    store: ['Modules'],
+    stores: ['Modules'],
 
 
     icon: {
@@ -49,8 +52,16 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
+		var modulesListContainer = {
+			xtype: "moduleslistcontainer"
+		};
+		
+		var moduleForm = {
+			xtype: "moduleform"
+		};
+
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('studiplaner.view.ModulesListContainer'));
+        Ext.Viewport.add([modulesListContainer, moduleForm]);
     },
 
     onUpdated: function() {

@@ -5,6 +5,13 @@ Ext.define('studiplaner.view.ModulesListContainer', {
 	extend: 'Ext.Container',
 	xtype: 'moduleslistcontainer',
 
+	  
+  	config: {
+		layout: {
+        	type: 'fit'
+    	}
+  	},
+
   	initialize: function(){
 		this.callParent(arguments);
 	
@@ -30,7 +37,7 @@ Ext.define('studiplaner.view.ModulesListContainer', {
     		xtype: "moduleslist",
     		store: Ext.getStore("Modules"),
     		listeners: {
-       			disclose: { fn: this.onNotesListDisclose, scope: this },
+       			disclose: { fn: this.onModulesListDisclose, scope: this },
        		 	// itemtap: { fn: this.onNotesListDisclose, scope: this },
         		// itemswipe: { fn: this.onNotesListSwipe, scope: this }
         	}
@@ -40,13 +47,12 @@ Ext.define('studiplaner.view.ModulesListContainer', {
 	},
   
   	onNewButtonTap: function () {
-        console.log("newNoteCommand");
-    	this.fireEvent("newNoteCommand", this);
+        console.log("newModuleCommand");
+    	this.fireEvent("newModuleCommand", this);
 	},
-  
-  	config: {
-		layout: {
-        	type: 'fit'
-    	}
-  	}
+	
+	onModulesListDisclose: function (list, record, target, index, evt, options) {
+    	console.log("editModuleCommand");
+    	this.fireEvent('editModuleCommand', this, record);
+	}
 });
