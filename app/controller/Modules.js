@@ -34,6 +34,7 @@ Ext.define("studiplaner.controller.Modules", {
     },
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
+    	console.log(record);
     	var moduleForm = this.getModuleForm();
     	moduleForm.setRecord(record); // load() is deprecated.
     	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);
@@ -49,7 +50,6 @@ Ext.define("studiplaner.controller.Modules", {
 	    var moduleId = (now.getTime()).toString() + (this.getRandomInt(0, 100)).toString();
 	
 	    var newModule = Ext.create("studiplaner.model.Module", {
-	        id: moduleId,
 	        type: "",
 	        name: "",
 	        ects: "",
@@ -62,18 +62,19 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
     onEditModuleCommand: function (list, record) {
-        console.log("onEditNoteCommand");
+        console.log("onEditModuleCommand");
+        console.log(record);
         this.activateModuleForm(record);
     },
     
     onSaveModuleCommand: function () {
 	    console.log("onSaveModuleCommand");
-	
+		
 	    var moduleForm = this.getModuleForm();
-	
+		console.log(moduleForm);
 	    var currentModule = moduleForm.getRecord();
 	    var newValues = moduleForm.getValues();
-	
+
 	    // Update the current note's fields with form values.
 	    currentModule.set("name", newValues.name);
 	    currentModule.set("ects", newValues.ects);

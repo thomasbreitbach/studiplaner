@@ -33,6 +33,8 @@ Ext.define('studiplaner.form.ModuleForm', {
         		]
         	},{
 				xtype: 'segmentedbutton',
+				id: 'typeButton',
+				allowMultiple: false,
 				margin: '10px',
 				layout:{
 					type:'hbox',
@@ -41,15 +43,20 @@ Ext.define('studiplaner.form.ModuleForm', {
 				},
 				items: [
 					{
-						text: 'Normal'
+						text: 'Normal',
+						pressed: true,
+						id: 'normal'
 					},
 					{
-						text: 'Blockmodul'
+						text: 'Block',
+						id: 'block'
 					},
 					{
-						text: 'o. V.'
+						text: 'ohne Vorlesung',
+						id: 'ov'
 					}
 				]
+            
 			}, {
         		xtype: "fieldset",
         		items: [

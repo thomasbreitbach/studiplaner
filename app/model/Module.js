@@ -27,10 +27,6 @@ Ext.define('studiplaner.model.Module', {
 	    		type: 'presence',
 			    field: 'name',
 			    message: "Bitte gib einen Modulnamen an."
-		    }, {
-			    type: 'presence',
-			    field: 'ects',
-			    message: "Bitte trage die ECTS-Punkte ein."
 		    }
 		],
 		

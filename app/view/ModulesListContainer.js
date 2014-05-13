@@ -51,8 +51,9 @@ Ext.define('studiplaner.view.ModulesListContainer', {
     	this.fireEvent("newModuleCommand", this);
 	},
 	
-	onModulesListDisclose: function (list, record, target, index, evt, options) {
+	onModulesListDisclose: function (list, index, target, record, evt, options) {
     	console.log("editModuleCommand");
+    	console.log(record);
     	this.fireEvent('editModuleCommand', this, record);
 	}
 });
