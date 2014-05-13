@@ -13,13 +13,13 @@ Ext.define("studiplaner.controller.Modules", {
             modulesListContainer: {
             	// The commands fired by the modules list container.
                 newModuleCommand: "onNewModuleCommand",
-                // editNoteCommand: "onEditNoteCommand",
+                editModuleCommand: "onEditModuleCommand",
                 // swipeNoteCommand: "onSwipeNoteCommand"
             },
             moduleForm: {
 		        // The commands fired by the note editor.
-		        saveNoteCommand: "onSaveNoteCommand",
-		        deleteNoteCommand: "onDeleteNoteCommand",
+		        saveModuleCommand: "onSaveModuleCommand",
+		        // deleteNoteCommand: "onDeleteNoteCommand",
 		        backToHomeCommand: "onBackToHomeCommand"
 		    }
         }
@@ -61,42 +61,43 @@ Ext.define("studiplaner.controller.Modules", {
 	    this.activateModuleForm(newModule);
 	},
 	
-    onEditNoteCommand: function (list, record) {
+    onEditModuleCommand: function (list, record) {
         console.log("onEditNoteCommand");
-        this.activateNoteEditor(record);
+        this.activateModuleForm(record);
     },
     
-    onSaveNoteCommand: function () {
-	    console.log("onSaveNoteCommand");
+    onSaveModuleCommand: function () {
+	    console.log("onSaveModuleCommand");
 	
-	    var noteEditor = this.getNoteEditor();
+	    var moduleForm = this.getModuleForm();
 	
-	    var currentNote = noteEditor.getRecord();
-	    var newValues = noteEditor.getValues();
+	    var currentModule = moduleForm.getRecord();
+	    var newValues = moduleForm.getValues();
 	
 	    // Update the current note's fields with form values.
-	    currentNote.set("title", newValues.title);
-	    currentNote.set("narrative", newValues.narrative);
+	    currentModule.set("name", newValues.name);
+	    currentModule.set("ects", newValues.ects);
+	    currentModule.set("sws", newValues.sws);
 	
-	    var errors = currentNote.validate();
+	    var errors = currentModule.validate();
 	
 	    if (!errors.isValid()) {
-	        Ext.Msg.alert('Wait!', errors.getByField("title")[0].getMessage(), Ext.emptyFn);
-	        currentNote.reject();
+	        Ext.Msg.alert('Wait!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
+	        currentModule.reject();
 	        return;
 	    }
 	
-	    var notesStore = Ext.getStore("Notes");
+	    var modulesStore = Ext.getStore("Modules");
 	
-	    if (null == notesStore.findRecord('id', currentNote.data.id)) {
-	        notesStore.add(currentNote);
+	    if (null == modulesStore.findRecord('id', currentModule.data.id)) {
+	        modulesStore.add(currentModule);
 	    }
 	
-	    notesStore.sync();
+	    modulesStore.sync();
 	
-	    notesStore.sort([{ property: 'dateCreated', direction: 'DESC'}]);
+	    modulesStore.sort([{ property: 'name', direction: 'DESC'}]);
 	
-	    this.activateNotesList();
+	    this.activateModulesList();
 	},
 	
 	onSwipeNoteCommand: function(list, record){

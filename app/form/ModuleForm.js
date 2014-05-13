@@ -18,23 +18,26 @@ Ext.define('studiplaner.form.ModuleForm', {
         			{
         				xtype: "button",
         				ui: "back",
-        				text: "Zurück",
+        				text: "",
+        				iconCls: 'arrow_left',
         				itemId: "backButton"
         			}, {
         				xtype: "spacer"
         			}, {
         				xtype: "button",
         				ui: "action",
-        				text: "Suche",
+        				text: "",
+        				iconCls: 'search',
         				itemId: "searchButton"
         			}
         		]
         	},{
 				xtype: 'segmentedbutton',
+				margin: '10px',
 				layout:{
 					type:'hbox',
 					align:'center',
-					pack:'center'
+					pack:'center',
 				},
 				items: [
 					{
@@ -44,11 +47,10 @@ Ext.define('studiplaner.form.ModuleForm', {
 						text: 'Blockmodul'
 					},
 					{
-						text: 'Nachschreibeklausur'
+						text: 'o. V.'
 					}
 				]
-			},
-        	{
+			}, {
         		xtype: "fieldset",
         		items: [
         			{
@@ -58,21 +60,21 @@ Ext.define('studiplaner.form.ModuleForm', {
 		            },
 		            {
 		                name: 'ects',
-		                xtype: 'textfield',
+		                xtype: 'numberfield',
 		                label: 'ECTS'
 		            },
 		            {
 		                name: 'sws',
-		                xtype: 'textfield',
-		                label: 'SWS'
-		            },
-		            {
-		                xtype: 'button',
-		                text: 'Hinzufügen',
-		                ui: 'confirm'
+		                xtype: 'numberfield',
+		                label: 'SWS',
 		            }
         		]
-        	},
+        	},{
+                xtype: 'button',
+                text: 'Hinzufügen',
+                ui: 'confirm',
+                itemId: "addButton"
+            }
             
         ],
         listeners: [
@@ -80,6 +82,10 @@ Ext.define('studiplaner.form.ModuleForm', {
         		delegate: "#backButton",
         		event: "tap",
         		fn: "onBackButtonTap"
+        	}, {
+        		delegate: '#addButton',
+        		event: 'tap',
+        		fn: 'onAddButtonTap'
         	}
         ]        
     },
@@ -88,5 +94,9 @@ Ext.define('studiplaner.form.ModuleForm', {
     onBackButtonTap: function(){
     	console.log("backToHomeCommand");
 		this.fireEvent("backToHomeCommand", this);
+    },
+    onAddButtonTap: function(){
+    	console.log('saveModuleCommand');
+    	this.fireEvent('saveModuleCommand', this);
     }
 });

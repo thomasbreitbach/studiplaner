@@ -17,7 +17,7 @@ Ext.define('studiplaner.view.ModulesListContainer', {
 	
 		var newButton = {
             xtype: "button",
-        	text: '+',
+        	iconCls: 'add',
         	ui: 'action',
         	handler: this.onNewButtonTap,
         	scope: this
@@ -38,8 +38,8 @@ Ext.define('studiplaner.view.ModulesListContainer', {
     		store: Ext.getStore("Modules"),
     		listeners: {
        			disclose: { fn: this.onModulesListDisclose, scope: this },
-       		 	// itemtap: { fn: this.onNotesListDisclose, scope: this },
-        		// itemswipe: { fn: this.onNotesListSwipe, scope: this }
+       		 	itemtap: { fn: this.onModulesListDisclose, scope: this }
+        		// itemswipe: { fn: this.onModulesListSwipe, scope: this }
         	}
     	};
     
