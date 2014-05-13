@@ -10,8 +10,6 @@ Ext.define('studiplaner.view.Main', {
         html: ['MainView. Content here.'],
         styleHtmlContent: true
       }, {
-      	xtype: 'moduleform'
-      }, {
         xtype: 'titlebar',
         title: 'Studiplaner THM',
         docked: 'top',

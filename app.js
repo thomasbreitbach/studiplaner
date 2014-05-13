@@ -18,12 +18,13 @@ Ext.application({
     ],
 
     views: [
-        'Main', 'Navigation', 'Viewport'
+        'ModulesListContainer', 'ModulesList', 'Main', 'Navigation', 'Viewport'
     ],
     controllers: [
-    	'App'
+    	'App',
     ],
     models: ['Module'],
+    store: ['Modules'],
 
 
     icon: {
@@ -49,7 +50,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('studiplaner.view.Viewport'));
+        Ext.Viewport.add(Ext.create('studiplaner.view.ModulesListContainer'));
     },
 
     onUpdated: function() {

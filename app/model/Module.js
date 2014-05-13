@@ -4,7 +4,10 @@
 Ext.define('studiplaner.model.Module', {
     extend: 'Ext.data.Model',
     
-    requires: ['Ext.data.identifier.Uuid'],
+    requires: [
+    	'Ext.data.identifier.Uuid',
+    	'Ext.data.Field'
+    ],
     
     config: {
     	idProperty: 'id',

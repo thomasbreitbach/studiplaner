@@ -8,7 +8,7 @@ Ext.define('studiplaner.view.Viewport', {
 		fullscreen: true,
 		layout: 'hbox',
 		items: [{
-			xtype: 'main',
+			xtype: 'moduleslistconatiner',
 			cls: 'slide',
 		 
 			// Needed to fit the whole content
@@ -16,7 +16,6 @@ Ext.define('studiplaner.view.Viewport', {
 		}, {
 			xtype: 'navigation',
 			width: 250
-		}
-		]
+		}]
 	}
 });

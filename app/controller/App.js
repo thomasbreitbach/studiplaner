@@ -16,6 +16,13 @@ Ext.define('studiplaner.controller.App', {
       navigation: {
         itemtap: function (list, index, target, record) {
           //todo: show content	
+          console.log(record.data.title);
+          switch(index){
+          	case 1:
+          		
+          		break;
+          	
+          }
           this.toggleNav();
         }
       }
