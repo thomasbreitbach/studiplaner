@@ -37,7 +37,6 @@ Ext.define('studiplaner.view.ModulesListContainer', {
     		xtype: "moduleslist",
     		store: Ext.getStore("Modules"),
     		listeners: {
-       			disclose: { fn: this.onModulesListDisclose, scope: this },
        		 	itemtap: { fn: this.onModulesListDisclose, scope: this }
         		// itemswipe: { fn: this.onModulesListSwipe, scope: this }
         	}
