@@ -1,7 +1,10 @@
 Ext.define('studiplaner.form.ModuleForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.moduleform',
-    requires: "Ext.form.FieldSet",
+    requires: [
+    	"Ext.form.FieldSet",
+    	'Ext.SegmentedButton'
+    ],
     config: {
         title: 'ModuleForm',
         scrollable:'vertical',
@@ -17,9 +20,34 @@ Ext.define('studiplaner.form.ModuleForm', {
         				ui: "back",
         				text: "Zurück",
         				itemId: "backButton"
+        			}, {
+        				xtype: "spacer"
+        			}, {
+        				xtype: "button",
+        				ui: "action",
+        				text: "Suche",
+        				itemId: "searchButton"
         			}
         		]
-        	},
+        	},{
+				xtype: 'segmentedbutton',
+				layout:{
+					type:'hbox',
+					align:'center',
+					pack:'center'
+				},
+				items: [
+					{
+						text: 'Normal'
+					},
+					{
+						text: 'Blockmodul'
+					},
+					{
+						text: 'Nachschreibeklausur'
+					}
+				]
+			},
         	{
         		xtype: "fieldset",
         		items: [
