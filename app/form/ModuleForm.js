@@ -19,7 +19,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         				xtype: "button",
         				ui: "back",
         				text: "",
-        				iconCls: 'arrow_left',
+        				iconCls: 'test',
         				itemId: "backButton"
         			}, {
         				xtype: "spacer"
@@ -31,7 +31,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         				itemId: "searchButton"
         			}
         		]
-        	},{
+        	}, {
 				xtype: 'segmentedbutton',
 				id: 'typeButton',
 				allowMultiple: false,
@@ -45,14 +45,17 @@ Ext.define('studiplaner.form.ModuleForm', {
 					{
 						text: 'Normal',
 						pressed: true,
+						width: '33%',
 						id: 'normal'
 					},
 					{
 						text: 'Block',
+						width: '33%',
 						id: 'block'
 					},
 					{
 						text: 'ohne Vorlesung',
+						width: '33%',
 						id: 'ov'
 					}
 				]
@@ -76,7 +79,71 @@ Ext.define('studiplaner.form.ModuleForm', {
 		                label: 'SWS',
 		            }
         		]
-        	},{
+        	}, {
+				title: 'yourInterest',
+				html: ['Persönliches Interesse'],
+				styleHtmlContent: true
+			}, {
+				xtype: 'segmentedbutton',
+				id: 'interestButton',
+				allowMultiple: false,
+				margin: '10px',
+				layout:{
+					type:'hbox',
+					align:'center',
+					pack:'center',
+				},
+				items: [
+					{
+						text: 'Gut',
+						id: 'interest_good',
+						width: '33%',
+					},
+					{
+						text: 'Mittel',
+						id: 'interest_medium',
+						width: '33%'
+					},
+					{
+						text: 'Schlecht',
+						id: 'interest_bad',
+						width: '33%'
+					}
+				]
+            
+			}, {
+				title: 'yourServerity',
+				html: ['Eingeschätzter Schwierigkeitsgrad'],
+				styleHtmlContent: true
+			},{
+				xtype: 'segmentedbutton',
+				id: 'severityButton',
+				allowMultiple: false,
+				margin: '10px',
+				layout:{
+					type:'hbox',
+					align:'center',
+					pack:'center',
+				},
+				items: [
+					{
+						text: 'Gut',
+						id: 'severity_good',
+						width: '33%',
+					},
+					{
+						text: 'Mittel',
+						id: 'severity_medium',
+						width: '33%'
+					},
+					{
+						text: 'Schlecht',
+						id: 'severity_bad',
+						width: '33%'
+					}
+				]
+            
+			}, {
                 xtype: 'button',
                 text: 'Hinzufügen',
                 ui: 'confirm',
