@@ -91,6 +91,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'interestButton',
 				allowMultiple: false,
+				margin: '0 10 0 10',
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -125,6 +126,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'severityButton',
 				allowMultiple: false,
+				margin: '0 10 0 10',
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -156,7 +158,7 @@ Ext.define('studiplaner.form.ModuleForm', {
                 text: 'Hinzufügen',
                 ui: 'confirm',
                 itemId: "addButton",
-                margin: '20 5 0 5'
+                margin: '20 5 15 5'
             }, {
         		xtype: "toolbar",
         		docked: "bottom",
