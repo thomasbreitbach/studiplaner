@@ -7,11 +7,10 @@ Ext.define("studiplaner.view.ModulesList", {
     
     config: {
         loadingText: "Lade Module...",
-        emptyText: '<pre> <div class="notes-list-empty-text">Aktuell liegen keine Module vor.</div> </pre>',
-        onItemDisclosure: false,
+        emptyText: '</pre> <div class="notes-list-empty-text">Aktuell liegen keine Module vor.</div> <pre>',
+        onItemDisclosure:true,
         grouped: true,
-        itemTpl: '<pre><div class="list-item-type">{type}</div>' + 
-        		'<div class="list-item-name list">{name}</div>' +
-        		'<div class="list-item-ects">{ects} CP</div>',
+        itemTpl: 	'</pre><div><span class="list-item-name">{name}</span>'+
+					'<span class="list-item-workload">{ects} ECTS, {sws} SWS</span><div><pre>',
     }
 });

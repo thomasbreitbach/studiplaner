@@ -99,7 +99,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				},
 				items: [
 					{
-						text: 'Gut',
+						text: 'Hoch',
 						id: 'interest_good',
 						width: '33%',
 						value: 0
@@ -111,7 +111,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						value: 1
 					},
 					{
-						text: 'Schlecht',
+						text: 'Niedrig',
 						id: 'interest_bad',
 						width: '33%',
 						value: 2
@@ -134,7 +134,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				},
 				items: [
 					{
-						text: 'Niedrig',
+						text: 'Hoch',
 						id: 'severity_good',
 						width: '33%',
 						value: 0
@@ -146,7 +146,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						value: 1
 					},
 					{
-						text: 'Hoch',
+						text: 'Niedrig',
 						id: 'severity_bad',
 						width: '33%',
 						value: 2

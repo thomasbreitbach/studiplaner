@@ -79,7 +79,7 @@
         	"update": "delta"
         }, {
         	"path": "resources/css/studiplaner.css",
-        	"update": "delta"
+        	"update": "full"
         }
     ],
 
