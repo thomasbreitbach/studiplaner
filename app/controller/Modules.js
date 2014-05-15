@@ -21,7 +21,7 @@ Ext.define("studiplaner.controller.Modules", {
 		        saveModuleCommand: "onSaveModuleCommand",
 		        // deleteNoteCommand: "onDeleteNoteCommand",
 		        backToHomeCommand: "onBackToHomeCommand",
-		        typeButtonCommand: "onTypeButtonCommand"
+		        segmentedButtonCommand: "onSegmentedButtonCommand"
 		    }
         }
     },
@@ -36,8 +36,24 @@ Ext.define("studiplaner.controller.Modules", {
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
     	console.log(record);
+    	
     	var moduleForm = this.getModuleForm();
-    	moduleForm.setRecord(record); // load() is deprecated.
+    	
+    	//set form fields
+    	moduleForm.setRecord(record);
+    	
+    	//set typButton	
+    	var typeButton = moduleForm.getItems().items[1];
+    	typeButton.setPressedButtons([record.data.type]);
+    	
+    	//set interestButton
+    	var interestButton = moduleForm.getItems().items[4];
+    	interestButton.setPressedButtons([record.data.interest]);
+
+		//set severityButton
+    	var severityButton = moduleForm.getItems().items[6];
+    	severityButton.setPressedButtons([record.data.severity]);
+  	
     	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);
 	},
 	activateModulesList: function () {
@@ -51,12 +67,12 @@ Ext.define("studiplaner.controller.Modules", {
 	    var moduleId = (now.getTime()).toString() + (this.getRandomInt(0, 100)).toString();
 	
 	    var newModule = Ext.create("studiplaner.model.Module", {
-	        type: "",
+	        type: "normal",
 	        name: "",
 	        ects: "",
 	        sws: "",
-	        interest: 2,
-	        severity: 2,
+	        interest: "",
+	        severity: "",
 	    });
 	
 	    this.activateModuleForm(newModule);
@@ -78,6 +94,7 @@ Ext.define("studiplaner.controller.Modules", {
 	    console.log(newValues);
 
 	    // Update the current note's fields with form values.
+	    // SegmentedButton values are saven on toggle
 	    currentModule.set("name", newValues.name);
 	    currentModule.set("ects", newValues.ects);
 	    currentModule.set("sws", newValues.sws);
@@ -136,15 +153,31 @@ Ext.define("studiplaner.controller.Modules", {
 		this.activateModulesList();
 	},
 	
-	onTypeButtonCommand: function (form, button) {
-		console.log('onTypeButtonCommand');
+	onSegmentedButtonCommand: function (form, container, button) {
+		console.log('onSegmentedButtonCommand');
 
 		var moduleForm = this.getModuleForm();
 		var currentModule = moduleForm.getRecord();
 		
-		currentModule.set('type', button.getId());
+		var segmentedButton = container.getItemId();
+		var attribute;
+		switch(segmentedButton){
+			case "typeButton":
+				console.log("typeButton");
+				attribute = "type";
+				break;
+			case "interestButton":
+				console.log("interestButton");
+				attribute = "interest";
+				break;
+			case "severityButton":
+				console.log("severityButton");
+				attribute = "severity";
+				break;
+		}	
+		currentModule.set(attribute, button.value);
+		console.log(currentModule);
 	},
-	    
 
     launch: function () {
         this.callParent();

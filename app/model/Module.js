@@ -15,7 +15,7 @@ Ext.define('studiplaner.model.Module', {
     	
         fields: [
         	{ name: 'id', type: 'auto' },
-            { name: 'type', type: 'string' },
+            { name: 'type', type: 'int' },
             { name: 'name', type: 'string' },
             { name: 'ects', type: 'int' },
             { name: 'sws', type: 'int' },
