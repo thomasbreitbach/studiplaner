@@ -19,7 +19,7 @@ Ext.define("studiplaner.controller.Modules", {
             moduleForm: {
 		        // The commands fired by the note editor.
 		        saveModuleCommand: "onSaveModuleCommand",
-		        // deleteNoteCommand: "onDeleteNoteCommand",
+		        deleteModuleCommand: "onDeleteModuleCommand",
 		        backToHomeCommand: "onBackToHomeCommand",
 		        segmentedButtonCommand: "onSegmentedButtonCommand"
 		    }
@@ -33,9 +33,9 @@ Ext.define("studiplaner.controller.Modules", {
     getRandomInt: function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
+    
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
-    	console.log(record);
     	
     	var moduleForm = this.getModuleForm();
     	
@@ -53,9 +53,17 @@ Ext.define("studiplaner.controller.Modules", {
 		//set severityButton
     	var severityButton = moduleForm.getItems().items[6];
     	severityButton.setPressedButtons([record.data.severity]);
-  	
+    	
+    	var submitButton = moduleForm.getItems().items[7];
+    	if(record.data.name.length > 0){
+			submitButton.setText("Ändern");
+		}else{
+			submitButton.setText("Hinzufügen");
+		}
+    	  	
     	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);
 	},
+	
 	activateModulesList: function () {
 	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);
 	},
@@ -63,16 +71,13 @@ Ext.define("studiplaner.controller.Modules", {
     onNewModuleCommand: function () {
 	    console.log("onNewModuleCommand");
 	
-		var now = new Date();
-	    var moduleId = (now.getTime()).toString() + (this.getRandomInt(0, 100)).toString();
-	
 	    var newModule = Ext.create("studiplaner.model.Module", {
-	        type: "normal",
+	        type: 0,
 	        name: "",
 	        ects: "",
 	        sws: "",
-	        interest: "",
-	        severity: "",
+	        interest: null,
+	        severity: null,
 	    });
 	
 	    this.activateModuleForm(newModule);
@@ -80,7 +85,6 @@ Ext.define("studiplaner.controller.Modules", {
 	
     onEditModuleCommand: function (list, record) {
         console.log("onEditModuleCommand");
-        console.log(record);
         this.activateModuleForm(record);
     },
     
@@ -136,16 +140,21 @@ Ext.define("studiplaner.controller.Modules", {
 	onDeleteModuleCommand: function () {
 	    console.log("onDeleteNoteCommand");
 	
-	    var moduleForm = this.getModuleForm();
-	    var currentModule = moduleForm.getRecord();
-	    var modulesStore = Ext.getStore("Notes");
-	
-		console.log(currentModule);
-		modulesStore.removeAt(currentModule);
-	    // notesStore.remove(currentNote);
-	    modulesStore.sync();
-	
-	    this.activateModulesList();
+		var moduleForm = this.getModuleForm();
+		var currentModule = moduleForm.getRecord();
+		var controller = this;
+		
+		Ext.Msg.confirm('Löschen?', 'Möchtest du das Modul ' + currentModule.data.name + ' löschen?', function(btn){
+			if(btn == 'yes'){
+				var modulesStore = Ext.getStore("Modules");		
+				modulesStore.remove(currentModule);
+				modulesStore.sync();
+				
+				controller.activateModulesList();
+			}else{
+				return false;
+			}
+		});  
 	},
 	
 	onBackToHomeCommand: function () {
@@ -176,7 +185,6 @@ Ext.define("studiplaner.controller.Modules", {
 				break;
 		}	
 		currentModule.set(attribute, button.value);
-		console.log(currentModule);
 	},
 
     launch: function () {

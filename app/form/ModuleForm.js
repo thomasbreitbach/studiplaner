@@ -91,7 +91,6 @@ Ext.define('studiplaner.form.ModuleForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'interestButton',
 				allowMultiple: false,
-				margin: '10px',
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -126,7 +125,6 @@ Ext.define('studiplaner.form.ModuleForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'severityButton',
 				allowMultiple: false,
-				margin: '10px',
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -134,7 +132,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				},
 				items: [
 					{
-						text: 'Gut',
+						text: 'Niedrig',
 						id: 'severity_good',
 						width: '33%',
 						value: 0
@@ -146,7 +144,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						value: 1
 					},
 					{
-						text: 'Schlecht',
+						text: 'Hoch',
 						id: 'severity_bad',
 						width: '33%',
 						value: 2
@@ -157,8 +155,22 @@ Ext.define('studiplaner.form.ModuleForm', {
                 xtype: 'button',
                 text: 'Hinzufügen',
                 ui: 'confirm',
-                itemId: "addButton"
-            }
+                itemId: "addButton",
+                margin: '20 5 0 5'
+            }, {
+        		xtype: "toolbar",
+        		docked: "bottom",
+        		title: "",
+        		items: [
+        			{
+        				xtype: "button",
+        				ui: "action",
+        				text: '',
+        				iconCls: 'trash',
+        				itemId: "deleteButton"
+        			},
+        		]
+        	}
             
         ],
         listeners: [
@@ -171,6 +183,10 @@ Ext.define('studiplaner.form.ModuleForm', {
         		event: 'tap',
         		fn: 'onAddButtonTap'
         	}, {
+				delegate: "#deleteButton",
+        		event: "tap",
+        		fn: "onDeleteButtonTap"
+			}, {
 				delegate: "#typeButton",
         		event: "toggle",
         		fn: "onSegmentedButtonToggle"
@@ -194,11 +210,13 @@ Ext.define('studiplaner.form.ModuleForm', {
     onAddButtonTap: function(){
     	console.log('saveModuleCommand');
     	this.fireEvent('saveModuleCommand', this);
-    },
+    }, 
+    onDeleteButtonTap: function () {
+	    console.log("deleteNoteCommand");
+	    this.fireEvent("deleteModuleCommand", this);
+	},
     onSegmentedButtonToggle: function (container, button, isPressed, eOpts){
 		console.log("segmentedButtonCommand");
-		console.log(container);
-		console.log(button);
 		if(isPressed){
 			this.fireEvent('segmentedButtonCommand', this, container, button);
 		}
