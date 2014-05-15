@@ -20,7 +20,8 @@ Ext.define("studiplaner.controller.Modules", {
 		        // The commands fired by the note editor.
 		        saveModuleCommand: "onSaveModuleCommand",
 		        // deleteNoteCommand: "onDeleteNoteCommand",
-		        backToHomeCommand: "onBackToHomeCommand"
+		        backToHomeCommand: "onBackToHomeCommand",
+		        typeButtonCommand: "onTypeButtonCommand"
 		    }
         }
     },
@@ -74,6 +75,7 @@ Ext.define("studiplaner.controller.Modules", {
 		console.log(moduleForm);
 	    var currentModule = moduleForm.getRecord();
 	    var newValues = moduleForm.getValues();
+	    console.log(newValues);
 
 	    // Update the current note's fields with form values.
 	    currentModule.set("name", newValues.name);
@@ -94,8 +96,7 @@ Ext.define("studiplaner.controller.Modules", {
 	        modulesStore.add(currentModule);
 	    }
 	
-	    modulesStore.sync();
-	
+	    modulesStore.sync();	
 	    modulesStore.sort([{ property: 'name', direction: 'DESC'}]);
 	
 	    this.activateModulesList();
@@ -103,6 +104,7 @@ Ext.define("studiplaner.controller.Modules", {
 	
 	onSwipeNoteCommand: function(list, record){
 		console.log("onSwipeNoteCommand");
+		
 		Ext.Msg.confirm('Löschen?', 'Möchtest du den Eintrag löschen', function(btn){
 			if(btn == 'yes'){
 				var notesStore = Ext.getStore("Notes");
@@ -111,28 +113,36 @@ Ext.define("studiplaner.controller.Modules", {
 			}else{
 				return false;
 			}
-		});
-		
+		});		
 	},
 	
-	onDeleteNoteCommand: function () {
+	onDeleteModuleCommand: function () {
 	    console.log("onDeleteNoteCommand");
 	
-	    var noteEditor = this.getNoteEditor();
-	    var currentNote = noteEditor.getRecord();
-	    var notesStore = Ext.getStore("Notes");
+	    var moduleForm = this.getModuleForm();
+	    var currentModule = moduleForm.getRecord();
+	    var modulesStore = Ext.getStore("Notes");
 	
-		console.log(currentNote);
-		notesStore.removeAt(currentNote);
+		console.log(currentModule);
+		modulesStore.removeAt(currentModule);
 	    // notesStore.remove(currentNote);
-	    notesStore.sync();
+	    modulesStore.sync();
 	
-	    this.activateNotesList();
+	    this.activateModulesList();
 	},
 	
 	onBackToHomeCommand: function () {
 		console.log("onBackToHomeCommand");
 		this.activateModulesList();
+	},
+	
+	onTypeButtonCommand: function (form, button) {
+		console.log('onTypeButtonCommand');
+
+		var moduleForm = this.getModuleForm();
+		var currentModule = moduleForm.getRecord();
+		
+		currentModule.set('type', button.getId());
 	},
 	    
 
@@ -140,7 +150,6 @@ Ext.define("studiplaner.controller.Modules", {
         this.callParent();
         //load Store
         var store = Ext.getStore("Modules");
-        console.log(store);
         store.load();
         
         console.log("launch");

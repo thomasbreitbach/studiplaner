@@ -14,11 +14,11 @@ Ext.define("studiplaner.store.Modules", {
         sorters: [{ property: 'name', direction: 'DESC'}],
         grouper: {
             sortProperty: "name",
-            direction: "DESC",
+            direction: "ASC",
             groupFn: function (record) {
 
                 if (record && record.data.name) {
-                    return record.data.name.toString();
+                    return record.data.name.charAt(0);
                 } else {
                     return '';
                 }

@@ -3,7 +3,8 @@ Ext.define('studiplaner.form.ModuleForm', {
     alias: 'widget.moduleform',
     requires: [
     	"Ext.form.FieldSet",
-    	'Ext.SegmentedButton'
+    	'Ext.SegmentedButton',
+    	'Ext.field.Number'
     ],
     config: {
         title: 'ModuleForm',
@@ -18,8 +19,8 @@ Ext.define('studiplaner.form.ModuleForm', {
         			{
         				xtype: "button",
         				ui: "back",
-        				text: "",
-        				iconCls: 'test',
+        				text: '',
+        				iconCls: 'arrow_left',
         				itemId: "backButton"
         			}, {
         				xtype: "spacer"
@@ -33,7 +34,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         		]
         	}, {
 				xtype: 'segmentedbutton',
-				id: 'typeButton',
+				itemId: 'typeButton',
 				allowMultiple: false,
 				margin: '10px',
 				layout:{
@@ -85,7 +86,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				styleHtmlContent: true
 			}, {
 				xtype: 'segmentedbutton',
-				id: 'interestButton',
+				itemId: 'interestButton',
 				allowMultiple: false,
 				margin: '10px',
 				layout:{
@@ -117,7 +118,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				styleHtmlContent: true
 			},{
 				xtype: 'segmentedbutton',
-				id: 'severityButton',
+				itemId: 'severityButton',
 				allowMultiple: false,
 				margin: '10px',
 				layout:{
@@ -160,7 +161,11 @@ Ext.define('studiplaner.form.ModuleForm', {
         		delegate: '#addButton',
         		event: 'tap',
         		fn: 'onAddButtonTap'
-        	}
+        	}, {
+				delegate: "#typeButton",
+        		event: "toggle",
+        		fn: "onTypeButtonToggle"
+			}
         ]        
     },
     
@@ -172,5 +177,12 @@ Ext.define('studiplaner.form.ModuleForm', {
     onAddButtonTap: function(){
     	console.log('saveModuleCommand');
     	this.fireEvent('saveModuleCommand', this);
-    }
+    },
+    onTypeButtonToggle: function (container, button, isPressed, eOpts){
+		console.log("typeButtonCommand");
+		console.log(isPressed);
+		if(isPressed){
+			this.fireEvent('typeButtonCommand', this, button);
+		}
+	}
 });
