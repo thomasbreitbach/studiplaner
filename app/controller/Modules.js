@@ -55,10 +55,13 @@ Ext.define("studiplaner.controller.Modules", {
     	severityButton.setPressedButtons([record.data.severity]);
     	
     	var submitButton = moduleForm.getItems().items[7];
+    	var topPanelTitle = moduleForm.getItems().items[0].getItems().items[3];
     	if(record.data.name.length > 0){
 			submitButton.setText("Ändern");
+			topPanelTitle.setTitle(record.data.name);
 		}else{
 			submitButton.setText("Hinzufügen");
+			topPanelTitle.setTitle("Neues Modul");
 		}
     	  	
     	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);
