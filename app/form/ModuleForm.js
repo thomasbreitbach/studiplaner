@@ -103,19 +103,25 @@ Ext.define('studiplaner.form.ModuleForm', {
 						text: 'Hoch',
 						id: 'interest_good',
 						width: '33%',
-						value: 0
+						value: 0,
+						iconCls: 'happy',
+						iconMask: true
 					},
 					{
 						text: 'Mittel',
 						id: 'interest_medium',
 						width: '33%',
-						value: 1
+						value: 1,
+						iconCls: 'smiley',
+						iconMask: true
 					},
 					{
 						text: 'Niedrig',
 						id: 'interest_bad',
 						width: '33%',
-						value: 2
+						value: 2,
+						iconCls: 'sad',
+						iconMask: true
 					}
 				]
             

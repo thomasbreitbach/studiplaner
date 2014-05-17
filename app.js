@@ -105,7 +105,7 @@ Ext.application({
 						iconCls: 'briefcase2'
 					}, {
 						title: 'Workload', 
-						iconCls: 'compose'
+						iconCls: 'smile'
 					}, {
 						title: 'Wochenplan',
 						iconCls: 'calendar'

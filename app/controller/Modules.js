@@ -71,7 +71,7 @@ Ext.define("studiplaner.controller.Modules", {
 			topToolbar.setTitle("Neues Modul");
 			bottomToolbar.hide();
 		}
-    	  	
+		
     	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);
 	},
 	

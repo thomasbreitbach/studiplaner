@@ -11,6 +11,12 @@
   'icomoon/icomoon.svg', svg
 ));
 
+@include icon-font('icomoon2', inline-font-files(
+  'icomoon2/icomoon.woff', woff,
+  'icomoon2/icomoon.ttf', truetype,
+  'icomoon2/icomoon.svg', svg
+));
+
 
 // Examples of using the icon mixin:
 // @include icon('user');
@@ -24,3 +30,9 @@
 @include icon('frown', '\f119, 'icomoon');
 @include icon('meh', '\f11a, 'icomoon');
 @include icon('modules', '\f009, 'icomoon');
+
+//icomoon2
+@include icon('happy', '\e601', 'icomoon2');
+@include icon('smiley', '\e602', 'icomoon2');
+@include icon('sad', '\e603', 'icomoon2');
+@include icon('modules', '\f009', 'icomoon2');
