@@ -86,17 +86,35 @@ Ext.application({
         var items = [
             {
                 xtype: 'list',
-                itemTpl: '{title}',
-                width: 200,
+                itemTpl: new Ext.XTemplate(
+					'<div class="x-button x-iconalign-center x-button-plain x-layout-box-item x-stretched">',
+						'<span class="x-button-icon x-shown {iconCls}"></span>',
+						'<span class="x-button-label" style="text-align: left !important; margin-left: 1em;">{title}</span>',
+					'</div>'
+				),
+                width: 250,
                 height: '100%',
                 scrollable: true,
                 data: [
-                    {title: 'Modulverwaltung'},
-                    {title: 'Arbeitszeiten'},
-                    {title: 'Workload'},
-                    {title: 'Wochenplan'},
-                    {title: 'Assistent'},
-                    {title: 'Export'},
+                    {
+						title: 'Modulverwaltung',
+						iconCls: 'modules'
+					}, {
+						title: 'Arbeitszeiten', 
+						iconCls: 'briefcase2'
+					}, {
+						title: 'Workload', 
+						iconCls: 'compose'
+					}, {
+						title: 'Wochenplan',
+						iconCls: 'calendar'
+					}, {
+						title: 'Assistent',
+						iconCls: 'magic'
+					}, {
+						title: 'Export',
+						iconCls: 'upload'
+					},
                 ]
             }
         ];

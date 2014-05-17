@@ -743,7 +743,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-  "studiplaner.view.Main": []
+  "studiplaner.controller.App": [],
+  "studiplaner.controller.Modules": [],
+  "studiplaner.form.ModuleForm": [],
+  "studiplaner.model.Module": [],
+  "studiplaner.store.Modules": [],
+  "studiplaner.view.Main": [],
+  "studiplaner.view.ModulesList": [],
+  "studiplaner.view.ModulesListContainer": [],
+  "studiplaner.view.Navigation": [],
+  "studiplaner.view.Viewport": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1687,7 +1696,26 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+  "studiplaner.controller.App": [],
+  "studiplaner.controller.Modules": [],
+  "studiplaner.form.ModuleForm": [
+    "widget.moduleform"
+  ],
+  "studiplaner.model.Module": [],
+  "studiplaner.store.Modules": [],
   "studiplaner.view.Main": [
     "widget.main"
+  ],
+  "studiplaner.view.ModulesList": [
+    "widget.moduleslist"
+  ],
+  "studiplaner.view.ModulesListContainer": [
+    "widget.moduleslistcontainer"
+  ],
+  "studiplaner.view.Navigation": [
+    "widget.navigation"
+  ],
+  "studiplaner.view.Viewport": [
+    "widget.app_viewport"
   ]
 });

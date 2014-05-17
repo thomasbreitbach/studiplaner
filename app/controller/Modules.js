@@ -56,9 +56,7 @@ Ext.define("studiplaner.controller.Modules", {
     	var severityButton = moduleForm.getComponent('severityButton');
     	severityButton.setPressedButtons([record.data.severity]);   	
     	
-
     	//Change behaviour in edit mode
-    	//~ var submitButton = moduleForm.getItems().items[7];
     	var submitButton = moduleForm.getComponent('addButton');
     	var topToolbar = moduleForm.getComponent('topToolbar');
     	var bottomToolbar = moduleForm.getComponent('bottomToolbar');
