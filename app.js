@@ -62,7 +62,7 @@ Ext.application({
 		
 		Ext.Viewport.setMenu(this.createMenu('left'), {
 			side: 'left',
-			reveal: true
+			cover: true
 		});
 
         // Initialize the main view
@@ -94,6 +94,7 @@ Ext.application({
 				),
                 width: 250,
                 height: '100%',
+                margin: '46 0 0 0',
                 scrollable: true,
                 data: [
                     {
