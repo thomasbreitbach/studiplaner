@@ -59,6 +59,11 @@ Ext.application({
 		var moduleForm = {
 			xtype: "moduleform"
 		};
+		
+		Ext.Viewport.setMenu(this.createMenu('left'), {
+			side: 'left',
+			reveal: true
+		});
 
         // Initialize the main view
         Ext.Viewport.add([modulesListContainer, moduleForm]);
@@ -74,5 +79,30 @@ Ext.application({
                 }
             }
         );
+    },
+    
+    //sliding menu
+    createMenu: function(side){
+        var items = [
+            {
+                xtype: 'list',
+                itemTpl: '{title}',
+                width: 200,
+                height: '100%',
+                scrollable: true,
+                data: [
+                    {title: 'Modulverwaltung'},
+                    {title: 'Arbeitszeiten'},
+                    {title: 'Workload'},
+                    {title: 'Wochenplan'},
+                    {title: 'Assistent'},
+                    {title: 'Export'},
+                ]
+            }
+        ];
+        return Ext.create('Ext.Menu', {
+            style: 'padding: 0',
+            items: items
+        });
     }
 });

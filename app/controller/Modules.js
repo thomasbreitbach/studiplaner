@@ -4,6 +4,8 @@
 Ext.define("studiplaner.controller.Modules", {
     extend: "Ext.app.Controller",
     
+    requires: ['Ext.ComponentQuery'],
+    
     config: {
         refs: {
             modulesListContainer: "moduleslistcontainer",
@@ -43,22 +45,32 @@ Ext.define("studiplaner.controller.Modules", {
     	moduleForm.setRecord(record);
     	
     	//set typButton	
-    	var typeButton = moduleForm.getItems().items[1];
+    	var typeButton = moduleForm.getComponent('typeButton');
     	typeButton.setPressedButtons([record.data.type]);
     	
     	//set interestButton
-    	var interestButton = moduleForm.getItems().items[4];
+    	var interestButton = moduleForm.getComponent('interestButton');
     	interestButton.setPressedButtons([record.data.interest]);
 
 		//set severityButton
-    	var severityButton = moduleForm.getItems().items[6];
-    	severityButton.setPressedButtons([record.data.severity]);
+    	var severityButton = moduleForm.getComponent('severityButton');
+    	severityButton.setPressedButtons([record.data.severity]);   	
     	
-    	var submitButton = moduleForm.getItems().items[7];
+    	//Change behaviour in edit mode
+    	//~ var submitButton = moduleForm.getItems().items[7];
+    	var submitButton = moduleForm.getComponent('addButton');
+    	var topToolbar = moduleForm.getComponent('topToolbar');
+    	var bottomToolbar = moduleForm.getComponent('bottomToolbar');
     	if(record.data.name.length > 0){
+			//edit mode
 			submitButton.setText("Ändern");
+			topToolbar.setTitle(record.data.name);
+			bottomToolbar.show();
 		}else{
+			//new mode
 			submitButton.setText("Hinzufügen");
+			topToolbar.setTitle("Neues Modul");
+			bottomToolbar.hide();
 		}
     	  	
     	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);

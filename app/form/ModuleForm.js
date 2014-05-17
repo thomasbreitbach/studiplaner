@@ -14,13 +14,14 @@ Ext.define('studiplaner.form.ModuleForm', {
         	{
         		xtype: "toolbar",
         		docked: "top",
+        		itemId: 'topToolbar',
         		title: "Neues Modul",
         		items: [
         			{
         				xtype: "button",
         				ui: "back",
-        				text: '',
-        				iconCls: 'arrow_left',
+        				text: 'Zurück',
+        				iconCls: '',
         				itemId: "backButton"
         			}, {
         				xtype: "spacer"
@@ -162,6 +163,7 @@ Ext.define('studiplaner.form.ModuleForm', {
             }, {
         		xtype: "toolbar",
         		docked: "bottom",
+        		itemId: "bottomToolbar",
         		title: "",
         		items: [
         			{
@@ -169,7 +171,8 @@ Ext.define('studiplaner.form.ModuleForm', {
         				ui: "action",
         				text: '',
         				iconCls: 'trash',
-        				itemId: "deleteButton"
+        				itemId: "deleteButton",
+        				margin: '0 0 0 0'
         			},
         		]
         	}

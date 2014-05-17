@@ -5,6 +5,10 @@ Ext.define('studiplaner.view.ModulesListContainer', {
 	extend: 'Ext.Container',
 	xtype: 'moduleslistcontainer',
 
+	requires: [
+		'Ext.Menu',
+		'Ext.dataview.List'
+	],
 	  
   	config: {
 		layout: {
@@ -14,6 +18,14 @@ Ext.define('studiplaner.view.ModulesListContainer', {
 
   	initialize: function(){
 		this.callParent(arguments);
+	
+		var menuButton = {
+            xtype: "button",
+        	iconCls: 'list',
+        	ui: 'action',
+        	handler: this.onMenuButtonTap,
+        	scope: this
+		};
 	
 		var newButton = {
             xtype: "button",
@@ -28,6 +40,7 @@ Ext.define('studiplaner.view.ModulesListContainer', {
 		    title: 'Modulverwaltung',
 		    docked: "top",
 		    items: [
+				menuButton,
 		        { xtype: 'spacer' },
 		        newButton
 		    ]
@@ -44,7 +57,15 @@ Ext.define('studiplaner.view.ModulesListContainer', {
     
     	this.add([topToolbar, modulesList]);
 	},
-  
+	
+	onMenuButtonTap: function (){
+		if(Ext.Viewport.getMenus().left.isHidden()){
+			Ext.Viewport.showMenu('left');
+		}else{
+			Ext.Viewport.hideMenu('left');
+		}
+	},
+	  
   	onNewButtonTap: function () {
         console.log("newModuleCommand");
     	this.fireEvent("newModuleCommand", this);
