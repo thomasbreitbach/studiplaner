@@ -41,7 +41,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				layout:{
 					type:'hbox',
 					align:'center',
-					pack:'center',
+					pack:'center'
 				},
 				items: [
 					{
@@ -76,12 +76,14 @@ Ext.define('studiplaner.form.ModuleForm', {
 		            {
 		                name: 'ects',
 		                xtype: 'numberfield',
+		                itemId: 'numberfield_ects',
 		                label: 'ECTS'
 		            },
 		            {
 		                name: 'sws',
 		                xtype: 'numberfield',
 		                label: 'SWS',
+		                itemId: 'numberfield_sws',
 		            }
         		]
         	}, {
@@ -96,7 +98,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				layout:{
 					type:'hbox',
 					align:'center',
-					pack:'center',
+					pack:'center'
 				},
 				items: [
 					{
@@ -137,7 +139,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				layout:{
 					type:'hbox',
 					align:'center',
-					pack:'center',
+					pack:'center'
 				},
 				items: [
 					{
@@ -179,7 +181,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         				iconCls: 'trash',
         				itemId: "deleteButton",
         				margin: '0 0 0 0'
-        			},
+        			}
         		]
         	}
             
@@ -209,6 +211,14 @@ Ext.define('studiplaner.form.ModuleForm', {
 				delegate: "#severityButton",
         		event: "toggle",
         		fn: "onSegmentedButtonToggle"
+			}, {
+				delegate: '#numberfield_ects',
+				event: 'change',
+				fn: 'onNumberFieldChange'
+			}, {
+				delegate: '#numberfield_sws',
+				event: 'change',
+				fn: 'onNumberFieldChange'
 			}
         ]        
     },
@@ -231,5 +241,13 @@ Ext.define('studiplaner.form.ModuleForm', {
 		if(isPressed){
 			this.fireEvent('segmentedButtonCommand', this, container, button);
 		}
+	},
+	onNumberFieldChange: function (field, newValue, oldValue, eOpts){
+		//~ TODO
+		//~ addSeries([{
+			//~ name: 'Series A',
+			//~ data: [ [ 3, 5 ], [ 4, 6 ], [ 5, 7 ] ]
+		//~ }], false);
+		console.log(newValue + ', ' +oldValue);
 	}
 });
