@@ -59,11 +59,7 @@ Ext.define('studiplaner.view.ModulesListContainer', {
 	},
 	
 	onMenuButtonTap: function (){
-		if(Ext.Viewport.getMenus().left.isHidden()){
-			Ext.Viewport.showMenu('left');
-		}else{
-			Ext.Viewport.hideMenu('left');
-		}
+		this.fireEvent("toggleSlideMenuCommand", this);
 	},
 	  
   	onNewButtonTap: function () {

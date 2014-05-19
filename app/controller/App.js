@@ -10,13 +10,21 @@ Ext.define('studiplaner.controller.App', {
   
   config: {
         refs: {
-            ViewPort: "viewport"
+            viewPort: "viewport",
+            modulesListContainer: "moduleslistcontainer",
+            workListContainer: "worklistcontainer",
         },
         control: {
-            ViewPort: {
+            viewPort: {
             	// The commands fired by the sliding menu
                 slideMenuCommand: "onSlideMenuCommand"
-            }
+            },
+			modulesListContainer: {
+				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
+			},
+            workListContainer: {
+				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
+			}
         }
     },
     
@@ -43,5 +51,13 @@ Ext.define('studiplaner.controller.App', {
 		
 		Ext.Viewport.toggleMenu('left');
 		Ext.Viewport.setActiveItem(content);
+	},
+	
+	onToggleSlideMenuCommand: function (){
+		if(Ext.Viewport.getMenus().left.isHidden()){
+			Ext.Viewport.showMenu('left');
+		}else{
+			Ext.Viewport.hideMenu('left');
+		}
 	}
 });
