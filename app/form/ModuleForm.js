@@ -1,3 +1,10 @@
+var anwesenheit = 0, selbststudium = 0;
+var chart;
+
+Highcharts.setOptions({
+	colors: ['#80ba24', ' #4a5c66']
+});
+
 Ext.define('studiplaner.form.ModuleForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.moduleform',
@@ -37,7 +44,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'typeButton',
 				allowMultiple: false,
-				margin: '10px',
+				margin: '10 10 20 10',
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -83,10 +90,18 @@ Ext.define('studiplaner.form.ModuleForm', {
 		                name: 'sws',
 		                xtype: 'numberfield',
 		                label: 'SWS',
-		                itemId: 'numberfield_sws',
+		                itemId: 'numberfield_sws'
 		            }
         		]
         	}, {
+				xtype: 'panel',
+				title: '',
+				itemId: 'chart',
+				width: '100%',
+				height: '300px',
+				margin: '-65 0 -60 0',
+				zIndex: -1
+			}, {
 				title: 'yourInterest',
 				html: ['Persönliches Interesse'],
 				styleHtmlContent: true
@@ -94,7 +109,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'interestButton',
 				allowMultiple: false,
-				margin: '0 10 0 10',
+				margin: '0 10 15 10',
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -131,7 +146,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 				title: 'yourServerity',
 				html: ['Eingeschätzter Schwierigkeitsgrad'],
 				styleHtmlContent: true
-			},{
+			}, {
 				xtype: 'segmentedbutton',
 				itemId: 'severityButton',
 				allowMultiple: false,
@@ -167,7 +182,7 @@ Ext.define('studiplaner.form.ModuleForm', {
                 text: 'Hinzufügen',
                 ui: 'confirm',
                 itemId: "addButton",
-                margin: '20 5 15 5'
+                margin: '50 5 15 5',
             }, {
         		xtype: "toolbar",
         		docked: "bottom",
@@ -223,6 +238,64 @@ Ext.define('studiplaner.form.ModuleForm', {
         ]        
     },
     
+    initialize: function(){
+		this.callParent(arguments);
+		
+		chart = new Highcharts.Chart({
+    
+			chart: {
+				renderTo: this.getComponent('chart').element.dom,
+				backgroundColor:'rgba(255, 255, 255, 0.1)',
+				plotBackgroundImage: null,
+				plotBorderWidth: 0,
+				plotShadow: false
+			},
+			
+			title: {
+				text: 'x Arbeitsstunden',
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 80
+			},
+			
+			tooltip: {
+				pointFormat: 'Anteil: <b>{point.percentage:.1f}%</b>'
+			},
+			
+			exporting: { enabled: false },
+			credits: false,
+			
+			plotOptions: {
+				pie: {
+					dataLabels: {
+						enabled: true,
+						distance: -50,
+						style: {
+							fontWeight: 'bold',
+							color: 'white',
+							textShadow: '0px 1px 2px black'
+						}
+					},
+					startAngle: -90,
+					endAngle: 90,
+					center: ['50%', '75%']
+				}
+			},
+					
+			series: [{
+				type: 'pie',
+				id: 'ratio',
+				name: 'Ratio Anwesenheit/Selbststudium',
+				innerSize: '50%',
+				data: [
+					['Anwesenheit',   1],
+					['Selbststudium',       1],
+				]
+			}]
+		
+		});
+	},
+    
     //Listener functions
     onBackButtonTap: function(){
     	console.log("backToHomeCommand");
@@ -244,10 +317,20 @@ Ext.define('studiplaner.form.ModuleForm', {
 	},
 	onNumberFieldChange: function (field, newValue, oldValue, eOpts){
 		//~ TODO
-		//~ addSeries([{
-			//~ name: 'Series A',
-			//~ data: [ [ 3, 5 ], [ 4, 6 ], [ 5, 7 ] ]
-		//~ }], false);
-		console.log(newValue + ', ' +oldValue);
+		
+		if(field.getItemId() === 'numberfield_ects'){
+			anwesenheit = parseInt(newValue);	
+			console.log(anwesenheit);
+		}else{
+			selbststudium = parseInt(newValue);	
+			console.log(selbststudium);
+		}
+		
+		console.log(chart.get('ratio'));
+		chart.get('ratio').setData([
+					['Anwesenheit', anwesenheit],
+					['Selbststudium', selbststudium],
+				], true, true, false);
+		console.log(anwesenheit + ', ' +selbststudium);
 	}
 });

@@ -9,7 +9,6 @@
     changes and its generated code, it will produce a "merge conflict" that you
     will need to resolve manually.
 */
-
 Ext.application({
     name: 'studiplaner',
 
@@ -18,7 +17,7 @@ Ext.application({
     ],
 
     views: [
-        'ModulesListContainer', 'ModulesList', 'Main', 'Navigation', 'Viewport'
+        'ModulesListContainer', 'ModulesList', 'SlideMenu', 'work.WorkListContainer', 'work.WorkList'
     ],
     controllers: [
     	'App', 'Modules'
@@ -60,11 +59,8 @@ Ext.application({
 			xtype: "moduleform"
 		};
 		
-		Ext.Viewport.setMenu(this.createMenu('left'), {
-			side: 'left',
-			cover: true
-		});
-
+		studiplaner.view.SlideMenu.setMenu();
+		
         // Initialize the main view
         Ext.Viewport.add([modulesListContainer, moduleForm]);
     },
@@ -80,48 +76,4 @@ Ext.application({
             }
         );
     },
-    
-    //sliding menu
-    createMenu: function(side){
-        var items = [
-            {
-                xtype: 'list',
-                itemTpl: new Ext.XTemplate(
-					'<div class="x-button x-iconalign-center x-button-plain x-layout-box-item x-stretched">',
-						'<span class="x-button-icon x-shown {iconCls}"></span>',
-						'<span class="x-button-label" style="text-align: left !important; margin-left: 1em;">{title}</span>',
-					'</div>'
-				),
-                width: 250,
-                height: '100%',
-                margin: '46 0 0 0',
-                scrollable: true,
-                data: [
-                    {
-						title: 'Modulverwaltung',
-						iconCls: 'modules'
-					}, {
-						title: 'Arbeitszeiten', 
-						iconCls: 'briefcase2'
-					}, {
-						title: 'Workload', 
-						iconCls: 'smile'
-					}, {
-						title: 'Wochenplan',
-						iconCls: 'calendar'
-					}, {
-						title: 'Assistent',
-						iconCls: 'magic'
-					}, {
-						title: 'Export',
-						iconCls: 'upload'
-					},
-                ]
-            }
-        ];
-        return Ext.create('Ext.Menu', {
-            style: 'padding: 0',
-            items: items
-        });
-    }
 });

@@ -42,16 +42,18 @@
         {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
-        },
-        {
+        }, {
             "path": "bootstrap.js",
             "x-bootstrap": true
-        },
-        {
+        }, {
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
-        }
+        },  {
+			"path": "resources/js/highcharts-all.js",
+			"bundle": true,
+			"update": "delta"
+		}
     ],
 
     /**
@@ -108,7 +110,8 @@
     "resources": [
         "resources/images",
         "resources/icons",
-        "resources/startup"
+        "resources/startup",
+        "resources/js"
     ],
 
     /**

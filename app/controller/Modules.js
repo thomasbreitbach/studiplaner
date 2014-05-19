@@ -4,7 +4,10 @@
 Ext.define("studiplaner.controller.Modules", {
     extend: "Ext.app.Controller",
     
-    requires: ['Ext.ComponentQuery'],
+    requires: [
+		'Ext.ComponentQuery',
+		'studiplaner.form.ModuleForm'
+    ],
     
     config: {
         refs: {
@@ -15,7 +18,7 @@ Ext.define("studiplaner.controller.Modules", {
             modulesListContainer: {
             	// The commands fired by the modules list container.
                 newModuleCommand: "onNewModuleCommand",
-                editModuleCommand: "onEditModuleCommand",
+                editModuleCommand: "onEditModuleCommand"
                 // swipeNoteCommand: "onSwipeNoteCommand"
             },
             moduleForm: {
@@ -88,7 +91,7 @@ Ext.define("studiplaner.controller.Modules", {
 	        ects: "",
 	        sws: "",
 	        interest: null,
-	        severity: null,
+	        severity: null
 	    });
 	
 	    this.activateModuleForm(newModule);
@@ -155,7 +158,7 @@ Ext.define("studiplaner.controller.Modules", {
 		var currentModule = moduleForm.getRecord();
 		var controller = this;
 		
-		Ext.Msg.confirm('Löschen?', 'Möchtest du das Modul ' + currentModule.data.name + ' löschen?', function(btn){
+		Ext.Msg.confirm('Löschen', 'Möchtest du das Modul ' + currentModule.data.name + ' wirklich löschen?', function(btn){
 			if(btn == 'yes'){
 				var modulesStore = Ext.getStore("Modules");		
 				modulesStore.remove(currentModule);
