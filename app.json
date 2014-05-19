@@ -75,9 +75,6 @@
             "path": "resources/css/app.css",
             "update": "delta"
         }, {
-        	"path": "resources/css/slidenav.css",
-        	"update": "delta"
-        }, {
         	"path": "resources/css/studiplaner.css",
         	"update": "full"
         }
