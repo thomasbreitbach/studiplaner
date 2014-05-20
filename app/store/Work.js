@@ -1,15 +1,15 @@
 /**
  * @author Thomas Breitbach
  */
-Ext.define("studiplaner.store.Modules", {
+Ext.define("studiplaner.store.Work", {
     extend: "Ext.data.Store",
     requires:"Ext.data.proxy.LocalStorage",
     
     config: {
-        model: "studiplaner.model.Module",
+        model: "studiplaner.model.Work",
         proxy: {
             type: 'localstorage',
-            id: 'modules-store'
+            id: 'work-store'
         },
         sorters: [{ property: 'name', direction: 'DESC'}],
         grouper: {
