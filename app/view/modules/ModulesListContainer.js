@@ -1,7 +1,7 @@
 /**
  * @author Thomas Breitbach
  */
-Ext.define('studiplaner.view.ModulesListContainer', {
+Ext.define('studiplaner.view.modules.ModulesListContainer', {
 	extend: 'Ext.Container',
 	xtype: 'moduleslistcontainer',
 

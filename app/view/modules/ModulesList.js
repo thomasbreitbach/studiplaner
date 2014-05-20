@@ -1,7 +1,7 @@
 /**
  * @author Thomas Breitbach
  */
-Ext.define("studiplaner.view.ModulesList", {
+Ext.define("studiplaner.view.modules.ModulesList", {
     extend: "Ext.List",
     alias: "widget.moduleslist",
     

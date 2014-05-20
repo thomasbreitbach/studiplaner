@@ -17,7 +17,7 @@ Ext.application({
     ],
 
     views: [
-        'ModulesListContainer', 'ModulesList', 'SlideMenu', 'work.WorkListContainer', 'work.WorkList'
+        'modules.ModulesListContainer', 'modules.ModulesList', 'SlideMenu', 'work.WorkListContainer', 'work.WorkList'
     ],
     controllers: [
     	'App', 'Modules'
