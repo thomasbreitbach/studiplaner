@@ -51,14 +51,22 @@
     		store: Ext.getStore("Work"),
     		listeners: {
        		 	itemtap: { fn: this.onModulesListDisclose, scope: this }
-        		// itemswipe: { fn: this.onModulesListSwipe, scope: this }
         	}
     	};
+    	
+    	//~ TODO Performance
+    	Ext.create('studiplaner.form.WorkForm'); 
     
     	this.add([topToolbar, workList]);
 	},
 	
+	//Listener functions    
 	onMenuButtonTap: function (){
 		this.fireEvent("toggleSlideMenuCommand", this);
+	},
+	
+	onNewButtonTap: function () {
+        console.log("newWorkCommand");
+    	this.fireEvent("newWorkCommand", this);
 	},
 });

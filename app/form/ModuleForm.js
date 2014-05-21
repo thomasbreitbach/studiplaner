@@ -1,9 +1,12 @@
+/**
+ * @author Thomas Breitbach
+ */
 var ects = 0, sws = 0;
 var chart;
 const H_PER_ECTS = 30;
 const H_PER_SWS = 0.75;
 const WEEKS_PER_SEM = 17;
-const workloadString = ' Arbeitsstunden/Woche';
+const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
 
 Highcharts.setOptions({
 	colors: ['#80ba24', ' #4a5c66']
@@ -12,6 +15,7 @@ Highcharts.setOptions({
 Ext.define('studiplaner.form.ModuleForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.moduleform',
+    
     requires: [
     	"Ext.form.FieldSet",
     	'Ext.SegmentedButton',
@@ -256,7 +260,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 			},
 			
 			title: {
-				text: '0' + workloadString,
+				text: '0' + WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
 				y: 85
@@ -320,23 +324,18 @@ Ext.define('studiplaner.form.ModuleForm', {
 		}
 	},
 	onNumberFieldChange: function (field, newValue, oldValue, eOpts){
-		//~ TODO		
+		//~ TODO	Performance	
 		
 		if(field.getItemId() === 'numberfield_ects'){
 			ects = parseInt(newValue);	
-			console.log(ects);
 		}else{
-			sws = parseInt(newValue);	
-			console.log(sws);
+			sws = parseInt(newValue);
 		}
 		
 		var workloadPerWeek = ((ects * H_PER_ECTS) / WEEKS_PER_SEM);
-		var selfStudyPerWeek = sws * H_PER_SWS;
-		var presencePerWeek = workloadPerWeek - selfStudyPerWeek;	
-		console.log("selfStudyPerWeek: " + selfStudyPerWeek);
-		console.log("presencePerWeek: " + presencePerWeek);
-		
-		console.log(chart.get('ratio'));
+		var presencePerWeek = sws * H_PER_SWS;
+		var selfStudyPerWeek = workloadPerWeek - presencePerWeek;	
+
 		chart.get('ratio').setData([
 					['Anwesenheit', presencePerWeek],
 					['Selbststudium', selfStudyPerWeek],
@@ -344,7 +343,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 		
 		chart.setTitle(
 			{
-				text: '~' + Math.round(workloadPerWeek) + workloadString,
+				text: '~' + Math.round(workloadPerWeek) + WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
 				y: 85

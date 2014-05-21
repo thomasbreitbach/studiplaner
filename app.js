@@ -17,16 +17,18 @@ Ext.application({
     ],
 
     views: [
-        'modules.ModulesListContainer', 'modules.ModulesList', 'SlideMenu', 'work.WorkListContainer', 'work.WorkList'
+		'SlideMenu', 'TimePicker',
+        'modules.ModulesListContainer', 'modules.ModulesList', 
+        'work.WorkListContainer', 'work.WorkList'
     ],
     controllers: [
-    	'App', 'Modules'
+    	'App', 'Modules', 'Work'
     ],
     forms: [
-    	'ModuleForm'
+    	'ModuleForm', 'WorkForm'
     ],
-    models: ['Module'],
-    stores: ['Modules'],
+    models: ['Module', 'Work'],
+    stores: ['Modules' , 'Work'],
 
 
     icon: {
@@ -50,19 +52,19 @@ Ext.application({
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
-
+	
 		var modulesListContainer = {
 			xtype: "moduleslistcontainer"
 		};
 		
-		var moduleForm = {
-			xtype: "moduleform"
+		var workListContainer = {
+			xtype: "worklistcontainer"
 		};
 		
 		studiplaner.view.SlideMenu.setMenu();
 		
         // Initialize the main view
-        Ext.Viewport.add([modulesListContainer, moduleForm]);
+        Ext.Viewport.add([modulesListContainer, workListContainer]);
     },
 
     onUpdated: function() {

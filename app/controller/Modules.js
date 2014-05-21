@@ -34,13 +34,12 @@ Ext.define("studiplaner.controller.Modules", {
     slideLeftTransition: { type: 'slide', direction: 'left' },
     slideRightTransition: { type: 'slide', direction: 'right' },
     
-    // Helper functions
-    getRandomInt: function (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
-    
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
+    	
+    	//~ TODO Performance! 
+    	this.getModuleForm().destroy();
+    	Ext.create('studiplaner.form.ModuleForm');
     	
     	var moduleForm = this.getModuleForm();
     	
@@ -79,6 +78,12 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	activateModulesList: function () {
+		console.log("activateModulesList");
+		//~ var comp = Ext.Viewport.remove('studiplaner.form.ModuleForm', true);
+		//~ console.log(comp);
+		//~ Ext.Viewport.setActiveItem(this.getModulesListContainer());
+		
+		//~ Ext.create('studiplaner.view.modules.ModulesListContainer');
 	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);
 	},
      
@@ -158,7 +163,7 @@ Ext.define("studiplaner.controller.Modules", {
 		var currentModule = moduleForm.getRecord();
 		var controller = this;
 		
-		Ext.Msg.confirm('Löschen', 'Möchtest du das Modul ' + currentModule.data.name + ' wirklich löschen?', function(btn){
+		Ext.Msg.confirm('Löschen', 'Möchtest du das Modul "' + currentModule.data.name + '" wirklich löschen?', function(btn){
 			if(btn == 'yes'){
 				var modulesStore = Ext.getStore("Modules");		
 				modulesStore.remove(currentModule);

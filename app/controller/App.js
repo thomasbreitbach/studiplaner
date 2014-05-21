@@ -29,7 +29,6 @@ Ext.define('studiplaner.controller.App', {
     },
     
     onSlideMenuCommand: function (list, record){
-		console.log(record);
 		var id = record.data.itemId;
 		var content;
 		switch(id){

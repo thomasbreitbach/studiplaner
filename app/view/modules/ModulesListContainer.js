@@ -50,10 +50,11 @@ Ext.define('studiplaner.view.modules.ModulesListContainer', {
     		xtype: "moduleslist",
     		store: Ext.getStore("Modules"),
     		listeners: {
-       		 	itemtap: { fn: this.onModulesListDisclose, scope: this }
-        		// itemswipe: { fn: this.onModulesListSwipe, scope: this }
+       		 	itemtap: { fn: this.onModulesListTap, scope: this }
         	}
     	};
+    	
+    	Ext.create('studiplaner.form.ModuleForm');
     
     	this.add([topToolbar, modulesList]);
 	},
@@ -63,12 +64,10 @@ Ext.define('studiplaner.view.modules.ModulesListContainer', {
 	},
 	  
   	onNewButtonTap: function () {
-        console.log("newModuleCommand");
     	this.fireEvent("newModuleCommand", this);
 	},
 	
-	onModulesListDisclose: function (list, index, target, record, evt, options) {
-    	console.log("editModuleCommand");
+	onModulesListTap: function (list, index, target, record, evt, options) {
     	this.fireEvent('editModuleCommand', this, record);
 	}
 });
