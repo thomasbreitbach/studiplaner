@@ -9,6 +9,13 @@
     changes and its generated code, it will produce a "merge conflict" that you
     will need to resolve manually.
 */
+Ext.Loader.setConfig({
+    enabled : true,
+    paths   : {
+        'Ext.ux': '/ux/'
+    }
+});
+
 Ext.application({
     name: 'studiplaner',
 
@@ -17,7 +24,7 @@ Ext.application({
     ],
 
     views: [
-		'SlideMenu', 'TimePicker',
+		'SlideMenu',
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList'
     ],

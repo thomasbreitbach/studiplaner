@@ -7,7 +7,7 @@ Ext.define('studiplaner.form.WorkForm', {
     
     requires: [
     	"Ext.form.FieldSet",
-    	'Ext.field.Number'
+    	'Ext.field.Select'
     ],
     
     config: {
@@ -76,8 +76,13 @@ Ext.define('studiplaner.form.WorkForm', {
 					}]
                 }]
 			}, {
-				xtype: 'timepicker',
-				useTitles: true,
+				xtype: 'timepickerfield',
+				picker: {
+					startHour: 0,
+					endHour: 24,
+					startMinute: 0,
+					endMinute: 59
+				}
 			}
         ],
         listeners: [
