@@ -1,5 +1,9 @@
-var anwesenheit = 0, selbststudium = 0;
+var ects = 0, sws = 0;
 var chart;
+const H_PER_ECTS = 30;
+const H_PER_SWS = 0.75;
+const WEEKS_PER_SEM = 17;
+const workloadString = ' Arbeitsstunden/Woche';
 
 Highcharts.setOptions({
 	colors: ['#80ba24', ' #4a5c66']
@@ -252,10 +256,10 @@ Ext.define('studiplaner.form.ModuleForm', {
 			},
 			
 			title: {
-				text: 'x Arbeitsstunden',
+				text: '0' + workloadString,
 				align: 'center',
 				verticalAlign: 'middle',
-				y: 80
+				y: 85
 			},
 			
 			tooltip: {
@@ -316,21 +320,35 @@ Ext.define('studiplaner.form.ModuleForm', {
 		}
 	},
 	onNumberFieldChange: function (field, newValue, oldValue, eOpts){
-		//~ TODO
+		//~ TODO		
 		
 		if(field.getItemId() === 'numberfield_ects'){
-			anwesenheit = parseInt(newValue);	
-			console.log(anwesenheit);
+			ects = parseInt(newValue);	
+			console.log(ects);
 		}else{
-			selbststudium = parseInt(newValue);	
-			console.log(selbststudium);
+			sws = parseInt(newValue);	
+			console.log(sws);
 		}
+		
+		var workloadPerWeek = ((ects * H_PER_ECTS) / WEEKS_PER_SEM);
+		var selfStudyPerWeek = sws * H_PER_SWS;
+		var presencePerWeek = workloadPerWeek - selfStudyPerWeek;	
+		console.log("selfStudyPerWeek: " + selfStudyPerWeek);
+		console.log("presencePerWeek: " + presencePerWeek);
 		
 		console.log(chart.get('ratio'));
 		chart.get('ratio').setData([
-					['Anwesenheit', anwesenheit],
-					['Selbststudium', selbststudium],
+					['Anwesenheit', presencePerWeek],
+					['Selbststudium', selfStudyPerWeek],
 				], true, true, false);
-		console.log(anwesenheit + ', ' +selbststudium);
+		
+		chart.setTitle(
+			{
+				text: '~' + Math.round(workloadPerWeek) + workloadString,
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 85
+			}
+		);
 	}
 });
