@@ -322,8 +322,6 @@ Ext.define('studiplaner.form.ModuleForm', {
 		var sws = 0;
 		var field;
 		
-		console.log(newValue);
-		
 		if(field.getItemId() === 'numberfield_ects'){
 			if(newValue != "") ects = parseInt(newValue);	
 			field = this.down('#numberfield_sws').getValue();
@@ -343,13 +341,11 @@ Ext.define('studiplaner.form.ModuleForm', {
 					['Selbststudium', selfStudyPerWeek],
 				], true, true, false);
 		
-		chart.setTitle(
-			{
+		chart.setTitle({
 				text: '~' + workloadPerWeek + WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
 				y: 85
-			}
-		);
+		});
 	}
 });
