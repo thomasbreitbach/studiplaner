@@ -48,19 +48,19 @@ Ext.define("studiplaner.controller.Modules", {
     	moduleForm.setRecord(record);
     	
     	//set typButton	
-    	var typeButton = moduleForm.getComponent('typeButton');
+    	var typeButton = moduleForm.down('#typeButton');
     	typeButton.setPressedButtons([record.data.type]);
     	
     	//set interestButton
-    	var interestButton = moduleForm.getComponent('interestButton');
+    	var interestButton = moduleForm.down('#interestButton');
     	interestButton.setPressedButtons([record.data.interest]);
 
 		//set severityButton
-    	var severityButton = moduleForm.getComponent('severityButton');
+    	var severityButton = moduleForm.down('#severityButton');
     	severityButton.setPressedButtons([record.data.severity]);   	
     	
     	//Change behaviour in edit mode
-    	var submitButton = moduleForm.getComponent('addButton');
+    	var submitButton = moduleForm.down('#addButton');
     	var topToolbar = moduleForm.getComponent('topToolbar');
     	var bottomToolbar = moduleForm.getComponent('bottomToolbar');
     	if(record.data.name.length > 0){

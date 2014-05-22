@@ -50,7 +50,7 @@
     		xtype: "worklist",
     		store: Ext.getStore("Work"),
     		listeners: {
-       		 	itemtap: { fn: this.onModulesListDisclose, scope: this }
+       		 	itemtap: { fn: this.onWorkListTap, scope: this }
         	}
     	};
     	
@@ -69,4 +69,8 @@
         console.log("newWorkCommand");
     	this.fireEvent("newWorkCommand", this);
 	},
+	
+	onWorkListTap: function (list, index, target, record, evt, options) {
+    	this.fireEvent('editWorkCommand', this, record);
+	}
 });

@@ -17,7 +17,7 @@ Ext.define('studiplaner.model.Work', {
         	{ name: 'id', type: 'auto' },
             { name: 'name', type: 'string' },
             { name: 'location', type: 'string' },
-            { name: 'date', type: 'date', dateFormat: 'm/d/Y' },
+            { name: 'dates', type: 'auto' },
         ],
         
         validations: [{

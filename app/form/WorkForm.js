@@ -49,6 +49,7 @@ Ext.define('studiplaner.form.WorkForm', {
 					}, {
 						xtype: 'selectfield',
 						label: 'Tag',
+						itemId: 'day',
 						usePicker: 'true',
 						options: [{
 							text: 'Montag',
@@ -142,5 +143,9 @@ Ext.define('studiplaner.form.WorkForm', {
     onBackButtonTap: function(){
     	console.log("backToHomeCommand");
 		this.fireEvent("backToHomeCommand", this);
-    }
+    },
+    onAddButtonTap: function(){
+    	console.log('saveWorkCommand');
+    	this.fireEvent('saveWorkCommand', this);
+    },
 });

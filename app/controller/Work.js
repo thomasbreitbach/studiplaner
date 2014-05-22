@@ -66,7 +66,6 @@ Ext.define("studiplaner.controller.Work", {
 	
 	activateWorkList: function () {
 		console.log("activateWorkList");
-		console.log(this.getWorkListContainer());
 	    Ext.Viewport.animateActiveItem(this.getWorkListContainer(), this.slideRightTransition);
 	},
      
@@ -81,45 +80,41 @@ Ext.define("studiplaner.controller.Work", {
 	    this.activateWorkForm(newWork);
 	},
 	
-    //~ onEditModuleCommand: function (list, record) {
-        //~ console.log("onEditModuleCommand");
-        //~ this.activateModuleForm(record);
-    //~ },
-    //~ 
-    //~ onSaveModuleCommand: function () {
-	    //~ console.log("onSaveModuleCommand");
-		//~ 
-	    //~ var moduleForm = this.getModuleForm();
-		//~ console.log(moduleForm);
-	    //~ var currentModule = moduleForm.getRecord();
-	    //~ var newValues = moduleForm.getValues();
-	    //~ console.log(newValues);
-//~ 
-	    //~ // Update the current note's fields with form values.
-	    //~ // SegmentedButton values are saven on toggle
-	    //~ currentModule.set("name", newValues.name);
-	    //~ currentModule.set("ects", newValues.ects);
-	    //~ currentModule.set("sws", newValues.sws);
-	//~ 
-	    //~ var errors = currentModule.validate();
-	//~ 
-	    //~ if (!errors.isValid()) {
-	        //~ Ext.Msg.alert('Wait!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
-	        //~ currentModule.reject();
-	        //~ return;
-	    //~ }
-	//~ 
-	    //~ var modulesStore = Ext.getStore("Modules");
-	//~ 
-	    //~ if (null == modulesStore.findRecord('id', currentModule.data.id)) {
-	        //~ modulesStore.add(currentModule);
-	    //~ }
-	//~ 
-	    //~ modulesStore.sync();	
-	    //~ modulesStore.sort([{ property: 'name', direction: 'DESC'}]);
-	//~ 
-	    //~ this.activateModulesList();
-	//~ },
+    onEditWorkCommand: function (list, record) {
+        console.log("onEditWorkCommand");
+        this.activateWorkForm(record);
+    },
+    
+    onSaveWorkCommand: function () {
+	    console.log("onSaveWorkCommand");
+		
+	    var workForm = this.getWorkForm();
+		console.log(workForm);
+	    var currentWork = workForm.getRecord();
+	    var newValues = workForm.getValues();
+
+	    currentWork.set("name", newValues.name);
+	    currentWork.set("location", newValues.location);
+	
+	    var errors = currentWork.validate();
+	
+	    if (!errors.isValid()) {
+	        Ext.Msg.alert('Wait!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
+	        currentModule.reject();
+	        return;
+	    }
+	
+	    var workStore = Ext.getStore("Work");
+	
+	    if (null == workStore.findRecord('id', currentWork.data.id)) {
+	        workStore.add(currentWork);
+	    }
+	
+	    workStore.sync();	
+	    workStore.sort([{ property: 'name', direction: 'DESC'}]);
+	
+	    this.activateWorkList();
+	},
 //~ 
 	//~ 
 	//~ onDeleteModuleCommand: function () {

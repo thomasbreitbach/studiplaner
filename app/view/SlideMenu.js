@@ -10,7 +10,7 @@ Ext.define('studiplaner.view.SlideMenu', {
 	setMenu: function (){	
 		Ext.Viewport.setMenu(this.createMenu('left'), {
 			side: 'left',
-			cover: true
+			cover: false
 		})
 	},
 

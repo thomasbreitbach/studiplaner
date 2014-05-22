@@ -51,7 +51,6 @@ Ext.define('studiplaner.form.ModuleForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'typeButton',
 				allowMultiple: false,
-				margin: '10 10 20 10',
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -61,136 +60,129 @@ Ext.define('studiplaner.form.ModuleForm', {
 					{
 						text: 'Normal',
 						pressed: true,
-						width: '33%',
+						width: '32%',
 						id: 'normal',
 						value: 0
 					},
 					{
 						text: 'Block',
-						width: '33%',
+						width: '32%',
 						id: 'block',
 						value: 1
 					},
 					{
 						text: 'ohne Vorlesung',
-						width: '33%',
+						width: '32%',
 						id: 'ov',
 						value: 2
 					}
 				]
-            
-			}, {
+			
+			},{
         		xtype: "fieldset",
         		itemId: "fields",
         		items: [
-        			{
+					 {
 		                name: 'name',
 		                xtype: 'textfield',
 		                label: 'Name'
-		            },
-		            {
+		            }, {
 		                name: 'ects',
 		                xtype: 'numberfield',
 		                itemId: 'numberfield_ects',
 		                label: 'ECTS'
-		            },
-		            {
+		            }, {
 		                name: 'sws',
 		                xtype: 'numberfield',
 		                label: 'SWS',
 		                itemId: 'numberfield_sws'
-		            }
+		            },{
+						xtype: 'panel',
+						title: '',
+						itemId: 'chart',
+						width: '100%',
+						height: '300px',
+					},{
+						title: 'yourInterest',
+						html: ['Persönliches Interesse'],
+						styleHtmlContent: true
+					}, {
+						xtype: 'segmentedbutton',
+						itemId: 'interestButton',
+						allowMultiple: false,
+						layout:{
+							type:'hbox',
+							align:'center',
+							pack:'center'
+						},
+						items: [
+							{
+								text: 'Hoch',
+								id: 'interest_good',
+								width: '33%',
+								value: 0,
+								iconCls: 'happy',
+								iconMask: true
+							},
+							{
+								text: 'Mittel',
+								id: 'interest_medium',
+								width: '33%',
+								value: 1,
+								iconCls: 'smiley',
+								iconMask: true
+							},
+							{
+								text: 'Niedrig',
+								id: 'interest_bad',
+								width: '33%',
+								value: 2,
+								iconCls: 'sad',
+								iconMask: true
+							}
+						]
+					
+					}, {
+						title: 'yourServerity',
+						html: ['Eingeschätzter Schwierigkeitsgrad'],
+						styleHtmlContent: true
+					},  {
+						xtype: 'segmentedbutton',
+						itemId: 'severityButton',
+						allowMultiple: false,
+						layout:{
+							type:'hbox',
+							align:'center',
+							pack:'center'
+						},
+						items: [
+							{
+								text: 'Hoch',
+								id: 'severity_good',
+								width: '33%',
+								value: 0
+							},
+							{
+								text: 'Mittel',
+								id: 'severity_medium',
+								width: '33%',
+								value: 1
+							},
+							{
+								text: 'Niedrig',
+								id: 'severity_bad',
+								width: '33%',
+								value: 2
+							}
+						]
+					
+					},
         		]
-        	}, {
-				xtype: 'panel',
-				title: '',
-				itemId: 'chart',
-				width: '100%',
-				height: '300px',
-				margin: '-65 0 -60 0',
-				zIndex: -1
-			}, {
-				title: 'yourInterest',
-				html: ['Persönliches Interesse'],
-				styleHtmlContent: true
-			}, {
-				xtype: 'segmentedbutton',
-				itemId: 'interestButton',
-				allowMultiple: false,
-				margin: '0 10 15 10',
-				layout:{
-					type:'hbox',
-					align:'center',
-					pack:'center'
-				},
-				items: [
-					{
-						text: 'Hoch',
-						id: 'interest_good',
-						width: '33%',
-						value: 0,
-						iconCls: 'happy',
-						iconMask: true
-					},
-					{
-						text: 'Mittel',
-						id: 'interest_medium',
-						width: '33%',
-						value: 1,
-						iconCls: 'smiley',
-						iconMask: true
-					},
-					{
-						text: 'Niedrig',
-						id: 'interest_bad',
-						width: '33%',
-						value: 2,
-						iconCls: 'sad',
-						iconMask: true
-					}
-				]
-            
-			}, {
-				title: 'yourServerity',
-				html: ['Eingeschätzter Schwierigkeitsgrad'],
-				styleHtmlContent: true
-			}, {
-				xtype: 'segmentedbutton',
-				itemId: 'severityButton',
-				allowMultiple: false,
-				margin: '0 10 0 10',
-				layout:{
-					type:'hbox',
-					align:'center',
-					pack:'center'
-				},
-				items: [
-					{
-						text: 'Hoch',
-						id: 'severity_good',
-						width: '33%',
-						value: 0
-					},
-					{
-						text: 'Mittel',
-						id: 'severity_medium',
-						width: '33%',
-						value: 1
-					},
-					{
-						text: 'Niedrig',
-						id: 'severity_bad',
-						width: '33%',
-						value: 2
-					}
-				]
-            
-			}, {
+        	},     {
                 xtype: 'button',
                 text: 'Hinzufügen',
                 ui: 'confirm',
                 itemId: "addButton",
-                margin: '50 5 15 5',
             }, {
         		xtype: "toolbar",
         		docked: "bottom",
@@ -203,7 +195,6 @@ Ext.define('studiplaner.form.ModuleForm', {
         				text: '',
         				iconCls: 'trash',
         				itemId: "deleteButton",
-        				margin: '0 0 0 0'
         			}
         		]
         	}
@@ -252,7 +243,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 		chart = new Highcharts.Chart({
     
 			chart: {
-				renderTo: this.getComponent('chart').element.dom,
+				renderTo: this.down('#chart').element.dom,
 				backgroundColor:'rgba(255, 255, 255, 0.1)',
 				plotBackgroundImage: null,
 				plotBorderWidth: 0,
