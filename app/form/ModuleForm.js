@@ -322,12 +322,14 @@ Ext.define('studiplaner.form.ModuleForm', {
 		var sws = 0;
 		var field;
 		
+		console.log(newValue);
+		
 		if(field.getItemId() === 'numberfield_ects'){
-			ects = parseInt(newValue);	
+			if(newValue != "") ects = parseInt(newValue);	
 			field = this.down('#numberfield_sws').getValue();
 			if(field != null) sws = field;
 		}else{
-			sws = parseInt(newValue);
+			if(newValue != "") sws = parseInt(newValue);
 			field = this.down('#numberfield_ects').getValue();
 			if(field != null) ects = field;
 		}
