@@ -1,7 +1,6 @@
 /**
  * @author Thomas Breitbach
  */
-var ects = 0, sws = 0;
 var chart;
 const H_PER_ECTS = 30;
 const H_PER_SWS = 0.75;
@@ -82,6 +81,7 @@ Ext.define('studiplaner.form.ModuleForm', {
             
 			}, {
         		xtype: "fieldset",
+        		itemId: "fields",
         		items: [
         			{
 		                name: 'name',
@@ -324,15 +324,24 @@ Ext.define('studiplaner.form.ModuleForm', {
 		}
 	},
 	onNumberFieldChange: function (field, newValue, oldValue, eOpts){
+		console.log("onNumberFieldChange");
+		
 		//~ TODO	Performance	
+		var ects = 0;
+		var sws = 0;
+		var field;
 		
 		if(field.getItemId() === 'numberfield_ects'){
 			ects = parseInt(newValue);	
+			field = this.down('#numberfield_sws').getValue();
+			if(field != null) sws = field;
 		}else{
 			sws = parseInt(newValue);
+			field = this.down('#numberfield_ects').getValue();
+			if(field != null) ects = field;
 		}
 		
-		var workloadPerWeek = ((ects * H_PER_ECTS) / WEEKS_PER_SEM);
+		var workloadPerWeek = Math.round(ects * H_PER_ECTS / WEEKS_PER_SEM);
 		var presencePerWeek = sws * H_PER_SWS;
 		var selfStudyPerWeek = workloadPerWeek - presencePerWeek;	
 
@@ -343,7 +352,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 		
 		chart.setTitle(
 			{
-				text: '~' + Math.round(workloadPerWeek) + WORKLOAD_STRING,
+				text: '~' + workloadPerWeek + WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
 				y: 85

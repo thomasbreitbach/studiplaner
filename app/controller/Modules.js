@@ -26,7 +26,8 @@ Ext.define("studiplaner.controller.Modules", {
 		        saveModuleCommand: "onSaveModuleCommand",
 		        deleteModuleCommand: "onDeleteModuleCommand",
 		        backToHomeCommand: "onBackToHomeCommand",
-		        segmentedButtonCommand: "onSegmentedButtonCommand"
+		        segmentedButtonCommand: "onSegmentedButtonCommand",
+		        numberFieldChangedCommand: "onNumberFieldChangedCommand"
 		    }
         }
     },
@@ -93,8 +94,9 @@ Ext.define("studiplaner.controller.Modules", {
 	    var newModule = Ext.create("studiplaner.model.Module", {
 	        type: 0,
 	        name: "",
-	        ects: "",
-	        sws: "",
+	        ects: null,
+	        sws: null,
+	        workload: null,
 	        interest: null,
 	        severity: null
 	    });
@@ -111,7 +113,6 @@ Ext.define("studiplaner.controller.Modules", {
 	    console.log("onSaveModuleCommand");
 		
 	    var moduleForm = this.getModuleForm();
-		console.log(moduleForm);
 	    var currentModule = moduleForm.getRecord();
 	    var newValues = moduleForm.getValues();
 	    console.log(newValues);

@@ -7,7 +7,9 @@ Ext.define('studiplaner.form.WorkForm', {
     
     requires: [
     	"Ext.form.FieldSet",
-    	'Ext.field.Select'
+    	'Ext.field.Select',
+    	'Ext.ux.field.TimePicker',
+    	'Ext.ux.picker.Time'
     ],
     
     config: {
@@ -51,7 +53,7 @@ Ext.define('studiplaner.form.WorkForm', {
                 items: [{
                     xtype: 'selectfield',
                     label: 'Tag',
-                    usePicker: 'auto',
+                    usePicker: 'true',
                     options: [{
 						text: 'Montag',
 						value: 0
@@ -77,13 +79,51 @@ Ext.define('studiplaner.form.WorkForm', {
                 }]
 			}, {
 				xtype: 'timepickerfield',
+				label: 'Beginn',
+				itemId: 'beginTime',
+				value: new Date(),
+				dateFormat: 'H:i',
+				margin: '-27 10 1 10',
 				picker: {
-					startHour: 0,
+					useMeridiem: false,
+					startHour: 1,
 					endHour: 24,
 					startMinute: 0,
-					endMinute: 59
+					endMinute: 59,
+					hourText: 'Stunde',
+					minuteText: 'Minute',
+					slotOrder: [
+						'hour',
+						'minute'
+					]
 				}
-			}
+			}, {
+				xtype: 'timepickerfield',
+				label: 'Ende',
+				itemId: 'endTime',
+				dateFormat: 'H:i',
+				value: new Date(),
+				margin: '0 10 0 10',
+				picker: {
+					useMeridiem: false,
+					startHour: 1,
+					endHour: 24,
+					startMinute: 0,
+					endMinute: 59,
+					hourText: 'Stunde',
+					minuteText: 'Minute',
+					slotOrder: [
+						'hour',
+						'minute'
+					]
+				}
+			}, {
+                xtype: 'button',
+                text: 'Hinzufügen',
+                ui: 'confirm',
+                itemId: "addButton",
+                margin: '50 5 15 5',
+            }
         ],
         listeners: [
         	{

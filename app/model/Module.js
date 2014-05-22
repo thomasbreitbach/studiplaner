@@ -19,6 +19,7 @@ Ext.define('studiplaner.model.Module', {
             { name: 'name', type: 'string' },
             { name: 'ects', type: 'int' },
             { name: 'sws', type: 'int' },
+            { name: 'workload', type: 'int'},
             { name: 'interest', type: 'int' },   
 			{ name: 'severity', type: 'int' }
         ],
