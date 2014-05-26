@@ -4,6 +4,7 @@
 Ext.define('studiplaner.form.WorkForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.workform',
+    counter: 0,
     
     requires: [
     	"Ext.form.FieldSet",
@@ -33,6 +34,7 @@ Ext.define('studiplaner.form.WorkForm', {
         		]
         	}, {
         		xtype: "fieldset",
+        		itemId: "fieldset",
         		items: [
         			{
 		                name: 'name',
@@ -42,77 +44,7 @@ Ext.define('studiplaner.form.WorkForm', {
 		                name: 'location',
 		                xtype: 'textfield',
 		                label: 'Ort'
-		            }, {
-						title: 'times',
-						html: ['Arbeitszeiten'],
-						styleHtmlContent: true
-					}, {
-						xtype: 'selectfield',
-						label: 'Tag',
-						itemId: 'day',
-						usePicker: 'true',
-						options: [{
-							text: 'Montag',
-							value: 0
-						}, {
-							text: 'Dienstag',
-							value: 1
-						}, {
-							text: 'Mittwoch',
-							value: 2
-						}, {
-							text: 'Donnerstag',
-							value: 3
-						}, {
-							text: 'Freitag',
-							value: 4
-						}, {
-							text: 'Samstag',
-							value: 5
-						}, {
-							text: 'Sonntag',
-							value: 6
-						}]
-					
-					}, {
-						xtype: 'timepickerfield',
-						label: 'Beginn',
-						itemId: 'beginTime',
-						value: new Date(),
-						dateFormat: 'H:i',
-						picker: {
-							useMeridiem: false,
-							startHour: 1,
-							endHour: 24,
-							startMinute: 0,
-							endMinute: 59,
-							hourText: 'Stunde',
-							minuteText: 'Minute',
-							slotOrder: [
-								'hour',
-								'minute'
-							]
-						}
-					}, {
-						xtype: 'timepickerfield',
-						label: 'Ende',
-						itemId: 'endTime',
-						dateFormat: 'H:i',
-						value: new Date(),
-						picker: {
-							useMeridiem: false,
-							startHour: 1,
-							endHour: 24,
-							startMinute: 0,
-							endMinute: 59,
-							hourText: 'Stunde',
-							minuteText: 'Minute',
-							slotOrder: [
-								'hour',
-								'minute'
-							]
-						}
-					}
+		            }
         		]
         	}, {
                 xtype: 'button',
@@ -120,7 +52,21 @@ Ext.define('studiplaner.form.WorkForm', {
                 ui: 'confirm',
                 itemId: "addButton",
                 margin: '50 5 15 5',
-            }
+            }, {
+        		xtype: "toolbar",
+        		docked: "bottom",
+        		itemId: "bottomToolbar",
+        		title: "",
+        		items: [
+        			{
+        				xtype: "button",
+        				ui: "action",
+        				text: 'Arbeitszeit',
+        				iconCls: 'add',
+        				itemId: "addWorkingTimeButton",
+        			}
+        		]
+        	}
         ],
         listeners: [
         	{
@@ -135,9 +81,116 @@ Ext.define('studiplaner.form.WorkForm', {
 				delegate: "#deleteButton",
         		event: "tap",
         		fn: "onDeleteButtonTap"
-			}
+			}, {
+				delegate: "#addWorkingTimeButton",
+        		event: "tap",
+        		fn: "onAddWorkingTimeButtonTap"
+        	}
         ]     
     },
+    
+    initialize: function(){	
+		this.addWorkingTimeToFieldset(this.counter);
+	},
+	
+	addWorkingTimeToFieldset: function(id){
+		var label = {
+			title: 'times',
+			html: ['Arbeitszeit ' + (id+1)],
+			styleHtmlContent: true,
+		};	
+		var delButton = {
+			xtype: 'button',
+			iconCls: 'delete',
+            iconMask: true,
+            ui: 'plain',
+            width: '40px',
+            height: '40px'
+		};
+		var hbox = Ext.create('Ext.Container', {
+			height: '60px',
+			layout:{
+				type:'hbox',
+				align:'center',
+				pack:'center'
+			}	
+		});
+		hbox.add([label, { xtype: 'spacer' }, delButton]);
+		var weekday = {
+			xtype: 'selectfield',
+			label: 'Tag',
+			itemId: 'day' + id,
+			usePicker: 'true',
+			options: [{
+				text: 'Montag',
+				value: 0
+			}, {
+				text: 'Dienstag',
+				value: 1
+			}, {
+				text: 'Mittwoch',
+				value: 2
+			}, {
+				text: 'Donnerstag',
+				value: 3
+			}, {
+				text: 'Freitag',
+				value: 4
+			}, {
+				text: 'Samstag',
+				value: 5
+			}, {
+				text: 'Sonntag',
+				value: 6
+			}]
+		
+		};
+		var begin = {
+			xtype: 'timepickerfield',
+			label: 'Beginn',
+			itemId: 'beginTime' + id,
+			value: new Date(),
+			dateFormat: 'H:i',
+			picker: {
+				useMeridiem: false,
+				startHour: 1,
+				endHour: 24,
+				startMinute: 0,
+				endMinute: 59,
+				hourText: 'Stunde',
+				minuteText: 'Minute',
+				slotOrder: [
+					'hour',
+					'minute'
+				]
+			}
+		};
+		var end = {
+			xtype: 'timepickerfield',
+			label: 'Ende',
+			itemId: 'endTime' + id,
+			dateFormat: 'H:i',
+			value: new Date(),
+			picker: {
+				useMeridiem: false,
+				startHour: 1,
+				endHour: 24,
+				startMinute: 0,
+				endMinute: 59,
+				hourText: 'Stunde',
+				minuteText: 'Minute',
+				slotOrder: [
+					'hour',
+					'minute'
+				]
+			}
+		};
+		
+		var fieldset = this.down('#fieldset');
+		fieldset.add([hbox, weekday, begin, end]);	
+		
+		this.counter++;
+	},
     
     //Listener functions
     onBackButtonTap: function(){
@@ -148,4 +201,8 @@ Ext.define('studiplaner.form.WorkForm', {
     	console.log('saveWorkCommand');
     	this.fireEvent('saveWorkCommand', this);
     },
+    onAddWorkingTimeButtonTap: function(){
+		console.log('addWorkingTimeCommand');
+    	this.fireEvent('addWorkingTimeCommand', this);
+	}
 });

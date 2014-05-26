@@ -20,6 +20,7 @@ Ext.define("studiplaner.controller.Work", {
 		        saveWorkCommand: "onSaveWorkCommand",
 		        deleteWorkCommand: "onDeleteWorkCommand",
 		        backToHomeCommand: "onBackToHomeCommand",
+		        addWorkingTimeCommand: "onAddWorkingTimeCommand"
 		    },
             workListContainer: {
             	// The commands fired by the modules list container.
@@ -89,7 +90,7 @@ Ext.define("studiplaner.controller.Work", {
 	    console.log("onSaveWorkCommand");
 		
 	    var workForm = this.getWorkForm();
-		console.log(workForm);
+		console.log(workForm.getValues());
 	    var currentWork = workForm.getRecord();
 	    var newValues = workForm.getValues();
 
@@ -140,6 +141,12 @@ Ext.define("studiplaner.controller.Work", {
 	onBackToHomeCommand: function () {
 		console.log("onBackToHomeCommand");
 		this.activateWorkList();
+	},
+	
+	onAddWorkingTimeCommand:function(){
+		
+		var workForm = this.getWorkForm();
+		workForm.addWorkingTimeToFieldset(workForm.counter);
 	},
 
     launch: function () {

@@ -1,11 +1,7 @@
 /**
  * @author Thomas Breitbach
  */
-var chart;
-const H_PER_ECTS = 30;
-const H_PER_SWS = 0.75;
-const WEEKS_PER_SEM = 17;
-const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
+
 
 Highcharts.setOptions({
 	colors: ['#80ba24', ' #4a5c66']
@@ -14,6 +10,8 @@ Highcharts.setOptions({
 Ext.define('studiplaner.form.ModuleForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.moduleform',
+    chart: null,
+    workloadPerWeek: 0,
     
     requires: [
     	"Ext.form.FieldSet",
@@ -239,60 +237,6 @@ Ext.define('studiplaner.form.ModuleForm', {
     
     initialize: function(){
 		this.callParent(arguments);
-		
-		chart = new Highcharts.Chart({
-    
-			chart: {
-				renderTo: this.down('#chart').element.dom,
-				backgroundColor:'rgba(255, 255, 255, 0.1)',
-				plotBackgroundImage: null,
-				plotBorderWidth: 0,
-				plotShadow: false
-			},
-			
-			title: {
-				text: '0' + WORKLOAD_STRING,
-				align: 'center',
-				verticalAlign: 'middle',
-				y: 85
-			},
-			
-			tooltip: {
-				pointFormat: 'Anteil: <b>{point.percentage:.1f}%</b>'
-			},
-			
-			exporting: { enabled: false },
-			credits: false,
-			
-			plotOptions: {
-				pie: {
-					dataLabels: {
-						enabled: true,
-						distance: -50,
-						style: {
-							fontWeight: 'bold',
-							color: 'white',
-							textShadow: '0px 1px 2px black'
-						}
-					},
-					startAngle: -90,
-					endAngle: 90,
-					center: ['50%', '75%']
-				}
-			},
-					
-			series: [{
-				type: 'pie',
-				id: 'ratio',
-				name: 'Ratio Anwesenheit/Selbststudium',
-				innerSize: '50%',
-				data: [
-					['Anwesenheit',   1],
-					['Selbststudium',       1],
-				]
-			}]
-		
-		});
 	},
     
     //Listener functions
@@ -315,37 +259,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 		}
 	},
 	onNumberFieldChange: function (field, newValue, oldValue, eOpts){
-		console.log("onNumberFieldChange");
-		
-		//~ TODO	Performance	
-		var ects = 0;
-		var sws = 0;
-		var field;
-		
-		if(field.getItemId() === 'numberfield_ects'){
-			if(newValue != "") ects = parseInt(newValue);	
-			field = this.down('#numberfield_sws').getValue();
-			if(field != null) sws = field;
-		}else{
-			if(newValue != "") sws = parseInt(newValue);
-			field = this.down('#numberfield_ects').getValue();
-			if(field != null) ects = field;
-		}
-		
-		var workloadPerWeek = Math.round(ects * H_PER_ECTS / WEEKS_PER_SEM);
-		var presencePerWeek = sws * H_PER_SWS;
-		var selfStudyPerWeek = workloadPerWeek - presencePerWeek;	
-
-		chart.get('ratio').setData([
-					['Anwesenheit', presencePerWeek],
-					['Selbststudium', selfStudyPerWeek],
-				], true, true, false);
-		
-		chart.setTitle({
-				text: '~' + workloadPerWeek + WORKLOAD_STRING,
-				align: 'center',
-				verticalAlign: 'middle',
-				y: 85
-		});
+		console.log("numberFieldChange");
+		this.fireEvent('numberFieldChangedCommand', this, field, newValue, oldValue, eOpts);
 	}
 });

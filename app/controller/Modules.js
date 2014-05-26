@@ -1,6 +1,11 @@
 /**
  * @author Thomas Breitbach
  */
+const H_PER_ECTS = 30;
+const H_PER_SWS = 0.75;
+const WEEKS_PER_SEM = 17;
+const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
+
 Ext.define("studiplaner.controller.Modules", {
     extend: "Ext.app.Controller",
     
@@ -39,10 +44,12 @@ Ext.define("studiplaner.controller.Modules", {
     	console.log("activateModuleForm");
     	
     	//~ TODO Performance! 
-    	this.getModuleForm().destroy();
-    	Ext.create('studiplaner.form.ModuleForm');
+    	//~ this.getModuleForm().destroy();
+    	//~ Ext.create('studiplaner.form.ModuleForm');
     	
     	var moduleForm = this.getModuleForm();
+    	
+    	moduleForm.chart = this.buildChart();
     	
     	//set form fields
     	moduleForm.setRecord(record);
@@ -122,6 +129,7 @@ Ext.define("studiplaner.controller.Modules", {
 	    currentModule.set("name", newValues.name);
 	    currentModule.set("ects", newValues.ects);
 	    currentModule.set("sws", newValues.sws);
+	    currentModule.set("workload", moduleForm.workloadPerWeek);
 	
 	    var errors = currentModule.validate();
 	
@@ -205,6 +213,96 @@ Ext.define("studiplaner.controller.Modules", {
 				break;
 		}	
 		currentModule.set(attribute, button.value);
+	},
+	
+	buildChart: function(){
+		return new Highcharts.Chart({ 
+			chart: {
+				renderTo: this.getModuleForm().down('#chart').element.dom,
+				backgroundColor:'rgba(255, 255, 255, 0.1)',
+				plotBackgroundImage: null,
+				plotBorderWidth: 0,
+				plotShadow: false
+			},			
+			title: {
+				text: '0' + WORKLOAD_STRING,
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 85
+			},		
+			tooltip: {
+				pointFormat: 'Anteil: <b>{point.percentage:.1f}%</b>'
+			},			
+			exporting: { enabled: false },
+			credits: false,			
+			plotOptions: {
+				pie: {
+					dataLabels: {
+						enabled: true,
+						distance: -50,
+						style: {
+							fontWeight: 'bold',
+							color: 'white',
+							textShadow: '0px 1px 2px black'
+						}
+					},
+					startAngle: -90,
+					endAngle: 90,
+					center: ['50%', '75%']
+				}
+			},				
+			series: [{
+				type: 'pie',
+				id: 'ratio',
+				name: 'Ratio Anwesenheit/Selbststudium',
+				innerSize: '50%',
+				data: [
+					['Anwesenheit',   1],
+					['Selbststudium',       1],
+				]
+			}]
+		});
+	},
+	
+	onNumberFieldChangedCommand: function(moduleForm, field, newValue, oldValue, eOpts){
+		console.log("onNumberFieldChangedCommand");
+		var ects = 0;
+		var sws = 0;
+		var otherField;
+		var workloadPerWeek = 0;
+		var presencePerWeek = 1;
+		var selfStudyPerWeek = 1;
+		
+		if(field.getItemId() === 'numberfield_ects'){
+			if(newValue != "") ects = parseInt(newValue);	
+			otherField = moduleForm.down('#numberfield_sws').getValue();
+			if(otherField != null) sws =  otherField;
+		}else{
+			if(newValue != "") sws = parseInt(newValue);
+			otherField = moduleForm.down('#numberfield_ects').getValue();
+			if(otherField != null) ects = otherField;
+		}
+		
+		if(ects != 0 || sws != 0){	
+			workloadPerWeek = Math.round(ects * H_PER_ECTS / WEEKS_PER_SEM);
+			presencePerWeek = sws * H_PER_SWS;
+			selfStudyPerWeek = workloadPerWeek - presencePerWeek;
+		}
+
+		//update ratio serie
+		moduleForm.chart.get('ratio').setData([
+					['Anwesenheit', presencePerWeek],
+					['Selbststudium', selfStudyPerWeek],
+				], true, true, false);
+		//set workload title
+		moduleForm.chart.setTitle({
+				text: '~' + workloadPerWeek + WORKLOAD_STRING,
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 85
+		});
+		//store workload in model
+		moduleForm.workloadPerWeek = workloadPerWeek;
 	},
 
     launch: function () {

@@ -11,6 +11,6 @@ Ext.define("studiplaner.view.modules.ModulesList", {
         onItemDisclosure:true,
         grouped: true,
         itemTpl: 	'</pre><div><span class="list-item-name">{name}</span>'+
-					'<span class="list-item-workload">{ects} ECTS, {sws} SWS</span><div><pre>'
+					'<span class="list-item-workload">{workload} Std./Woche</span><div><pre>'
     }
 });
