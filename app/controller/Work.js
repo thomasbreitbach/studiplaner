@@ -20,7 +20,8 @@ Ext.define("studiplaner.controller.Work", {
 		        saveWorkCommand: "onSaveWorkCommand",
 		        deleteWorkCommand: "onDeleteWorkCommand",
 		        backToHomeCommand: "onBackToHomeCommand",
-		        addWorkingTimeCommand: "onAddWorkingTimeCommand"
+		        delWorkingTimeCommand: "onDelWorkingTimeCommand",
+		        addWorkingTimeCommand: "onAddWorkingTimeCommand"        
 		    },
             workListContainer: {
             	// The commands fired by the modules list container.
@@ -34,18 +35,12 @@ Ext.define("studiplaner.controller.Work", {
     slideRightTransition: { type: 'slide', direction: 'right' },
     
     activateWorkForm: function (record) {
-    	console.log("activateWorkForm");
-    	
-    	//~ TODO Performance! 
-    	this.getWorkForm().destroy();
-    	Ext.create('studiplaner.form.WorkForm');
-    	
+    	console.log("activateWorkForm");    	
     	var workForm = this.getWorkForm();
     	
     	//set form fields
     	workForm.setRecord(record);
-    	
-    	
+    	   	
     	//~ //Change behaviour in edit mode
     	//~ var submitButton = moduleForm.getComponent('addButton');
     	//~ var topToolbar = moduleForm.getComponent('topToolbar');
@@ -60,8 +55,7 @@ Ext.define("studiplaner.controller.Work", {
 			//~ submitButton.setText("Hinzufügen");
 			//~ topToolbar.setTitle("Neues Modul");
 			//~ bottomToolbar.hide();
-		//~ }
-		
+		//~ }	
     	Ext.Viewport.animateActiveItem(workForm, this.slideLeftTransition);
 	},
 	
@@ -71,13 +65,11 @@ Ext.define("studiplaner.controller.Work", {
 	},
      
     onNewWorkCommand: function () {
-	    console.log("onNewModuleCommand");
-	
+	    console.log("onNewWorkCommand");
 	    var newWork = Ext.create("studiplaner.model.Work", {
 	        name: "",
 	        location: "",
 	    });
-	
 	    this.activateWorkForm(newWork);
 	},
 	
@@ -88,7 +80,6 @@ Ext.define("studiplaner.controller.Work", {
     
     onSaveWorkCommand: function () {
 	    console.log("onSaveWorkCommand");
-		
 	    var workForm = this.getWorkForm();
 		console.log(workForm.getValues());
 	    var currentWork = workForm.getRecord();
@@ -109,11 +100,9 @@ Ext.define("studiplaner.controller.Work", {
 	
 	    if (null == workStore.findRecord('id', currentWork.data.id)) {
 	        workStore.add(currentWork);
-	    }
-	
+	    }	
 	    workStore.sync();	
 	    workStore.sort([{ property: 'name', direction: 'DESC'}]);
-	
 	    this.activateWorkList();
 	},
 //~ 
@@ -141,14 +130,19 @@ Ext.define("studiplaner.controller.Work", {
 	onBackToHomeCommand: function () {
 		console.log("onBackToHomeCommand");
 		this.activateWorkList();
-	},
-	
-	onAddWorkingTimeCommand:function(){
-		
+	},	
+	onAddWorkingTimeCommand:function(){	
 		var workForm = this.getWorkForm();
 		workForm.addWorkingTimeToFieldset(workForm.counter);
+	},	
+	onDelWorkingTimeCommand: function(form, button){
+		console.log('onDelWorkingTimeCommand');
+		var id = button.getItemId();
+		var workForm = this.getWorkForm();
+		var timeContainer = workForm.down('#timeContainer');
+		var remove = workForm.down('#coreData'+id);
+		timeContainer.remove(remove, true);
 	},
-
     launch: function () {
         this.callParent();
         //load Store
@@ -156,8 +150,7 @@ Ext.define("studiplaner.controller.Work", {
         store.load();
         
         console.log("launch");
-    },
-    
+    },    
     init: function () {
         this.callParent();
         console.log("init");

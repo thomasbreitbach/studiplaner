@@ -34,7 +34,7 @@ Ext.define('studiplaner.form.WorkForm', {
         		]
         	}, {
         		xtype: "fieldset",
-        		itemId: "fieldset",
+        		itemId: "coreData",
         		items: [
         			{
 		                name: 'name',
@@ -47,11 +47,14 @@ Ext.define('studiplaner.form.WorkForm', {
 		            }
         		]
         	}, {
+				xtype: 'container',
+				itemId: 'timeContainer'
+			}, {
                 xtype: 'button',
                 text: 'Hinzufügen',
                 ui: 'confirm',
                 itemId: "addButton",
-                margin: '50 5 15 5',
+                margin: '15 5 15 5',
             }, {
         		xtype: "toolbar",
         		docked: "bottom",
@@ -103,6 +106,9 @@ Ext.define('studiplaner.form.WorkForm', {
 			xtype: 'button',
 			iconCls: 'delete',
             iconMask: true,
+            itemId: ''+id,
+            handler: this.onDeleteWorkingTimeButtonTap,
+        	scope: this,
             ui: 'plain',
             width: '40px',
             height: '40px'
@@ -186,9 +192,11 @@ Ext.define('studiplaner.form.WorkForm', {
 			}
 		};
 		
-		var fieldset = this.down('#fieldset');
-		fieldset.add([hbox, weekday, begin, end]);	
-		
+		var fieldset = Ext.create('Ext.form.FieldSet', {
+        		itemId: "coreData"+id,
+        });
+		fieldset.add([hbox, weekday, begin, end]);		
+		this.down('#timeContainer').add(fieldset);	
 		this.counter++;
 	},
     
@@ -204,5 +212,9 @@ Ext.define('studiplaner.form.WorkForm', {
     onAddWorkingTimeButtonTap: function(){
 		console.log('addWorkingTimeCommand');
     	this.fireEvent('addWorkingTimeCommand', this);
+	},
+	onDeleteWorkingTimeButtonTap: function(button, e, eOpts){
+		console.log('delWorkingTimeCommand');
+		this.fireEvent('delWorkingTimeCommand', this, button);
 	}
 });

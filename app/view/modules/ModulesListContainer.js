@@ -52,10 +52,7 @@ Ext.define('studiplaner.view.modules.ModulesListContainer', {
     		listeners: {
        		 	itemtap: { fn: this.onModulesListTap, scope: this }
         	}
-    	};
-    	
-    	Ext.create('studiplaner.form.ModuleForm');
-    
+    	};    
     	this.add([topToolbar, modulesList]);
 	},
 	

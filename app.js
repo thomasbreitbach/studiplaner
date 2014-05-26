@@ -60,6 +60,9 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 	
+		Ext.create('studiplaner.form.ModuleForm');
+		Ext.create('studiplaner.form.WorkForm');
+		
 		var modulesListContainer = {
 			xtype: "moduleslistcontainer"
 		};
