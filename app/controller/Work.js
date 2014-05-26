@@ -101,7 +101,7 @@ Ext.define("studiplaner.controller.Work", {
 	
 	    if (!errors.isValid()) {
 	        Ext.Msg.alert('Wait!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
-	        currentModule.reject();
+	        currentWork.reject();
 	        return;
 	    }
 	
