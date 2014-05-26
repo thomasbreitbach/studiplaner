@@ -43,10 +43,6 @@ Ext.define("studiplaner.controller.Modules", {
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
     	
-    	//~ TODO Performance! 
-    	//~ this.getModuleForm().destroy();
-    	//~ Ext.create('studiplaner.form.ModuleForm');
-    	
     	var moduleForm = this.getModuleForm();
     	
     	moduleForm.chart = this.buildChart();

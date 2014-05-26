@@ -10,6 +10,10 @@
 	bottom: 0.85em;
 	right: 0.44em;
 }
+.x-toolbar.two-buttons .x-title {
+    max-width: 59%;
+}
+
 .list-item-name
 {
     float:left;

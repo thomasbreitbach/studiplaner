@@ -1,8 +1,6 @@
 /**
  * @author Thomas Breitbach
  */
-
-
 Highcharts.setOptions({
 	colors: ['#80ba24', ' #4a5c66']
 });
@@ -27,6 +25,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         		xtype: "toolbar",
         		docked: "top",
         		itemId: 'topToolbar',
+        		cls: 'two-buttons',
         		title: "Neues Modul",
         		items: [
         			{
@@ -46,37 +45,46 @@ Ext.define('studiplaner.form.ModuleForm', {
         			}
         		]
         	}, {
-				xtype: 'segmentedbutton',
-				itemId: 'typeButton',
-				allowMultiple: false,
-				layout:{
-					type:'hbox',
-					align:'center',
-					pack:'center'
+				xtype: "fieldset",
+        		itemId: "type",
+        		items: [{
+					title: 'typeLabel',
+					html: ['Moduleart'],
+					styleHtmlContent: true
 				},
-				items: [
-					{
-						text: 'Normal',
-						pressed: true,
-						width: '32%',
-						id: 'normal',
-						value: 0
+        		{
+					xtype: 'segmentedbutton',
+					itemId: 'typeButton',
+					margin: '0 0 10px 0',
+					allowMultiple: false,
+					layout:{
+						type:'hbox',
+						align:'center',
+						pack:'center'
 					},
-					{
-						text: 'Block',
-						width: '32%',
-						id: 'block',
-						value: 1
-					},
-					{
-						text: 'ohne Vorlesung',
-						width: '32%',
-						id: 'ov',
-						value: 2
-					}
-				]
-			
-			},{
+					items: [
+						{
+							text: 'Normal',
+							pressed: true,
+							width: '33%',
+							id: 'normal',
+							value: 0
+						},
+						{
+							text: 'Block',
+							width: '33%',
+							id: 'block',
+							value: 1
+						},
+						{
+							text: 'ohne Vorlesung',
+							width: '33%',
+							id: 'ov',
+							value: 2
+						}
+					]
+				}]
+			}, {
         		xtype: "fieldset",
         		itemId: "fields",
         		items: [
@@ -98,88 +106,95 @@ Ext.define('studiplaner.form.ModuleForm', {
 						xtype: 'panel',
 						title: '',
 						itemId: 'chart',
-						width: '100%',
+						width: '95%',
 						height: '300px',
-					},{
-						title: 'yourInterest',
-						html: ['Persönliches Interesse'],
-						styleHtmlContent: true
-					}, {
-						xtype: 'segmentedbutton',
-						itemId: 'interestButton',
-						allowMultiple: false,
-						layout:{
-							type:'hbox',
-							align:'center',
-							pack:'center'
-						},
-						items: [
-							{
-								text: 'Hoch',
-								id: 'interest_good',
-								width: '33%',
-								value: 0,
-								iconCls: 'happy',
-								iconMask: true
-							},
-							{
-								text: 'Mittel',
-								id: 'interest_medium',
-								width: '33%',
-								value: 1,
-								iconCls: 'smiley',
-								iconMask: true
-							},
-							{
-								text: 'Niedrig',
-								id: 'interest_bad',
-								width: '33%',
-								value: 2,
-								iconCls: 'sad',
-								iconMask: true
-							}
-						]
-					
-					}, {
-						title: 'yourServerity',
-						html: ['Eingeschätzter Schwierigkeitsgrad'],
-						styleHtmlContent: true
-					},  {
-						xtype: 'segmentedbutton',
-						itemId: 'severityButton',
-						allowMultiple: false,
-						layout:{
-							type:'hbox',
-							align:'center',
-							pack:'center'
-						},
-						items: [
-							{
-								text: 'Hoch',
-								id: 'severity_good',
-								width: '33%',
-								value: 0
-							},
-							{
-								text: 'Mittel',
-								id: 'severity_medium',
-								width: '33%',
-								value: 1
-							},
-							{
-								text: 'Niedrig',
-								id: 'severity_bad',
-								width: '33%',
-								value: 2
-							}
-						]
-					
-					},
+					}
         		]
-        	},     {
+        	},{
+				xtype: "fieldset",
+        		itemId: "bla",
+        		items: [
+				{
+					title: 'yourInterest',
+					html: ['Persönliches Interesse'],
+					styleHtmlContent: true
+				}, {
+					xtype: 'segmentedbutton',
+					itemId: 'interestButton',
+					allowMultiple: false,
+					layout:{
+						type:'hbox',
+						align:'center',
+						pack:'center'
+					},
+					items: [
+						{
+							text: 'Hoch',
+							id: 'interest_good',
+							width: '33%',
+							value: 0,
+							//~ iconCls: 'happy',
+							iconMask: true
+						},
+						{
+							text: 'Mittel',
+							id: 'interest_medium',
+							width: '33%',
+							value: 1,
+							//~ iconCls: 'smiley',
+							iconMask: true
+						},
+						{
+							text: 'Niedrig',
+							id: 'interest_bad',
+							width: '33%',
+							value: 2,
+							//~ iconCls: 'sad',
+							iconMask: true
+						}
+					]
+				
+				}, {
+					title: 'yourServerity',
+					html: ['Eingeschätzter Schwierigkeitsgrad'],
+					styleHtmlContent: true
+				},  {
+					xtype: 'segmentedbutton',
+					itemId: 'severityButton',
+					allowMultiple: false,
+					margin: '0 0 10px 0',
+					layout:{
+						type:'hbox',
+						align:'center',
+						pack:'center'
+					},
+					items: [
+						{
+							text: 'Hoch',
+							id: 'severity_good',
+							width: '33%',
+							value: 0
+						},
+						{
+							text: 'Mittel',
+							id: 'severity_medium',
+							width: '33%',
+							value: 1
+						},
+						{
+							text: 'Niedrig',
+							id: 'severity_bad',
+							width: '33%',
+							value: 2
+						}
+					]
+				
+				}]
+			}, {
                 xtype: 'button',
                 text: 'Hinzufügen',
                 ui: 'confirm',
+                margin: '50 5 15 5',
                 itemId: "addButton",
             }, {
         		xtype: "toolbar",
@@ -195,8 +210,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         				itemId: "deleteButton",
         			}
         		]
-        	}
-            
+        	}      
         ],
         listeners: [
         	{
