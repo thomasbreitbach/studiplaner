@@ -1,6 +1,19 @@
 .x-toolbar.two-buttons .x-title {
     max-width: 59%;
 }
+.x-list.slidemenu{
+	background-color: #31394a;
+}
+.slidemenu .x-button-label{
+	color: #c4ccda;
+}
+.slidemenu .x-button-icon{
+	color: #c4ccda;
+}
+.x-list.slidemenu .x-list-item.x-item-selected{
+	background-color: white;
+	background-image: -webkit-linear-gradient(bottom, #697387 0%, #31394A 100%);
+}
 /* Increase height of list item so title and narrative lines fit */
 .x-list .x-list-item .x-list-item-label
 {
@@ -21,6 +34,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right:15px;
+    background-image: url(./resources/images/login_student.png);
 }
 .list-item-workload
 {

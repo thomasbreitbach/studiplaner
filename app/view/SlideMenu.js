@@ -27,6 +27,7 @@ Ext.define('studiplaner.view.SlideMenu', {
                 width: 250,
                 height: '100%',
                 margin: '0 0 0 0',
+                cls: 'slidemenu',
                 scrollable: true,
                 data: [
                     {

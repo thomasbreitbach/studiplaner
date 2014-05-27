@@ -83,17 +83,11 @@ Ext.define("studiplaner.controller.Modules", {
 	
 	activateModulesList: function () {
 		console.log("activateModulesList");
-		//~ var comp = Ext.Viewport.remove('studiplaner.form.ModuleForm', true);
-		//~ console.log(comp);
-		//~ Ext.Viewport.setActiveItem(this.getModulesListContainer());
-		
-		//~ Ext.create('studiplaner.view.modules.ModulesListContainer');
 	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);
 	},
      
     onNewModuleCommand: function () {
 	    console.log("onNewModuleCommand");
-	
 	    var newModule = Ext.create("studiplaner.model.Module", {
 	        type: 0,
 	        name: "",
@@ -103,7 +97,6 @@ Ext.define("studiplaner.controller.Modules", {
 	        interest: null,
 	        severity: null
 	    });
-	
 	    this.activateModuleForm(newModule);
 	},
 	
@@ -130,7 +123,7 @@ Ext.define("studiplaner.controller.Modules", {
 	    var errors = currentModule.validate();
 	
 	    if (!errors.isValid()) {
-	        Ext.Msg.alert('Wait!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
+	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
 	        currentModule.reject();
 	        return;
 	    }
