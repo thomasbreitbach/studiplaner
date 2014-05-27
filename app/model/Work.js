@@ -17,8 +17,12 @@ Ext.define('studiplaner.model.Work', {
         	{ name: 'id', type: 'auto' },
             { name: 'name', type: 'string' },
             { name: 'location', type: 'string' },
-            { name: 'dates', type: 'auto' },
         ],
+        
+        hasMany: {
+				model: 'studiplaner.model.WorkingTime',
+				name: 'workingTimes'
+		},
         
         validations: [{
 	    		type: 'presence',

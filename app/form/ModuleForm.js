@@ -108,6 +108,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						itemId: 'chart',
 						width: '95%',
 						height: '300px',
+						margin: '-10px 0 -10px 0'
 					}
         		]
         	},{
@@ -134,7 +135,8 @@ Ext.define('studiplaner.form.ModuleForm', {
 							width: '33%',
 							value: 0,
 							//~ iconCls: 'happy',
-							iconMask: true
+							iconMask: true,
+							
 						},
 						{
 							text: 'Mittel',

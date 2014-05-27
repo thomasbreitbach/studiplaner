@@ -80,18 +80,29 @@ Ext.define("studiplaner.controller.Work", {
     
     onSaveWorkCommand: function () {
 	    console.log("onSaveWorkCommand");
+	    
 	    var workForm = this.getWorkForm();
 		console.log(workForm.getValues());
 	    var currentWork = workForm.getRecord();
+	    var workingTimes = currentWork.workingTimes();
 	    var newValues = workForm.getValues();
 
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
+	    
+	    var picker = newValues.picker;
+	    for(var i = 0; i<picker.length; i=i+3){
+			workingTimes.add({
+				'day': newValues.picker[i],
+				'begin': newValues.picker[i+1],
+				'end': newValues.picker[i+2],
+			});
+		}
 	
 	    var errors = currentWork.validate();
 	
 	    if (!errors.isValid()) {
-	        Ext.Msg.alert('Wait!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
+	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
 	        currentWork.reject();
 	        return;
 	    }
@@ -101,6 +112,8 @@ Ext.define("studiplaner.controller.Work", {
 	    if (null == workStore.findRecord('id', currentWork.data.id)) {
 	        workStore.add(currentWork);
 	    }	
+	    
+	    workingTimes.sync();
 	    workStore.sync();	
 	    workStore.sort([{ property: 'name', direction: 'DESC'}]);
 	    this.activateWorkList();
