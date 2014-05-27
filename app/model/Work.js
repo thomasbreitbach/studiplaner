@@ -16,7 +16,7 @@ Ext.define('studiplaner.model.Work', {
         fields: [
         	{ name: 'id', type: 'auto' },
             { name: 'name', type: 'string' },
-            { name: 'location', type: 'string' },
+            { name: 'location', type: 'string' }
         ],
         
         hasMany: {
@@ -29,11 +29,6 @@ Ext.define('studiplaner.model.Work', {
 			    field: 'name',
 			    message: "Bitte gib einen Namen an."
 		    }
-		],
-		
-		proxy: {
-    		type: 'localstorage',
-    		id: 'work'
-		}
+		]
     }
 });

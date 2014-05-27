@@ -14,18 +14,18 @@ Ext.define('studiplaner.model.WorkingTime', {
 		identifier: 'uuid',
     	
         fields: [
-        	{ name: 'id', type: 'auto' },
-        	{ name: 'work_id', type: 'auto'},
+        	{ name: 'id', type: 'auto' },       	
             { name: 'day', type: 'int' },
             { name: 'begin', type: 'auto' },
-            { name: 'end', type: 'auto' }
+            { name: 'end', type: 'auto' },
+            { name: 'work_id', type: 'auto'}
         ],
         
 		associations: { type: 'belongsTo', model: 'studiplaner.model.Work' },
 		
 		proxy: {
     		type: 'localstorage',
-    		id: 'workingTime'
+    		id: 'workingTime-store'
 		}
     }
 });

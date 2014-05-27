@@ -34,28 +34,162 @@ Ext.define("studiplaner.controller.Work", {
     slideLeftTransition: { type: 'slide', direction: 'left' },
     slideRightTransition: { type: 'slide', direction: 'right' },
     
+    //************
+	//**HELPER**
+	//************
+    addWorkingTimeToFieldset: function(id){
+		var workForm = this.getWorkForm();
+		var d = new Date();
+		var dplus2h = new Date();
+		dplus2h.setHours((d.getHours()+4));
+		var label = {
+			title: 'times',
+			html: ['Arbeitszeit'],
+			styleHtmlContent: true,
+		};	
+		var delButton = {
+			xtype: 'button',
+			iconCls: 'delete',
+            iconMask: true,
+            itemId: ''+id,
+            handler: workForm.onDeleteWorkingTimeButtonTap,
+        	scope: workForm,
+            ui: 'plain',
+            width: '40px',
+            height: '40px'
+		};
+		var hbox = Ext.create('Ext.Container', {
+			height: '60px',
+			layout:{
+				type:'hbox',
+				align:'center',
+				pack:'center'
+			}	
+		});
+		hbox.add([label, { xtype: 'spacer' }, delButton]);
+		var weekday = {
+			xtype: 'selectfield',
+			label: 'Tag',
+			itemId: 'day' + id,
+			usePicker: 'true',
+			options: [{
+				text: 'Montag',
+				value: 0
+			}, {
+				text: 'Dienstag',
+				value: 1
+			}, {
+				text: 'Mittwoch',
+				value: 2
+			}, {
+				text: 'Donnerstag',
+				value: 3
+			}, {
+				text: 'Freitag',
+				value: 4
+			}, {
+				text: 'Samstag',
+				value: 5
+			}, {
+				text: 'Sonntag',
+				value: 6
+			}]
+		
+		};
+		var begin = {
+			xtype: 'timepickerfield',
+			label: 'Beginn',
+			itemId: 'beginTime' + id,
+			value: d,
+			dateFormat: 'H:i',
+			picker: {
+				useMeridiem: false,
+				startHour: 1,
+				endHour: 24,
+				startMinute: 0,
+				endMinute: 59,
+				hourText: 'Stunde',
+				minuteText: 'Minute',
+				slotOrder: [
+					'hour',
+					'minute'
+				]
+			}
+		};
+		var end = {
+			xtype: 'timepickerfield',
+			label: 'Ende',
+			itemId: 'endTime' + id,
+			dateFormat: 'H:i',
+			value: dplus2h,
+			picker: {
+				useMeridiem: false,
+				startHour: 1,
+				endHour: 24,
+				startMinute: 0,
+				endMinute: 59,
+				hourText: 'Stunde',
+				minuteText: 'Minute',
+				slotOrder: [
+					'hour',
+					'minute'
+				]
+			}
+		};
+		
+		var fieldset = Ext.create('Ext.form.FieldSet', {
+        		itemId: "timeData"+id,
+        });
+		fieldset.add([hbox, weekday, begin, end]);		
+		
+		workForm.down('#timeContainer').add(fieldset);	
+		workForm.counter++;
+		return fieldset;
+	},
+    
     activateWorkForm: function (record) {
-    	console.log("activateWorkForm");    	
+    	console.log("activateWorkForm");  
+    	console.log(record);
+    	  	
     	var workForm = this.getWorkForm();
     	
     	//set form fields
     	workForm.setRecord(record);
-    	   	
-    	//~ //Change behaviour in edit mode
-    	//~ var submitButton = moduleForm.getComponent('addButton');
-    	//~ var topToolbar = moduleForm.getComponent('topToolbar');
-    	//~ var bottomToolbar = moduleForm.getComponent('bottomToolbar');
-    	//~ if(record.data.name.length > 0){
-			//~ //edit mode
-			//~ submitButton.setText("Ändern");
-			//~ topToolbar.setTitle(record.data.name);
-			//~ bottomToolbar.show();
-		//~ }else{
-			//~ //new mode
-			//~ submitButton.setText("Hinzufügen");
-			//~ topToolbar.setTitle("Neues Modul");
-			//~ bottomToolbar.hide();
-		//~ }	
+    	
+    	//set working times
+    	var timeContainer = workForm.down('#timeContainer');
+    	var times = record.data.workingTimes;
+    	if(typeof times != 'undefined'){
+			for(var i=0; i<times.length; i++){
+				//~ var counter = workForm.counter;
+				//~ this.addWorkingTimeToFieldset(counter);
+				//~ console.log(workForm.down('#day'+i));
+				//~ var day = this.getWorkForm().down('#day'+i);
+				//~ day.setValue({value: times[i].day.getValue()});
+				//~ console.log(fset);
+				console.log(times[i]);
+			}
+    	}else{
+			if(timeContainer.getItems().length == 0){
+				this.addWorkingTimeToFieldset(workForm.counter);
+			}
+		}
+		
+    	//Change behaviour in edit mode
+    	var submitButton = workForm.getComponent('addButton');
+    	var topToolbar = workForm.getComponent('topToolbar');
+    	var deleteButton = workForm.down('#deleteButton');
+    	if(record.data.name.length > 0){
+			//edit mode
+			submitButton.setText("Ändern");
+			topToolbar.setTitle(record.data.name);
+			deleteButton.show();
+		}else{
+			//new mode
+			submitButton.setText("Hinzufügen");
+			topToolbar.setTitle("Neues Modul");
+			deleteButton.hide();
+		}	
     	Ext.Viewport.animateActiveItem(workForm, this.slideLeftTransition);
 	},
 	
@@ -63,7 +197,10 @@ Ext.define("studiplaner.controller.Work", {
 		console.log("activateWorkList");
 	    Ext.Viewport.animateActiveItem(this.getWorkListContainer(), this.slideRightTransition);
 	},
-     
+	
+	//************
+	//**COMMANDS**
+	//************   
     onNewWorkCommand: function () {
 	    console.log("onNewWorkCommand");
 	    var newWork = Ext.create("studiplaner.model.Work", {
@@ -146,20 +283,24 @@ Ext.define("studiplaner.controller.Work", {
 	},	
 	onAddWorkingTimeCommand:function(){	
 		var workForm = this.getWorkForm();
-		workForm.addWorkingTimeToFieldset(workForm.counter);
+		this.addWorkingTimeToFieldset(workForm.counter);
 	},	
 	onDelWorkingTimeCommand: function(form, button){
 		console.log('onDelWorkingTimeCommand');
 		var id = button.getItemId();
 		var workForm = this.getWorkForm();
 		var timeContainer = workForm.down('#timeContainer');
-		var remove = workForm.down('#coreData'+id);
+		var remove = workForm.down('#timeData'+id);
 		timeContainer.remove(remove, true);
 	},
+	
+	
     launch: function () {
         this.callParent();
         //load Store
         var store = Ext.getStore("Work");
+        store.load();
+        var store_wt = Ext.getStore('WorkingTime');
         store.load();
         
         console.log("launch");

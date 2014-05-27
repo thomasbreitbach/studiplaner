@@ -29,11 +29,6 @@ Ext.define('studiplaner.model.Module', {
 			    field: 'name',
 			    message: "Bitte gib einen Modulnamen an."
 		    }
-		],
-		
-		proxy: {
-    		type: 'localstorage',
-    		id: 'modules'
-		}
+		]
     }
 });
