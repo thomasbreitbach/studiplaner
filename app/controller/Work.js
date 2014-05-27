@@ -158,7 +158,9 @@ Ext.define("studiplaner.controller.Work", {
     	
     	//set working times
     	var timeContainer = workForm.down('#timeContainer');
-    	var times = record.data.workingTimes;
+    	var times = record.workingTimes();
+    	times.load(); //wichtig!
+    	console.log(times);
     	if(typeof times != 'undefined'){
 			for(var i=0; i<times.length; i++){
 				//~ var counter = workForm.counter;
