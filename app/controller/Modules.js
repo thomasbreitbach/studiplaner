@@ -40,12 +40,15 @@ Ext.define("studiplaner.controller.Modules", {
     slideLeftTransition: { type: 'slide', direction: 'left' },
     slideRightTransition: { type: 'slide', direction: 'right' },
     
+    
+    //***********
+    //**HELPER***
+    //***********
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
     	
     	var moduleForm = this.getModuleForm();
-    	
-    	moduleForm.chart = this.buildChart();
+    	if(moduleForm.chart == null) moduleForm.chart = this.buildChart();
     	
     	//set form fields
     	moduleForm.setRecord(record);
@@ -85,7 +88,80 @@ Ext.define("studiplaner.controller.Modules", {
 		console.log("activateModulesList");
 	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);
 	},
-     
+	
+	setChartData: function(presencePerWeek, selfStudyPerWeek, workloadPerWeek){
+		console.log("setChartData: " + presencePerWeek + " " + selfStudyPerWeek + " " + workloadPerWeek);
+		var moduleForm = this.getModuleForm();
+		//update ratio serie
+		moduleForm.chart.get('ratio').setData([
+					['Anwesenheit', presencePerWeek],
+					['Selbststudium', selfStudyPerWeek],
+				], true, false, true);
+		//set workload title
+		moduleForm.chart.setTitle({
+				text: '~' + workloadPerWeek + WORKLOAD_STRING,
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 85
+		});
+	},
+	
+	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem) {
+		return Math.round(ects * hPerEcts / weeksPerSem);
+	},
+    
+    buildChart: function(){
+		return new Highcharts.Chart({ 
+			chart: {
+				renderTo: this.getModuleForm().down('#chart').element.dom,
+				backgroundColor:'rgba(255, 255, 255, 0.1)',
+				plotBackgroundImage: null,
+				plotBorderWidth: 0,
+				plotShadow: false
+			},			
+			title: {
+				text: '0' + WORKLOAD_STRING,
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 85
+			},		
+			tooltip: {
+				pointFormat: 'Anteil: <b>{point.percentage:.1f}%</b>'
+			},			
+			exporting: { enabled: false },
+			credits: false,			
+			plotOptions: {
+				pie: {
+					dataLabels: {
+						enabled: true,
+						distance: -50,
+						style: {
+							fontWeight: 'bold',
+							color: 'white',
+							textShadow: '0px 1px 2px black'
+						}
+					},
+					startAngle: -90,
+					endAngle: 90,
+					center: ['50%', '75%']
+				}
+			},				
+			series: [{
+				type: 'pie',
+				id: 'ratio',
+				name: 'Ratio Anwesenheit/Selbststudium',
+				innerSize: '50%',
+				data: [
+					['Anwesenheit',   1],
+					['Selbststudium',       1],
+				]
+			}]
+		});
+	},
+    
+    //*************
+    //**COMMANDS***
+    //*************
     onNewModuleCommand: function () {
 	    console.log("onNewModuleCommand");
 	    var newModule = Ext.create("studiplaner.model.Module", {
@@ -204,57 +280,8 @@ Ext.define("studiplaner.controller.Modules", {
 		currentModule.set(attribute, button.value);
 	},
 	
-	buildChart: function(){
-		return new Highcharts.Chart({ 
-			chart: {
-				renderTo: this.getModuleForm().down('#chart').element.dom,
-				backgroundColor:'rgba(255, 255, 255, 0.1)',
-				plotBackgroundImage: null,
-				plotBorderWidth: 0,
-				plotShadow: false
-			},			
-			title: {
-				text: '0' + WORKLOAD_STRING,
-				align: 'center',
-				verticalAlign: 'middle',
-				y: 85
-			},		
-			tooltip: {
-				pointFormat: 'Anteil: <b>{point.percentage:.1f}%</b>'
-			},			
-			exporting: { enabled: false },
-			credits: false,			
-			plotOptions: {
-				pie: {
-					dataLabels: {
-						enabled: true,
-						distance: -50,
-						style: {
-							fontWeight: 'bold',
-							color: 'white',
-							textShadow: '0px 1px 2px black'
-						}
-					},
-					startAngle: -90,
-					endAngle: 90,
-					center: ['50%', '75%']
-				}
-			},				
-			series: [{
-				type: 'pie',
-				id: 'ratio',
-				name: 'Ratio Anwesenheit/Selbststudium',
-				innerSize: '50%',
-				data: [
-					['Anwesenheit',   1],
-					['Selbststudium',       1],
-				]
-			}]
-		});
-	},
-	
 	onNumberFieldChangedCommand: function(moduleForm, field, newValue, oldValue, eOpts){
-		console.log("onNumberFieldChangedCommand");
+		console.log("--> onNumberFieldChangedCommand <--");
 		var ects = 0;
 		var sws = 0;
 		var otherField;
@@ -271,26 +298,18 @@ Ext.define("studiplaner.controller.Modules", {
 			otherField = moduleForm.down('#numberfield_ects').getValue();
 			if(otherField != null) ects = otherField;
 		}
-		
+				
+		//calc workload
 		if(ects != 0 || sws != 0){	
-			workloadPerWeek = Math.round(ects * H_PER_ECTS / WEEKS_PER_SEM);
+			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM);
 			presencePerWeek = sws * H_PER_SWS;
 			selfStudyPerWeek = workloadPerWeek - presencePerWeek;
-		}
-
-		//update ratio serie
-		moduleForm.chart.get('ratio').setData([
-					['Anwesenheit', presencePerWeek],
-					['Selbststudium', selfStudyPerWeek],
-				], true, true, false);
-		//set workload title
-		moduleForm.chart.setTitle({
-				text: '~' + workloadPerWeek + WORKLOAD_STRING,
-				align: 'center',
-				verticalAlign: 'middle',
-				y: 85
-		});
-		//store workload in model
+		}		
+		
+		//set series data
+		this.setChartData(presencePerWeek, selfStudyPerWeek, workloadPerWeek);
+		
+		//store workload
 		moduleForm.workloadPerWeek = workloadPerWeek;
 	},
 
