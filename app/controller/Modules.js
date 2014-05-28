@@ -204,15 +204,13 @@ Ext.define("studiplaner.controller.Modules", {
 	        return;
 	    }
 	
-	    var modulesStore = Ext.getStore("Modules");
-	
+	    var modulesStore = Ext.getStore("Modules");	
 	    if (null == modulesStore.findRecord('id', currentModule.data.id)) {
 	        modulesStore.add(currentModule);
-	    }
-	
+	    }	
+	    
 	    modulesStore.sync();	
-	    modulesStore.sort([{ property: 'name', direction: 'DESC'}]);
-	
+	    modulesStore.sort([{ property: 'name', direction: 'DESC'}]);	
 	    this.activateModulesList();
 	},
 	
