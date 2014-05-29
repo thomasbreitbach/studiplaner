@@ -239,15 +239,17 @@ Ext.define("studiplaner.controller.Work", {
 	    currentWork.set("location", newValues.location);
 	    
 	    workingTimes.removeAll(true, true); //TODO Performance!
-	    var picker = newValues.picker;
-	    for(var i = 0; i<picker.length; i=i+3){
-			workingTimes.add({
-				'day': newValues.picker[i],
-				'begin': newValues.picker[i+1],
-				'end': newValues.picker[i+2],
-			});
+	    var picker = newValues.picker
+	    if(typeof picker != 'undefined'){		
+			for(var i = 0; i<picker.length; i=i+3){
+				workingTimes.add({
+					'day': newValues.picker[i],
+					'begin': newValues.picker[i+1],
+					'end': newValues.picker[i+2],
+				});
+			}
 		}
-	
+		
 	    var errors = currentWork.validate();
 	
 	    if (!errors.isValid()) {
