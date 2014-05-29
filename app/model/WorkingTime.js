@@ -6,7 +6,7 @@ Ext.define('studiplaner.model.WorkingTime', {
     
     requires: [
     	'Ext.data.identifier.Uuid',
-    	'Ext.data.Field'
+    	'Ext.data.Field',
     ],
     
     config: {

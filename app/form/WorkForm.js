@@ -39,7 +39,7 @@ Ext.define('studiplaner.form.WorkForm', {
         			{
 		                name: 'name',
 		                xtype: 'textfield',
-		                label: 'Name'
+		                label: 'Name*'
 		            }, {
 		                name: 'location',
 		                xtype: 'textfield',
@@ -109,6 +109,7 @@ Ext.define('studiplaner.form.WorkForm', {
     },
     onDeleteButtonTap: function(){
 		console.log('deleteButtonCommand');
+		this.fireEvent('deleteWorkCommand', this);
 	},
     onAddWorkingTimeButtonTap: function(){
 		console.log('addWorkingTimeCommand');

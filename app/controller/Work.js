@@ -152,29 +152,37 @@ Ext.define("studiplaner.controller.Work", {
     	console.log(record);
     	  	
     	var workForm = this.getWorkForm();
+    	var counter = workForm.counter;
+    	
+    	//reset counter
+    	counter = 0;
     	
     	//set form fields
     	workForm.setRecord(record);
     	
     	//set working times
     	var timeContainer = workForm.down('#timeContainer');
+    	timeContainer.removeAll(true, true);
     	var times = record.workingTimes();
-    	times.load(); //wichtig!
+    	times.load(); //important!
     	console.log(times);
-    	if(typeof times != 'undefined'){
-			for(var i=0; i<times.length; i++){
-				//~ var counter = workForm.counter;
-				//~ this.addWorkingTimeToFieldset(counter);
-				//~ console.log(workForm.down('#day'+i));
-				//~ var day = this.getWorkForm().down('#day'+i);
-				//~ day.setValue({value: times[i].day.getValue()});
-				//~ console.log(fset);
-				console.log(times[i]);
+    	if(times.getTotalCount() > 0){
+			for(var i=0; i<times.data.length; i++){
+
+				var workingTime = times.data.items[i].data;			
+				var fieldset = this.addWorkingTimeToFieldset(i);
+				counter++;
+				
+				fieldset.down('#day'+i).setValue(workingTime.day);
+	
+				var begin = new Date(workingTime.begin);
+				fieldset.down('#beginTime'+i).setValue(begin);
+				
+				var end = new Date(workingTime.end);
+				fieldset.down('#endTime'+i).setValue(end);				
 			}
     	}else{
-			if(timeContainer.getItems().length == 0){
-				this.addWorkingTimeToFieldset(workForm.counter);
-			}
+			this.addWorkingTimeToFieldset(workForm.counter);
 		}
 		
     	//Change behaviour in edit mode
@@ -189,7 +197,7 @@ Ext.define("studiplaner.controller.Work", {
 		}else{
 			//new mode
 			submitButton.setText("Hinzufügen");
-			topToolbar.setTitle("Neues Modul");
+			topToolbar.setTitle("Neues Arbeitsstelle");
 			deleteButton.hide();
 		}	
     	Ext.Viewport.animateActiveItem(workForm, this.slideLeftTransition);
@@ -225,10 +233,12 @@ Ext.define("studiplaner.controller.Work", {
 	    var currentWork = workForm.getRecord();
 	    var workingTimes = currentWork.workingTimes();
 	    var newValues = workForm.getValues();
+	    console.log(currentWork);
 
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
 	    
+	    workingTimes.removeAll(true, true); //TODO Performance!
 	    var picker = newValues.picker;
 	    for(var i = 0; i<picker.length; i=i+3){
 			workingTimes.add({
@@ -247,7 +257,6 @@ Ext.define("studiplaner.controller.Work", {
 	    }
 	
 	    var workStore = Ext.getStore("Work");
-	
 	    if (null == workStore.findRecord('id', currentWork.data.id)) {
 	        workStore.add(currentWork);
 	    }	
@@ -257,27 +266,30 @@ Ext.define("studiplaner.controller.Work", {
 	    workStore.sort([{ property: 'name', direction: 'DESC'}]);
 	    this.activateWorkList();
 	},
-//~ 
-	//~ 
-	//~ onDeleteModuleCommand: function () {
-	    //~ console.log("onDeleteNoteCommand");
-	//~ 
-		//~ var moduleForm = this.getModuleForm();
-		//~ var currentModule = moduleForm.getRecord();
-		//~ var controller = this;
-		//~ 
-		//~ Ext.Msg.confirm('Löschen', 'Möchtest du das Modul ' + currentModule.data.name + ' wirklich löschen?', function(btn){
-			//~ if(btn == 'yes'){
-				//~ var modulesStore = Ext.getStore("Modules");		
-				//~ modulesStore.remove(currentModule);
-				//~ modulesStore.sync();
-				//~ 
-				//~ controller.activateModulesList();
-			//~ }else{
-				//~ return false;
-			//~ }
-		//~ });  
-	//~ },
+	
+	onDeleteWorkCommand: function () {
+	    console.log("onDeleteWorkCommand");
+	
+		var workForm = this.getWorkForm();
+		var currentWork = workForm.getRecord();
+		var controller = this;
+		
+		Ext.Msg.confirm('Löschen', 'Möchtest du die Arbeitsstelle "' + currentWork.data.name + '" wirklich löschen?', function(btn){
+			if(btn == 'yes'){
+				var workStore = Ext.getStore("Work");		
+				workStore.remove(currentWork);
+				var workingTimes = currentWork.workingTimes();
+				workingTimes.removeAll(true, true)
+				
+				workingTimes.sync();
+				workStore.sync();
+				
+				controller.activateWorkList();
+			}else{
+				return false;
+			}
+		});  
+	},
 	
 	onBackToHomeCommand: function () {
 		console.log("onBackToHomeCommand");
@@ -302,9 +314,9 @@ Ext.define("studiplaner.controller.Work", {
         //load Store
         var store = Ext.getStore("Work");
         store.load();
-        var store_wt = Ext.getStore('WorkingTime');
-        store.load();
-        
+        var store_wt = Ext.getStore("WorkingTime");
+        store_wt.load();
+
         console.log("launch");
     },    
     init: function () {

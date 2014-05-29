@@ -35,7 +35,7 @@ Ext.application({
     	'ModuleForm', 'WorkForm'
     ],
     models: ['Module', 'Work', 'WorkingTime'],
-    stores: ['Modules' , 'Work'],
+    stores: ['Modules' , 'Work', 'WorkingTime'],
 
 
     icon: {

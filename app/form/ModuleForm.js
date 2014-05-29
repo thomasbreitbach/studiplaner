@@ -91,7 +91,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 					 {
 		                name: 'name',
 		                xtype: 'textfield',
-		                label: 'Name'
+		                label: 'Name*'
 		            }, {
 		                name: 'ects',
 		                xtype: 'numberfield',
@@ -107,8 +107,8 @@ Ext.define('studiplaner.form.ModuleForm', {
 						title: '',
 						itemId: 'chart',
 						width: '95%',
-						height: '300px',
-						margin: '-10px 0 -10px 0'
+						height: '250px',
+						
 					}
         		]
         	},{
