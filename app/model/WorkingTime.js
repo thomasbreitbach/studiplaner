@@ -16,8 +16,8 @@ Ext.define('studiplaner.model.WorkingTime', {
         fields: [
         	{ name: 'id', type: 'auto' },       	
             { name: 'day', type: 'int' },
-            { name: 'begin', type: 'auto' },
-            { name: 'end', type: 'auto' },
+            { name: 'begin', type: 'date' },
+            { name: 'end', type: 'date' },
             { name: 'work_id', type: 'auto'}
         ],
         
