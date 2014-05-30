@@ -210,9 +210,7 @@ Ext.define("studiplaner.controller.Work", {
 	},
 	
 	calculateWorkloadPerWeek: function(begins, ends) {
-		console.log("calculateWorkloadPerWeek");
 		var workload = 0;
-		
 		if(begins instanceof Array && ends instanceof Array){
 			for(var i=0; i<begins.length; i++){
 				var begin = begins[i].getTime();
@@ -222,8 +220,7 @@ Ext.define("studiplaner.controller.Work", {
 					workload += (end-begin);
 				}
 			}
-		}
-		
+		}	
 		return this.millisToHours(workload);
 	},
 
@@ -258,6 +255,14 @@ Ext.define("studiplaner.controller.Work", {
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
 	    
+	    //Validate!	
+		var errors = currentWork.validate();
+	    if (!errors.isValid()) {
+	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
+	        currentWork.reject();
+	        return;
+	    }
+	    
 	    var begins=[] , ends=[];
 	    
 	    workingTimes.removeAll(true, true); //TODO Performance!
@@ -267,34 +272,30 @@ Ext.define("studiplaner.controller.Work", {
 				var begin = newValues.picker[i+1];
 				var end = newValues.picker[i+2];
 				
-				begins.push(new Date(begin));
-				ends.push(new Date(end));
-					
-				workingTimes.add({
-					'day': newValues.picker[i],
-					'begin': begin,
-					'end': end,
-				});
+				if(begin.getTime() <  end.getTime()){
+					begins.push(begin);
+					ends.push(end);
+						
+					workingTimes.add({
+						'day': newValues.picker[i],
+						'begin': begin,
+						'end': end,
+					});
+				}else{
+					Ext.Msg.alert('Fehlerhafte Arbeitszeiten', "Der Beginn deiner Arbeitszeit muss vor dem Ende liegen. Bitte überprüfe deine Eingabe!", Ext.emptyFn);
+					return;
+				}
 			}
-		}
-		
-		//calc workload
-		console.log(begins);
-		console.log(ends);
-	    var workload = this.calculateWorkloadPerWeek(begins, ends);
-	    currentWork.set("workload", Math.round(workload));
-		
-	    var errors = currentWork.validate();
-	    if (!errors.isValid()) {
-	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
-	        currentWork.reject();
-	        return;
-	    }
+		}	    
 	
 	    var workStore = Ext.getStore("Work");
 	    if (null == workStore.findRecord('id', currentWork.data.id)) {
 	        workStore.add(currentWork);
-	    }	
+	    }
+	    
+	    //calc workload
+	    var workload = this.calculateWorkloadPerWeek(begins, ends);
+	    currentWork.set("workload", Math.round(workload));
 	    
 	    workingTimes.sync();
 	    workStore.sync();	
