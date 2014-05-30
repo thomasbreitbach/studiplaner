@@ -46,7 +46,6 @@ Ext.define("studiplaner.controller.Modules", {
     //***********
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
-    	
     	var moduleForm = this.getModuleForm();
     	if(moduleForm.chart == null) moduleForm.chart = this.buildChart();
     	

@@ -148,15 +148,13 @@ Ext.define("studiplaner.controller.Work", {
 	},
     
     activateWorkForm: function (record) {
-    	console.log("activateWorkForm");  
-    	console.log(record);
-    	  	
+    	console.log("activateWorkForm");      	  	
     	var workForm = this.getWorkForm();
     	var counter = workForm.counter;
     	
     	//reset counter
     	counter = 0;
-    	
+    	 	
     	//set form fields
     	workForm.setRecord(record);
     	
@@ -168,7 +166,6 @@ Ext.define("studiplaner.controller.Work", {
     	console.log(times);
     	if(times.getTotalCount() > 0){
 			for(var i=0; i<times.data.length; i++){
-
 				var workingTime = times.data.items[i].data;			
 				var fieldset = this.addWorkingTimeToFieldset(i);
 				counter++;
@@ -208,6 +205,28 @@ Ext.define("studiplaner.controller.Work", {
 	    Ext.Viewport.animateActiveItem(this.getWorkListContainer(), this.slideRightTransition);
 	},
 	
+	millisToHours: function(millis){
+		return (millis/1000/60/60);
+	},
+	
+	calculateWorkloadPerWeek: function(begins, ends) {
+		console.log("calculateWorkloadPerWeek");
+		var workload = 0;
+		
+		if(begins instanceof Array && ends instanceof Array){
+			for(var i=0; i<begins.length; i++){
+				var begin = begins[i].getTime();
+				var end = ends[i].getTime();
+				
+				if(begin < end){
+					workload += (end-begin);
+				}
+			}
+		}
+		
+		return this.millisToHours(workload);
+	},
+
 	//************
 	//**COMMANDS**
 	//************   
@@ -216,6 +235,7 @@ Ext.define("studiplaner.controller.Work", {
 	    var newWork = Ext.create("studiplaner.model.Work", {
 	        name: "",
 	        location: "",
+	        workload: 0
 	    });
 	    this.activateWorkForm(newWork);
 	},
@@ -238,20 +258,33 @@ Ext.define("studiplaner.controller.Work", {
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
 	    
+	    var begins=[] , ends=[];
+	    
 	    workingTimes.removeAll(true, true); //TODO Performance!
 	    var picker = newValues.picker
-	    if(typeof picker != 'undefined'){		
-			for(var i = 0; i<picker.length; i=i+3){
+	    if(typeof picker != 'undefined'){					
+			for(var i = 0; i<picker.length; i=i+3){			
+				var begin = newValues.picker[i+1];
+				var end = newValues.picker[i+2];
+				
+				begins.push(new Date(begin));
+				ends.push(new Date(end));
+					
 				workingTimes.add({
 					'day': newValues.picker[i],
-					'begin': newValues.picker[i+1],
-					'end': newValues.picker[i+2],
+					'begin': begin,
+					'end': end,
 				});
 			}
 		}
 		
+		//calc workload
+		console.log(begins);
+		console.log(ends);
+	    var workload = this.calculateWorkloadPerWeek(begins, ends);
+	    currentWork.set("workload", Math.round(workload));
+		
 	    var errors = currentWork.validate();
-	
 	    if (!errors.isValid()) {
 	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
 	        currentWork.reject();
@@ -310,7 +343,7 @@ Ext.define("studiplaner.controller.Work", {
 		timeContainer.remove(remove, true);
 	},
 	
-	
+	//------------------------------
     launch: function () {
         this.callParent();
         //load Store
