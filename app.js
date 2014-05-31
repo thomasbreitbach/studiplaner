@@ -26,10 +26,11 @@ Ext.application({
     views: [
 		'SlideMenu',
         'modules.ModulesListContainer', 'modules.ModulesList', 
-        'work.WorkListContainer', 'work.WorkList'
+        'work.WorkListContainer', 'work.WorkList',
+        'workload.WorkloadContainer', 'workload.ChartContainer'
     ],
     controllers: [
-    	'App', 'Modules', 'Work'
+    	'App', 'Modules', 'Work', 'Workload'
     ],
     forms: [
     	'ModuleForm', 'WorkForm'
@@ -66,15 +67,17 @@ Ext.application({
 		var modulesListContainer = {
 			xtype: "moduleslistcontainer"
 		};
-		
 		var workListContainer = {
 			xtype: "worklistcontainer"
+		};	
+		var workloadContainer = {
+			xtype: "workloadcontainer"
 		};
-		
+	
 		studiplaner.view.SlideMenu.setMenu();
 		
         // Initialize the main view
-        Ext.Viewport.add([modulesListContainer, workListContainer]);
+        Ext.Viewport.add([modulesListContainer, workListContainer, workloadContainer]);
     },
 
     onUpdated: function() {

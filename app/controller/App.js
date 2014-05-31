@@ -13,6 +13,7 @@ Ext.define('studiplaner.controller.App', {
             viewPort: "viewport",
             modulesListContainer: "moduleslistcontainer",
             workListContainer: "worklistcontainer",
+            workloadContainer: 'workloadcontainer'
         },
         control: {
             viewPort: {
@@ -24,7 +25,11 @@ Ext.define('studiplaner.controller.App', {
 			},
             workListContainer: {
 				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			}
+			},
+			workloadContainer: {
+				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
+			},
+			
         }
     },
     
@@ -39,6 +44,7 @@ Ext.define('studiplaner.controller.App', {
 			content = {xtype: "worklistcontainer"};
 			break;
 		case "workload":
+			content = {xtype: "workloadcontainer"};
 			break;
 		case "calendar":
 			break;
