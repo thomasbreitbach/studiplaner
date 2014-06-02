@@ -38,13 +38,13 @@ Ext.define('studiplaner.controller.App', {
 		var content;
 		switch(id){
 		case "modules":
-			content = {xtype: "moduleslistcontainer"};
+			content = 0;
 			break;
 		case "work":
-			content = {xtype: "worklistcontainer"};
+			content = 1;
 			break;
 		case "workload":
-			content = {xtype: "workloadcontainer"};
+			content = 2;
 			break;
 		case "calendar":
 			break;
