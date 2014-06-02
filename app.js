@@ -27,7 +27,7 @@ Ext.application({
 		'SlideMenu',
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
-        'workload.WorkloadContainer', 'workload.ChartContainer'
+        'workload.WorkloadContainer'
     ],
     controllers: [
     	'App', 'Modules', 'Work', 'Workload'

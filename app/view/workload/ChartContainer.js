@@ -9,27 +9,28 @@
 	  
   	config: {
 		layout: {
-        	type: 'card',
-        	animation: 'flip'
-    	}
-  	},
+			type: 'card',
+			animation: 'flip'
+		},
 
-	initialize: function(){	
-		var gauge = {
-			xtype: 'panel',
-			title: 'gauge',
-			itemId: 'gaugechart',
-			width: '95%',
-			height: '300px',
-		};
-		var ratio = {
-			xtype: 'panel',
-			title: 'ratio',
-			itemId: 'ratiochart',
-			width: '95%',
-			height: '300px',
-		}
 	
-		this.add([gauge, ratio]);
-	}
+    	items: [
+			{
+				xtype: 'panel',
+				title: 'gauge',
+				itemId: 'gaugechart',
+				width: '100%',
+				height: '100%',
+				margin: '-45px 0 20px 0'
+			}, {
+				xtype: 'panel',
+				title: 'ratio',
+				itemId: 'ratiochart',
+				width: '100%',
+				height: '110%',
+				margin: '-85px 0 20px 0'
+				
+			}
+    	]
+  	}
 });

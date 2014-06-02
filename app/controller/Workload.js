@@ -10,14 +10,14 @@ Ext.define("studiplaner.controller.Workload", {
     
     config: {
         refs: {
-            workListContainer: "workloadcontainer"
+            workloadContainer: "workloadcontainer",
         },
         control: {
             workloadContainer: {
             	// The commands fired by the modules list container.
                 flipChartCommand: "onflipCardCommand",
                 buildChartsCommand: 'onBuildChartsCommand'
-            }            
+            }           
         }
     },
 
@@ -25,8 +25,9 @@ Ext.define("studiplaner.controller.Workload", {
     //************
 	//**HELPER**
 	//************
-	buildGaugeChart: function(){
-		return new Highcharts.Chart({	
+	buildGaugeChart: function(container){
+		console.log("buildGaugeChart");
+		new Highcharts.Chart({	
 			chart: {
 				renderTo: this.getWorkloadContainer().down('#gaugechart').element.dom,
 				type: 'gauge',
@@ -36,7 +37,7 @@ Ext.define("studiplaner.controller.Workload", {
 				plotShadow: false
 			},
 			title: {
-				text: 'Speedometer'
+				text: ''
 			},
 			exporting: { enabled: false },
 			credits: false,	
@@ -118,23 +119,25 @@ Ext.define("studiplaner.controller.Workload", {
 					valueSuffix: ' Std./Woche'
 				}
 			}]
-		
 		});
+		
+	
 	},
 	
-	buildRatioChart: function(){
+	buildRatioChart: function(container){
+		console.log("buildRatioChart");
 		return new Highcharts.Chart({
 			chart: {
-				renderTo: this.getWorkloadContainer().down('#ratiochart').element.dom,
+				renderTo: container.down('#ratiochart').element.dom,
 				plotBackgroundColor: null,
 				plotBorderWidth: 0,
 				plotShadow: false
 			},
 			title: {
-				text: 'Workload-<br/>Verteilung',
+				text: 'Workload-Verteilung',
 				align: 'center',
 				verticalAlign: 'middle',
-				y: 50
+				y: -80
 			},
 			exporting: { enabled: false },
 			credits: false,
@@ -158,8 +161,8 @@ Ext.define("studiplaner.controller.Workload", {
 				}
 			},
 			series: [{
-				type: 'ratio',
-				name: 'Arbeitstunden',
+				type: 'pie',
+				name: 'ratio',
 				innerSize: '50%',
 				data: [
 					['Studium',   45.0],
@@ -169,13 +172,49 @@ Ext.define("studiplaner.controller.Workload", {
 		});
 	},
 	
+	setGaugeChartData: function(presencePerWeek, selfStudyPerWeek, workloadPerWeek){
+		console.log("setChartData: " + presencePerWeek + " " + selfStudyPerWeek + " " + workloadPerWeek);
+		var moduleForm = this.getWorkloadContainer();
+		//update ratio serie
+		moduleForm.chart.get('ratio').setData([
+					['Anwesenheit', presencePerWeek],
+					['Selbststudium', selfStudyPerWeek],
+				], true, false, true);
+		//set workload title
+		moduleForm.chart.setTitle({
+				text: '~' + workloadPerWeek + WORKLOAD_STRING,
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 85
+		});
+	},
+	
 	//************
 	//**COMMANDS**
 	//************ 	
-    onBuildChartsCommand: function(){
-		this.buildGaugeChart();
-		this.buildRatioChart();
-	}
+    onBuildChartsCommand: function(container){
+		console.log("onBuildChartsCommand");
+		container.down('#chartcontainer').gaugeChart = this.buildGaugeChart(container);
+		container.down('#chartcontainer').ratioChart = this.buildRatioChart(container);
+	},
+	
+	onflipCardCommand: function(container){
+		console.log("onflipCardCommand");		
+		var chartContainer = container.down('#chartcontainer');
+		var toggleButton = container.down('#toggleButton');
+		var activeItem = chartContainer.getActiveItem().getItemId();
+
+		switch(activeItem){
+		case "gaugechart":
+			chartContainer.setActiveItem(1);
+			toggleButton.setText("Stunden");
+			break;
+		case "ratiochart":
+			chartContainer.setActiveItem(0);
+			toggleButton.setText("Verteilung");
+			break;
+		}
+	},
 	
 	//------------------------------
     launch: function () {

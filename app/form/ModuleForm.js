@@ -107,8 +107,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						title: '',
 						itemId: 'chart',
 						width: '95%',
-						height: '250px',
-						
+						height: '250px'
 					}
         		]
         	},{
