@@ -12,7 +12,6 @@
 			type: 'card',
 			animation: 'flip'
 		},
-
 	
     	items: [
 			{

@@ -6,6 +6,7 @@ Ext.define("studiplaner.controller.Workload", {
     
     requires: [
 		'Ext.ComponentQuery',
+		'studiplaner.controller.App'
     ],
     
     config: {
@@ -16,8 +17,12 @@ Ext.define("studiplaner.controller.Workload", {
             workloadContainer: {
             	// The commands fired by the modules list container.
                 flipChartCommand: "onflipCardCommand",
-                buildChartsCommand: 'onBuildChartsCommand'
-            }           
+                buildChartsCommand: 'onBuildChartsCommand',
+                updateChartDataCommand: 'onUpdateChartDataCommand'
+            },
+            'viewport': {
+				updateChartDataCommand: 'onUpdateChartDataCommand'
+			}     
         }
     },
 
@@ -25,9 +30,8 @@ Ext.define("studiplaner.controller.Workload", {
     //************
 	//**HELPER**
 	//************
-	buildGaugeChart: function(container){
-		console.log("buildGaugeChart");
-		new Highcharts.Chart({	
+	buildGaugeChart: function(){
+		return new Highcharts.Chart({	
 			chart: {
 				renderTo: this.getWorkloadContainer().down('#gaugechart').element.dom,
 				type: 'gauge',
@@ -114,6 +118,7 @@ Ext.define("studiplaner.controller.Workload", {
 		
 			series: [{
 				name: 'Workload',
+				id: 'workload',
 				data: [40],
 				tooltip: {
 					valueSuffix: ' Std./Woche'
@@ -124,11 +129,11 @@ Ext.define("studiplaner.controller.Workload", {
 	
 	},
 	
-	buildRatioChart: function(container){
+	buildRatioChart: function(){
 		console.log("buildRatioChart");
 		return new Highcharts.Chart({
 			chart: {
-				renderTo: container.down('#ratiochart').element.dom,
+				renderTo: this.getWorkloadContainer().down('#ratiochart').element.dom,
 				plotBackgroundColor: null,
 				plotBorderWidth: 0,
 				plotShadow: false
@@ -163,6 +168,7 @@ Ext.define("studiplaner.controller.Workload", {
 			series: [{
 				type: 'pie',
 				name: 'ratio',
+				id: 'ratio',
 				innerSize: '50%',
 				data: [
 					['Studium',   45.0],
@@ -172,21 +178,23 @@ Ext.define("studiplaner.controller.Workload", {
 		});
 	},
 	
-	setGaugeChartData: function(presencePerWeek, selfStudyPerWeek, workloadPerWeek){
-		console.log("setChartData: " + presencePerWeek + " " + selfStudyPerWeek + " " + workloadPerWeek);
-		var moduleForm = this.getWorkloadContainer();
-		//update ratio serie
-		moduleForm.chart.get('ratio').setData([
-					['Anwesenheit', presencePerWeek],
-					['Selbststudium', selfStudyPerWeek],
+	setGaugeChartData: function(workloadPerWeek){
+		console.log("setChartData: " + workloadPerWeek);
+		console.log(this.getWorkloadContainer().down('#chartcontainer').gaugeChart.get('workload'));
+		//update workload serie
+		this.getWorkloadContainer().down('#chartcontainer').gaugeChart.get('workload').setData([
+					workloadPerWeek
 				], true, false, true);
-		//set workload title
-		moduleForm.chart.setTitle({
-				text: '~' + workloadPerWeek + WORKLOAD_STRING,
-				align: 'center',
-				verticalAlign: 'middle',
-				y: 85
-		});
+	},
+	
+	setRatioChartData: function(study, job){
+		console.log("setChartData: " + study + " " + job);
+		console.log(this.getWorkloadContainer().down('#chartcontainer').ratioChart);
+		//update ratio serie
+		this.getWorkloadContainer().down('#chartcontainer').ratioChart.get('ratio').setData([
+					['Studium', study],
+					['Beruf', job],
+				], true, false, true);
 	},
 	
 	//************
@@ -194,8 +202,8 @@ Ext.define("studiplaner.controller.Workload", {
 	//************ 	
     onBuildChartsCommand: function(container){
 		console.log("onBuildChartsCommand");
-		container.down('#chartcontainer').gaugeChart = this.buildGaugeChart(container);
-		container.down('#chartcontainer').ratioChart = this.buildRatioChart(container);
+		this.getWorkloadContainer().down('#chartcontainer').gaugeChart = this.buildGaugeChart();
+		this.getWorkloadContainer().down('#chartcontainer').ratioChart = this.buildRatioChart();
 	},
 	
 	onflipCardCommand: function(container){
@@ -216,9 +224,35 @@ Ext.define("studiplaner.controller.Workload", {
 		}
 	},
 	
+	onUpdateChartDataCommand: function(){
+		console.log("onUpdateChartDataCommand");
+		var jobWorkload = 0;
+		var studyWorkload = 0;
+		
+		var workStore = Ext.getStore("Work");
+		var modulesStore = Ext.getStore("Modules");
+		
+		var work = workStore.getData().items;
+		for(var i=0; i<work.length; i++){
+			jobWorkload += work[i].data.workload;
+		}	
+		
+		var modules = modulesStore.getData().items;
+		for(var i=0; i<modules.length; i++){
+			studyWorkload += modules[i].data.workload;
+		}
+		
+		this.setGaugeChartData(jobWorkload+studyWorkload);
+		this.setRatioChartData(studyWorkload, jobWorkload)
+		
+		console.log(work);
+		console.log(modules);
+		console.log(jobWorkload+studyWorkload);
+	},
+	
 	//------------------------------
     launch: function () {
-        this.callParent();
+        this.callParent();        
         console.log("launch");
     },    
     init: function () {

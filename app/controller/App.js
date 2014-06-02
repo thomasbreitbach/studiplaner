@@ -3,6 +3,7 @@
  */
 Ext.define('studiplaner.controller.App', {
   extend: 'Ext.app.Controller',
+  xtype: 'appcontroller',
   
   requires: [
 		'studiplaner.view.SlideMenu'
@@ -45,6 +46,7 @@ Ext.define('studiplaner.controller.App', {
 			break;
 		case "workload":
 			content = 2;
+			Ext.Viewport.fireEvent('updateChartDataCommand', this);
 			break;
 		case "calendar":
 			break;

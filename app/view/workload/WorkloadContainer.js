@@ -46,6 +46,7 @@
         	}, {
 				xtype: 'chartcontainer',
 				itemId: 'chartcontainer'
+
 			}
     	],
     	listeners: [
@@ -73,7 +74,6 @@
 		if(this.down('#chartcontainer').gaugeChart == null ||
 			this.down('#chartcontainer').ratioChart == null)
 				this.fireEvent('buildChartsCommand', this);
-	
 	},
 	
 	//Listener functions    
