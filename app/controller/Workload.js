@@ -41,7 +41,10 @@ Ext.define("studiplaner.controller.Workload", {
 				plotShadow: false
 			},
 			title: {
-				text: ''
+				text: '',
+				align: 'center',
+				verticalAlign: 'middle',
+				y: 50
 			},
 			exporting: { enabled: false },
 			credits: false,	
@@ -180,11 +183,22 @@ Ext.define("studiplaner.controller.Workload", {
 	
 	setGaugeChartData: function(workloadPerWeek){
 		console.log("setChartData: " + workloadPerWeek);
-		console.log(this.getWorkloadContainer().down('#chartcontainer').gaugeChart.get('workload'));
+		var gaugeChart = this.getWorkloadContainer().down('#chartcontainer').gaugeChart;
 		//update workload serie
-		this.getWorkloadContainer().down('#chartcontainer').gaugeChart.get('workload').setData([
-					workloadPerWeek
-				], true, false, true);
+		gaugeChart.get('workload').setData([
+				workloadPerWeek
+			], true, false, true);
+				
+		gaugeChart.setTitle({
+			text: workloadPerWeek,
+			align: 'center',
+			verticalAlign: 'middle',
+			y: 65,
+			style: {
+				'fontSize': '35px'
+			}
+		});
+		
 	},
 	
 	setRatioChartData: function(study, job){
