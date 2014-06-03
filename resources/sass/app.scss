@@ -5,34 +5,31 @@
 @import 'sencha-touch/default/all';
 
 // Custom code goes here..
-@include icon-font('icomoon', inline-font-files(
-  'icomoon/icomoon.woff', woff,
-  'icomoon/icomoon.ttf', truetype,
-  'icomoon/icomoon.svg', svg
-));
 
-@include icon-font('icomoon2', inline-font-files(
-  'icomoon2/icomoon.woff', woff,
-  'icomoon2/icomoon.ttf', truetype,
-  'icomoon2/icomoon.svg', svg
-));
 
+
+@include icon-font('icons', inline-font-files(
+  'icons/icomoon.woff', woff,
+  'icons/icomoon.ttf', truetype,
+  'icons/icomoon.svg', svg
+));
 
 // Examples of using the icon mixin:
 // @include icon('user');
-@include icon('briefcase2', '\e600', 'icomoon');
-@include icon('calendar', '\f073', 'icomoon');
-@include icon('external-link', '\f08e', 'icomoon');
-@include icon('upload', '\f093', 'icomoon');
-@include icon('briefcase', '\f0b1', 'icomoon');
-@include icon('magic', '\f0d0', 'icomoon');
-@include icon('smile', '\f118, 'icomoon');
-@include icon('frown', '\f119, 'icomoon');
-@include icon('meh', '\f11a, 'icomoon');
-@include icon('modules', '\f009, 'icomoon');
 
-//icomoon2
-@include icon('happy', '\e601', 'icomoon2');
-@include icon('smiley', '\e602', 'icomoon2');
-@include icon('sad', '\e603', 'icomoon2');
-@include icon('modules2', '\f009', 'icomoon2');
+@include icon('modules', '\e600', 'icons');
+@include icon('calendar', '\e601', 'icons');
+@include icon('bar-chart-o', '\e602', 'icons');
+@include icon('upload', '\e603', 'icons');
+@include icon('feedback', '\e604', 'icons');
+@include icon('briefcase', '\e605', 'icons');
+@include icon('magic', '\e606', 'icons');
+@include icon('dashboard', '\e607', 'icons');
+@include icon('github-alt', '\e608', 'icons');
+@include icon('happy', '\e609', 'icons');
+@include icon('smiley', '\e60a', 'icons');
+@include icon('sad', '\e60b', 'icons');
+
+
+
+

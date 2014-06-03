@@ -36,11 +36,11 @@ Ext.define('studiplaner.view.SlideMenu', {
 						itemId: 'modules'
 					}, {
 						title: 'Arbeitszeiten', 
-						iconCls: 'briefcase2',
+						iconCls: 'briefcase',
 						itemId: 'work'
 					}, {
 						title: 'Workload', 
-						iconCls: 'smile',
+						iconCls: 'dashboard',
 						itemId: 'workload'
 					}, {
 						title: 'Wochenplan',
