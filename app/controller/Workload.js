@@ -41,10 +41,13 @@ Ext.define("studiplaner.controller.Workload", {
 				plotShadow: false
 			},
 			title: {
-				text: '',
+				text: '0',
 				align: 'center',
 				verticalAlign: 'middle',
-				y: 50
+				y: 50,
+				style: {
+					'fontSize': '35px'
+				}
 			},
 			exporting: { enabled: false },
 			credits: false,	
@@ -174,8 +177,8 @@ Ext.define("studiplaner.controller.Workload", {
 				id: 'ratio',
 				innerSize: '50%',
 				data: [
-					['Studium',   45.0],
-					['Beruf',       26.8]
+					['Studium',   1],
+					['Beruf',       1]
 				]
 			}]
 		});
@@ -257,11 +260,12 @@ Ext.define("studiplaner.controller.Workload", {
 		}
 		
 		this.setGaugeChartData(jobWorkload+studyWorkload);
-		this.setRatioChartData(studyWorkload, jobWorkload)
 		
-		console.log(work);
-		console.log(modules);
-		console.log(jobWorkload+studyWorkload);
+		if(jobWorkload == 0 && studyWorkload == 0){
+			jobWorkload = 1;
+			studyWorkload = 1;
+		}
+		this.setRatioChartData(studyWorkload, jobWorkload);
 	},
 	
 	//------------------------------

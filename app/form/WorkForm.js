@@ -22,6 +22,7 @@ Ext.define('studiplaner.form.WorkForm', {
         		xtype: "toolbar",
         		docked: "top",
         		itemId: 'topToolbar',
+        		cls: 'two-buttons',
         		title: "Neue Arbeitsstelle",
         		items: [
         			{
