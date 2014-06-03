@@ -12,9 +12,12 @@
 Ext.Loader.setConfig({
     enabled : true,
     paths   : {
-        'Ext.ux': './ux'
+        'Ext.ux': 'ux'
     }
 });
+
+//~ Ext.Loader.setPath('Ext.ux.field.TimePicker', 'ux/field/TimePicker.js');
+//~ Ext.Loader.setPath('Ext.ux.picker.Time', 'ux/picker/Time.js');
 
 Ext.application({
     name: 'studiplaner',

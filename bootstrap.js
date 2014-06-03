@@ -17,6 +17,14 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
   "Ext.draw.engine.SvgContext.Gradient": "touch/src/draw/engine/SvgContext.js",
+  "Ext.ux": "ux",
+  "Ext.ux.ActionOverFlowMenuButton": "touch/src/ux/ActionOverFlowMenuButton.js",
+  "Ext.ux.ApplicationMenu": "touch/src/ux/ApplicationMenu.js",
+  "Ext.ux.ContextMenu": "touch/src/ux/ContextMenu.js",
+  "Ext.ux.MenuButton": "touch/src/ux/MenuButton.js",
+  "Ext.ux.TabMenuButton": "touch/src/ux/TabMenuButton.js",
+  "Ext.ux.device": "touch/src/ux/device",
+  "Ext.ux.parse": "touch/src/ux/parse",
   "studiplaner": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -619,6 +627,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
+  "Ext.log.Base": [],
+  "Ext.log.Logger": [],
+  "Ext.log.filter.Filter": [],
+  "Ext.log.filter.Priority": [],
+  "Ext.log.formatter.Default": [],
+  "Ext.log.formatter.Formatter": [],
+  "Ext.log.formatter.Identity": [],
+  "Ext.log.writer.Console": [],
+  "Ext.log.writer.DocumentTitle": [],
+  "Ext.log.writer.Remote": [],
+  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -727,6 +746,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.device.analytics.Cordova": [],
   "Ext.ux.device.twitter.Abstract": [],
   "Ext.ux.device.twitter.Cordova": [],
+  "Ext.ux.field.TimePicker": [
+    "Ext.form.TimePicker"
+  ],
   "Ext.ux.parse.Helper": [
     "ParseHelper"
   ],
@@ -736,6 +758,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.parse.Store": [],
   "Ext.ux.parse.association.Pointer": [],
   "Ext.ux.parse.association.Relation": [],
+  "Ext.ux.picker.Time": [
+    "Ext.TimePicker"
+  ],
   "Ext.viewport.Android": [],
   "Ext.viewport.Default": [],
   "Ext.viewport.Ios": [],
@@ -745,14 +770,23 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "studiplaner.controller.App": [],
   "studiplaner.controller.Modules": [],
+  "studiplaner.controller.Work": [],
+  "studiplaner.controller.Workload": [],
   "studiplaner.form.ModuleForm": [],
+  "studiplaner.form.WorkForm": [],
   "studiplaner.model.Module": [],
+  "studiplaner.model.Work": [],
+  "studiplaner.model.WorkingTime": [],
   "studiplaner.store.Modules": [],
-  "studiplaner.view.Main": [],
-  "studiplaner.view.ModulesList": [],
-  "studiplaner.view.ModulesListContainer": [],
-  "studiplaner.view.Navigation": [],
-  "studiplaner.view.Viewport": []
+  "studiplaner.store.Work": [],
+  "studiplaner.store.WorkingTime": [],
+  "studiplaner.view.SlideMenu": [],
+  "studiplaner.view.modules.ModulesList": [],
+  "studiplaner.view.modules.ModulesListContainer": [],
+  "studiplaner.view.work.WorkList": [],
+  "studiplaner.view.work.WorkListContainer": [],
+  "studiplaner.view.workload.ChartContainer": [],
+  "studiplaner.view.workload.WorkloadContainer": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1556,6 +1590,17 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
+  "Ext.log.Base": [],
+  "Ext.log.Logger": [],
+  "Ext.log.filter.Filter": [],
+  "Ext.log.filter.Priority": [],
+  "Ext.log.formatter.Default": [],
+  "Ext.log.formatter.Formatter": [],
+  "Ext.log.formatter.Identity": [],
+  "Ext.log.writer.Console": [],
+  "Ext.log.writer.DocumentTitle": [],
+  "Ext.log.writer.Remote": [],
+  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -1674,6 +1719,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.device.analytics.Cordova": [],
   "Ext.ux.device.twitter.Abstract": [],
   "Ext.ux.device.twitter.Cordova": [],
+  "Ext.ux.field.TimePicker": [
+    "widget.timepickerfield"
+  ],
   "Ext.ux.parse.Helper": [],
   "Ext.ux.parse.Model": [],
   "Ext.ux.parse.Proxy": [
@@ -1689,6 +1737,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.parse.association.Relation": [
     "association.relation"
   ],
+  "Ext.ux.picker.Time": [
+    "widget.timepicker"
+  ],
   "Ext.viewport.Android": [],
   "Ext.viewport.Default": [
     "widget.viewport"
@@ -1696,26 +1747,43 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
-  "studiplaner.controller.App": [],
+  "studiplaner.controller.App": [
+    "widget.appcontroller"
+  ],
   "studiplaner.controller.Modules": [],
+  "studiplaner.controller.Work": [],
+  "studiplaner.controller.Workload": [],
   "studiplaner.form.ModuleForm": [
     "widget.moduleform"
   ],
-  "studiplaner.model.Module": [],
-  "studiplaner.store.Modules": [],
-  "studiplaner.view.Main": [
-    "widget.main"
+  "studiplaner.form.WorkForm": [
+    "widget.workform"
   ],
-  "studiplaner.view.ModulesList": [
+  "studiplaner.model.Module": [],
+  "studiplaner.model.Work": [],
+  "studiplaner.model.WorkingTime": [],
+  "studiplaner.store.Modules": [],
+  "studiplaner.store.Work": [],
+  "studiplaner.store.WorkingTime": [],
+  "studiplaner.view.SlideMenu": [
+    "widget.slidemenu"
+  ],
+  "studiplaner.view.modules.ModulesList": [
     "widget.moduleslist"
   ],
-  "studiplaner.view.ModulesListContainer": [
+  "studiplaner.view.modules.ModulesListContainer": [
     "widget.moduleslistcontainer"
   ],
-  "studiplaner.view.Navigation": [
-    "widget.navigation"
+  "studiplaner.view.work.WorkList": [
+    "widget.worklist"
   ],
-  "studiplaner.view.Viewport": [
-    "widget.app_viewport"
+  "studiplaner.view.work.WorkListContainer": [
+    "widget.worklistcontainer"
+  ],
+  "studiplaner.view.workload.ChartContainer": [
+    "widget.chartcontainer"
+  ],
+  "studiplaner.view.workload.WorkloadContainer": [
+    "widget.workloadcontainer"
   ]
 });

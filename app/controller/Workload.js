@@ -185,7 +185,7 @@ Ext.define("studiplaner.controller.Workload", {
 	},
 	
 	setGaugeChartData: function(workloadPerWeek){
-		console.log("setChartData: " + workloadPerWeek);
+		console.log("setGaugeChartData: " + workloadPerWeek);
 		var gaugeChart = this.getWorkloadContainer().down('#chartcontainer').gaugeChart;
 		//update workload serie
 		gaugeChart.get('workload').setData([
@@ -193,20 +193,19 @@ Ext.define("studiplaner.controller.Workload", {
 			], true, false, true);
 				
 		gaugeChart.setTitle({
-			text: workloadPerWeek,
+			text: workloadPerWeek.toString(),
 			align: 'center',
 			verticalAlign: 'middle',
 			y: 65,
 			style: {
-				'fontSize': '35px'
+				'fontSize': '2.0em'
 			}
 		});
 		
 	},
 	
 	setRatioChartData: function(study, job){
-		console.log("setChartData: " + study + " " + job);
-		console.log(this.getWorkloadContainer().down('#chartcontainer').ratioChart);
+		console.log("setRatioChartData: " + study + " " + job);
 		//update ratio serie
 		this.getWorkloadContainer().down('#chartcontainer').ratioChart.get('ratio').setData([
 					['Studium', study],
@@ -230,11 +229,11 @@ Ext.define("studiplaner.controller.Workload", {
 		var activeItem = chartContainer.getActiveItem().getItemId();
 
 		switch(activeItem){
-		case "gaugechart":
+		case "gaugeFieldset":
 			chartContainer.setActiveItem(1);
 			toggleButton.setText("Stunden");
 			break;
-		case "ratiochart":
+		case "ratioFieldset":
 			chartContainer.setActiveItem(0);
 			toggleButton.setText("Verteilung");
 			break;
