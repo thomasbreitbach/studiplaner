@@ -55,7 +55,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         		{
 					xtype: 'segmentedbutton',
 					itemId: 'typeButton',
-					margin: '0 0 10px 0',
+					margin: '0 4 10px 4',
 					allowMultiple: false,
 					layout:{
 						type:'hbox',
@@ -66,19 +66,19 @@ Ext.define('studiplaner.form.ModuleForm', {
 						{
 							text: 'Normal',
 							pressed: true,
-							width: '33%',
+							width: '32%',
 							id: 'normal',
 							value: 0
 						},
 						{
 							text: 'Block',
-							width: '33%',
+							width: '32%',
 							id: 'block',
 							value: 1
 						},
 						{
-							text: 'ohne Vorlesung',
-							width: '33%',
+							text: 'ohne V.',
+							width: '32%',
 							id: 'ov',
 							value: 2
 						}
@@ -131,7 +131,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						{
 							text: 'Hoch',
 							id: 'interest_good',
-							width: '33%',
+							width: '32%',
 							value: 0,
 							//~ iconCls: 'happy',
 							iconMask: true,
@@ -140,7 +140,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						{
 							text: 'Mittel',
 							id: 'interest_medium',
-							width: '33%',
+							width: '32%',
 							value: 1,
 							//~ iconCls: 'smiley',
 							iconMask: true
@@ -148,7 +148,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 						{
 							text: 'Niedrig',
 							id: 'interest_bad',
-							width: '33%',
+							width: '32%',
 							value: 2,
 							//~ iconCls: 'sad',
 							iconMask: true
@@ -173,19 +173,19 @@ Ext.define('studiplaner.form.ModuleForm', {
 						{
 							text: 'Hoch',
 							id: 'severity_good',
-							width: '33%',
+							width: '32%',
 							value: 0
 						},
 						{
 							text: 'Mittel',
 							id: 'severity_medium',
-							width: '33%',
+							width: '32%',
 							value: 1
 						},
 						{
 							text: 'Niedrig',
 							id: 'severity_bad',
-							width: '33%',
+							width: '32%',
 							value: 2
 						}
 					]
@@ -195,7 +195,7 @@ Ext.define('studiplaner.form.ModuleForm', {
                 xtype: 'button',
                 text: 'Hinzufügen',
                 ui: 'confirm',
-                margin: '50 5 15 5',
+                margin: '40 6 15 6',
                 itemId: "addButton",
             }, {
         		xtype: "toolbar",
