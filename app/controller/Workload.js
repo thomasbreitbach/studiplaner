@@ -148,7 +148,7 @@ Ext.define("studiplaner.controller.Workload", {
 				text: 'Workload-Verteilung',
 				align: 'center',
 				verticalAlign: 'middle',
-				y: -80
+				y: -100
 			},
 			exporting: { enabled: false },
 			credits: false,
@@ -177,8 +177,8 @@ Ext.define("studiplaner.controller.Workload", {
 				id: 'ratio',
 				innerSize: '50%',
 				data: [
-					['Studium',   1],
-					['Beruf',       1]
+					['Studium', 1],
+					['Beruf', 1]
 				]
 			}]
 		});

@@ -77,7 +77,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 							value: 1
 						},
 						{
-							text: 'ohne V.',
+							text: 'ohne Vorl.',
 							width: '32%',
 							id: 'ov',
 							value: 2
