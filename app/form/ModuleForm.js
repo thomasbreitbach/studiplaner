@@ -129,28 +129,28 @@ Ext.define('studiplaner.form.ModuleForm', {
 					},
 					items: [
 						{
-							text: 'Hoch',
+							//~ text: 'Hoch',
 							id: 'interest_good',
 							width: '32%',
 							value: 0,
-							//~ iconCls: 'happy',
+							iconCls: 'happy',
 							iconMask: true,
 							
 						},
 						{
-							text: 'Mittel',
+							//~ text: 'Mittel',
 							id: 'interest_medium',
 							width: '32%',
 							value: 1,
-							//~ iconCls: 'smiley',
+							iconCls: 'smiley',
 							iconMask: true
 						},
 						{
-							text: 'Niedrig',
+							//~ text: 'Niedrig',
 							id: 'interest_bad',
 							width: '32%',
 							value: 2,
-							//~ iconCls: 'sad',
+							iconCls: 'sad',
 							iconMask: true
 						}
 					]
@@ -158,7 +158,8 @@ Ext.define('studiplaner.form.ModuleForm', {
 				}, {
 					title: 'yourServerity',
 					html: ['Eingeschätzter Schwierigkeitsgrad'],
-					styleHtmlContent: true
+					styleHtmlContent: true,
+					margin: '15px 0 0 0'
 				},  {
 					xtype: 'segmentedbutton',
 					itemId: 'severityButton',
@@ -171,22 +172,25 @@ Ext.define('studiplaner.form.ModuleForm', {
 					},
 					items: [
 						{
-							text: 'Hoch',
+							//~ text: 'Hoch',
 							id: 'severity_good',
 							width: '32%',
-							value: 0
+							value: 0,
+							iconCls: 'happy'
 						},
 						{
-							text: 'Mittel',
+							//~ text: 'Mittel',
 							id: 'severity_medium',
 							width: '32%',
-							value: 1
+							value: 1,
+							iconCls: 'smiley'
 						},
 						{
-							text: 'Niedrig',
+							//~ text: 'Niedrig',
 							id: 'severity_bad',
 							width: '32%',
-							value: 2
+							value: 2,
+							iconCls: 'sad'
 						}
 					]
 				
