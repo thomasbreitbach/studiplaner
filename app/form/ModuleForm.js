@@ -50,7 +50,8 @@ Ext.define('studiplaner.form.ModuleForm', {
         		items: [{
 					title: 'typeLabel',
 					html: ['Moduleart'],
-					styleHtmlContent: true
+					styleHtmlContent: true,
+					margin: '0 0 0 -8px',
 				},
         		{
 					xtype: 'segmentedbutton',
@@ -117,10 +118,12 @@ Ext.define('studiplaner.form.ModuleForm', {
 				{
 					title: 'yourInterest',
 					html: ['Persönliches Interesse'],
-					styleHtmlContent: true
+					styleHtmlContent: true,
+					margin: '0 0 0 -8px',
 				}, {
 					xtype: 'segmentedbutton',
 					itemId: 'interestButton',
+					margin: '0 0 15px 0',
 					allowMultiple: false,
 					layout:{
 						type:'hbox',
@@ -159,7 +162,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 					title: 'yourServerity',
 					html: ['Eingeschätzter Schwierigkeitsgrad'],
 					styleHtmlContent: true,
-					margin: '15px 0 0 0'
+					margin: '0 0 0 -8px',
 				},  {
 					xtype: 'segmentedbutton',
 					itemId: 'severityButton',
