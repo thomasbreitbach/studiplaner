@@ -66,7 +66,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 					items: [
 						{
 							text: 'Normal',
-							pressed: true,
+							//~ pressed: true,
 							width: '32%',
 							id: 'normal',
 							value: 0
@@ -145,6 +145,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 							id: 'interest_medium',
 							width: '32%',
 							value: 1,
+							pressed: true,
 							iconCls: 'smiley',
 							iconMask: true
 						},
@@ -186,6 +187,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 							id: 'severity_medium',
 							width: '32%',
 							value: 1,
+							pressed: true,
 							iconCls: 'smiley'
 						},
 						{

@@ -52,7 +52,7 @@ Ext.define("studiplaner.controller.Modules", {
     	//set form fields
     	moduleForm.setRecord(record);
     	
-    	//set typButton	
+    	//set typeButton	
     	var typeButton = moduleForm.down('#typeButton');
     	typeButton.setPressedButtons([record.data.type]);
     	
@@ -105,8 +105,34 @@ Ext.define("studiplaner.controller.Modules", {
 		});
 	},
 	
-	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem) {
-		return Math.round(ects * hPerEcts / weeksPerSem);
+	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem, interest, severity) {
+		
+		switch(interest){
+		case 0:
+			interest = 0.9;
+			break;
+		case 1:
+			break;
+		case 2:
+			interest = 1.1;
+			break;
+		}
+		
+		switch(severity){
+		case 0:
+			severity = 0.9;
+			break;
+		case 1:
+			break;
+		case 2:
+			severity = 1.1;
+			break;
+		}
+		
+		var workload = (ects * hPerEcts / weeksPerSem) * interest * severity;
+		console.log(workload);
+		console.log(Math.round(workload));
+		return Math.round(workload);
 	},
     
     buildChart: function(){
@@ -169,8 +195,8 @@ Ext.define("studiplaner.controller.Modules", {
 	        ects: null,
 	        sws: null,
 	        workload: null,
-	        interest: null,
-	        severity: null
+	        interest: 1,
+	        severity: 1
 	    });
 	    this.activateModuleForm(newModule);
 	},
@@ -274,6 +300,16 @@ Ext.define("studiplaner.controller.Modules", {
 				attribute = "severity";
 				break;
 		}	
+		
+		//calc workload
+		var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
+		var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
+		var ects = moduleForm.down('#numberfield_ects').getValue();		
+		if(ects != null){
+			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
+			moduleForm.workloadPerWeek = workloadPerWeek;
+		}
+		
 		currentModule.set(attribute, button.value);
 	},
 	
@@ -297,8 +333,11 @@ Ext.define("studiplaner.controller.Modules", {
 		}
 				
 		//calc workload
-		if(ects != 0 || sws != 0){	
-			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM);
+		if(ects != 0 || sws != 0){
+			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
+			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
+			
+			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
 			presencePerWeek = sws * H_PER_SWS;
 			selfStudyPerWeek = workloadPerWeek - presencePerWeek;
 		}		
