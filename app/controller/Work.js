@@ -150,16 +150,20 @@ Ext.define("studiplaner.controller.Work", {
 	
 	toggleTimeUI: function (mode) {
 		var workForm = this.getWorkForm();
+		
+		var modeButton = workForm.down('#modeButton');
+    	modeButton.setPressedButtons([mode]);
+
 		switch(mode){
 		case 0:
 			workForm.down('#timeContainer').show();
 			workForm.down('#addWorkingTimeButton').show();
-			workForm.down('#hours').hide();
+			workForm.down('#hours_fieldset').hide();
 			break;
 		case 1:
 			workForm.down('#timeContainer').hide();
 			workForm.down('#addWorkingTimeButton').hide();
-			workForm.down('#hours').show();
+			workForm.down('#hours_fieldset').show();
 			break;
 		}
 	},
@@ -174,36 +178,37 @@ Ext.define("studiplaner.controller.Work", {
     	 	
     	//set form fields
     	workForm.setRecord(record);
-    	
-    	var modeButton = workForm.down('#modeButton');
-    	modeButton.setPressedButtons([record.data.timeMode]);
-    	
+ 	
     	this.toggleTimeUI(record.data.timeMode);
     	
-    	//set working times
-    	var timeContainer = workForm.down('#timeContainer');
-    	timeContainer.removeAll(true, true);
-    	var times = record.workingTimes();
-    	times.load(); //important!
-    	console.log(times);
-    	if(times.getTotalCount() > 0){
-			for(var i=0; i<times.data.length; i++){
-				var workingTime = times.data.items[i].data;			
-				var fieldset = this.addWorkingTimeToFieldset(i);
-				counter++;
-				
-				fieldset.down('#day'+i).setValue(workingTime.day);
-	
-				var begin = new Date(workingTime.begin);
-				fieldset.down('#beginTime'+i).setValue(begin);
-				
-				var end = new Date(workingTime.end);
-				fieldset.down('#endTime'+i).setValue(end);				
-			}
-    	}else{
-			this.addWorkingTimeToFieldset(workForm.counter);
-		}
+    	if(record.data.timeMode == 0){
+			//set working times -> Detail
+			var timeContainer = workForm.down('#timeContainer');
+			timeContainer.removeAll(true, true);
+			var times = record.workingTimes();
+			times.load(); //important!
+			console.log(times);
+			if(times.getTotalCount() > 0){
+				for(var i=0; i<times.data.length; i++){
+					var workingTime = times.data.items[i].data;			
+					var fieldset = this.addWorkingTimeToFieldset(i);
+					counter++;
+					
+					fieldset.down('#day'+i).setValue(workingTime.day);
 		
+					var begin = new Date(workingTime.begin);
+					fieldset.down('#beginTime'+i).setValue(begin);
+					
+					var end = new Date(workingTime.end);
+					fieldset.down('#endTime'+i).setValue(end);				
+				}
+			}else{
+				this.addWorkingTimeToFieldset(workForm.counter);
+			}
+		}
+			
+		workForm.down('#numberfield_hours').setValue(record.data.workload);
+			
     	//Change behaviour in edit mode
     	var submitButton = workForm.getComponent('addButton');
     	var topToolbar = workForm.getComponent('topToolbar');
@@ -273,10 +278,12 @@ Ext.define("studiplaner.controller.Work", {
 	    var currentWork = workForm.getRecord();
 	    var workingTimes = currentWork.workingTimes();
 	    var newValues = workForm.getValues();
+	    var timeMode = workForm.down('#modeButton').getPressedButtons()[0].value
 	    console.log(currentWork);
 
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
+	    currentWork.set("timeMode", timeMode);
 	    
 	    //Validate!	
 		var errors = currentWork.validate();
@@ -286,8 +293,8 @@ Ext.define("studiplaner.controller.Work", {
 	        return;
 	    }
 	    
-	    
-	    if(currentWork.timeMode == 0){
+	    console.log("TimeMode: " + currentWork.timeMode);
+	    if(timeMode == 0){
 			var begins=[] , ends=[];
 			
 			workingTimes.removeAll(true, true); //TODO Performance!
@@ -317,8 +324,11 @@ Ext.define("studiplaner.controller.Work", {
 			currentWork.set("workload", Math.round(workload));		
 			
 	    }else{
-			console.log(workForm.down('#hours'));
-			currentWork.set("workload", workForm.down('#hours').getValue());
+			console.log(workForm.down('#numberfield_hours'));
+			currentWork.set("workload", workForm.down('#numberfield_hours').getValue());
+			
+			//delete workingTimes entries
+			workingTimes.removeAll();
 		}	
 		
 		var workStore = Ext.getStore("Work");
@@ -374,13 +384,8 @@ Ext.define("studiplaner.controller.Work", {
 	},
 	
 	onModeButtonToggle: function (form, container, button){
-		console.log('onModeButtonToggle');
-		
-		var timeContainer = this.getWorkForm().down('#timeContainer');
-		var hoursPerWeek = this.getWorkForm().down('#hours');
-		var addWorkingTimeButton = this.getWorkForm().down('#addWorkingTimeButton');
-		
-		this.toggleTimeUI(button.value);
+		console.log('onModeButtonToggle: ' + button.value);	
+		this.toggleTimeUI(button.value);	
 	},
 	
 	//------------------------------

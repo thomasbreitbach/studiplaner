@@ -51,6 +51,7 @@ Ext.define('studiplaner.form.WorkForm', {
 				xtype: 'segmentedbutton',
 				itemId: 'modeButton',
 				margin: '0 11px 0 11px',
+				allowMultiple: false,
 				layout:{
 					type:'hbox',
 					align:'center',
@@ -61,16 +62,12 @@ Ext.define('studiplaner.form.WorkForm', {
 						id: 'detail',
 						value: 0,
 						width: '50%',
-						text: 'Detail',
-						iconCls: '',
-						iconMask: true
+						text: 'Detail'
 					}, {
 						id: 'hours',
 						width: '50%',
 						value: 1,
-						text: 'Stunden',
-						iconCls: '',
-						iconMask: true	
+						text: 'Stunden'
 					}
 				]
 			}, {
@@ -78,11 +75,11 @@ Ext.define('studiplaner.form.WorkForm', {
 				itemId: 'timeContainer'
 			}, { 
 				xtype: 'fieldset',
-				itemId: 'hours',
+				itemId: 'hours_fieldset',
 				items: [
 					{
 		                name: 'hours',
-		                itemId: 'hours',
+		                itemId: 'numberfield_hours',
 		                xtype: 'numberfield',
 		                label: 'Std./Woche'
 		            }

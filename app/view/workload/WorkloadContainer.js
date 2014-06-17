@@ -13,7 +13,7 @@
 		'Ext.Menu',
 		'studiplaner.view.workload.ChartContainer'
 	],
-	  
+
   	config: {
 		layout: {
         	type: 'fit',
@@ -46,7 +46,6 @@
         	}, {
 				xtype: 'chartcontainer',
 				itemId: 'chartcontainer'
-
 			}
     	],
     	listeners: [
