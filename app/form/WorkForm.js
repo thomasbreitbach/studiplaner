@@ -48,8 +48,45 @@ Ext.define('studiplaner.form.WorkForm', {
 		            }
         		]
         	}, {
+				xtype: 'segmentedbutton',
+				itemId: 'modeButton',
+				margin: '0 11px 0 11px',
+				layout:{
+					type:'hbox',
+					align:'center',
+					pack:'center'
+				},
+				items: [
+					{
+						id: 'detail',
+						value: 0,
+						width: '50%',
+						text: 'Detail',
+						iconCls: '',
+						iconMask: true
+					}, {
+						id: 'hours',
+						width: '50%',
+						value: 1,
+						text: 'Stunden',
+						iconCls: '',
+						iconMask: true	
+					}
+				]
+			}, {
 				xtype: 'container',
 				itemId: 'timeContainer'
+			}, { 
+				xtype: 'fieldset',
+				itemId: 'hours',
+				items: [
+					{
+		                name: 'hours',
+		                itemId: 'hours',
+		                xtype: 'numberfield',
+		                label: 'Std./Woche'
+		            }
+				]
 			}, {
                 xtype: 'button',
                 text: 'Hinzufügen',
@@ -95,7 +132,11 @@ Ext.define('studiplaner.form.WorkForm', {
 				delegate: "#addWorkingTimeButton",
         		event: "tap",
         		fn: "onAddWorkingTimeButtonTap"
-        	}
+        	}, {
+				delegate: "#modeButton",
+        		event: "toggle",
+        		fn: "onModeButtonToggle"
+			}, 
         ]     
     },
     
@@ -119,5 +160,11 @@ Ext.define('studiplaner.form.WorkForm', {
 	onDeleteWorkingTimeButtonTap: function(button, e, eOpts){
 		console.log('delWorkingTimeCommand');
 		this.fireEvent('delWorkingTimeCommand', this, button);
-	}
+	},
+	onModeButtonToggle: function (container, button, isPressed, eOpts){
+		console.log("segmentedButtonCommand");
+		if(isPressed){
+			this.fireEvent('modeButtonCommand', this, container, button);
+		}
+	},
 });

@@ -17,6 +17,7 @@ Ext.define('studiplaner.model.Work', {
         	{ name: 'id', type: 'auto' },
             { name: 'name', type: 'string' },
             { name: 'location', type: 'string' },
+            { name: 'timeMode', type: 'int' },
             { name: 'workload', type: 'int' }
         ],
         
