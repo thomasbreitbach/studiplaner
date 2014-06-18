@@ -105,7 +105,7 @@ Ext.define("studiplaner.controller.Workload", {
 					rotation: 'auto'
 				},
 				title: {
-					text: 'Arbeiststunden<br/>pro Woche'
+					text: 'Arbeitsstunden<br/>pro Woche'
 				},
 				plotBands: [{
 					from: 0,

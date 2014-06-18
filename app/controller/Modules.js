@@ -224,6 +224,7 @@ Ext.define("studiplaner.controller.Modules", {
 	    var errors = currentModule.validate();
 	
 	    if (!errors.isValid()) {
+			console.log(Ext.MessageBox);
 	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
 	        currentModule.reject();
 	        return;
@@ -239,19 +240,19 @@ Ext.define("studiplaner.controller.Modules", {
 	    this.activateModulesList();
 	},
 	
-	onSwipeNoteCommand: function(list, record){
-		console.log("onSwipeNoteCommand");
-		
-		Ext.Msg.confirm('Löschen?', 'Möchtest du den Eintrag löschen', function(btn){
-			if(btn == 'yes'){
-				var notesStore = Ext.getStore("Notes");
-				notesStore.removeAt(record);
-				notesStore.sync();
-			}else{
-				return false;
-			}
-		});		
-	},
+	//~ onSwipeNoteCommand: function(list, record){
+		//~ console.log("onSwipeNoteCommand");
+		//~ 
+		//~ Ext.Msg.confirm('Löschen?', 'Möchtest du den Eintrag löschen', function(btn){
+			//~ if(btn == 'yes'){
+				//~ var notesStore = Ext.getStore("Notes");
+				//~ notesStore.removeAt(record);
+				//~ notesStore.sync();
+			//~ }else{
+				//~ return false;
+			//~ }
+		//~ });		
+	//~ },
 	
 	onDeleteModuleCommand: function () {
 	    console.log("onDeleteNoteCommand");
@@ -260,17 +261,30 @@ Ext.define("studiplaner.controller.Modules", {
 		var currentModule = moduleForm.getRecord();
 		var controller = this;
 		
-		Ext.Msg.confirm('Löschen', 'Möchtest du das Modul "' + currentModule.data.name + '" wirklich löschen?', function(btn){
-			if(btn == 'yes'){
-				var modulesStore = Ext.getStore("Modules");		
-				modulesStore.remove(currentModule);
-				modulesStore.sync();
+		Ext.Msg.show({
+			title: 'Modul löschen?',
+			message: 'Möchtest du das Modul "' + currentModule.data.name + '" wirklich löschen?',
+			buttons: [{
+				itemId: 'no',
+				text: 'Nein',
+				ui: 'action'
+			}, {
+				itemId: 'yes',
+				text: 'Ja',
+				ui: 'action'
+			}],		
+			fn: function(text,btn) {
+				if(text == 'yes'){
+					var modulesStore = Ext.getStore("Modules");		
+					modulesStore.remove(currentModule);
+					modulesStore.sync();
 				
-				controller.activateModulesList();
-			}else{
-				return false;
+					controller.activateModulesList();
+				}else{
+					return false;
+				}
 			}
-		});  
+		});
 	},
 	
 	onBackToHomeCommand: function () {

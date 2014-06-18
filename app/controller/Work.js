@@ -349,21 +349,34 @@ Ext.define("studiplaner.controller.Work", {
 		var currentWork = workForm.getRecord();
 		var controller = this;
 		
-		Ext.Msg.confirm('Löschen', 'Möchtest du die Arbeitsstelle "' + currentWork.data.name + '" wirklich löschen?', function(btn){
-			if(btn == 'yes'){
-				var workStore = Ext.getStore("Work");		
-				workStore.remove(currentWork);
-				var workingTimes = currentWork.workingTimes();
-				workingTimes.removeAll(true, true)
-				
-				workingTimes.sync();
-				workStore.sync();
-				
-				controller.activateWorkList();
-			}else{
-				return false;
+		Ext.Msg.show({
+			title: 'Arbeitsstelle löschen?',
+			message: 'Möchtest du die Arbeitsstelle "' + currentWork.data.name + '" wirklich löschen?',
+			buttons: [{
+				itemId: 'no',
+				text: 'Nein',
+				ui: 'action'
+			}, {
+				itemId: 'yes',
+				text: 'Ja',
+				ui: 'action'
+			}],	
+			fn: function(text,btn) {
+				if(text == 'yes'){
+					var workStore = Ext.getStore("Work");		
+					workStore.remove(currentWork);
+					var workingTimes = currentWork.workingTimes();
+					workingTimes.removeAll(true, true)
+					
+					workingTimes.sync();
+					workStore.sync();
+					
+					controller.activateWorkList();
+				}else{
+					return false;
+				}
 			}
-		});  
+		});
 	},
 	
 	onBackToHomeCommand: function () {
