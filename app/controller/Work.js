@@ -389,11 +389,18 @@ Ext.define("studiplaner.controller.Work", {
 	},	
 	onDelWorkingTimeCommand: function(form, button){
 		console.log('onDelWorkingTimeCommand');
-		var id = button.getItemId();
 		var workForm = this.getWorkForm();
 		var timeContainer = workForm.down('#timeContainer');
-		var remove = workForm.down('#timeData'+id);
-		timeContainer.remove(remove, true);
+		console.log(timeContainer.getItems());
+		if(timeContainer.getItems().length > 1){
+			//delete item
+			var id = button.getItemId();
+			var remove = workForm.down('#timeData'+id);
+			timeContainer.remove(remove, true);
+		}else{
+			//show msg
+			Ext.Msg.alert('Löschen fehlgeschlagen', "Die Arbeitszeit konnte nicht gelöscht werden, weil mindestens eine Arbeitszeit angegeben werden muss.", Ext.emptyFn);
+		}		
 	},
 	
 	onModeButtonToggle: function (form, container, button){

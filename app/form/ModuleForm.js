@@ -66,7 +66,6 @@ Ext.define('studiplaner.form.ModuleForm', {
 					items: [
 						{
 							text: 'Normal',
-							//~ pressed: true,
 							width: '32%',
 							id: 'normal',
 							value: 0
