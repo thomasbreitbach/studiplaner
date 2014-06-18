@@ -400,7 +400,7 @@ Ext.define("studiplaner.controller.Work", {
 		}else{
 			//show msg
 			Ext.Msg.alert('Löschen fehlgeschlagen', "Die Arbeitszeit konnte nicht gelöscht werden, weil mindestens eine Arbeitszeit angegeben werden muss.", Ext.emptyFn);
-		}		
+		}
 	},
 	
 	onModeButtonToggle: function (form, container, button){

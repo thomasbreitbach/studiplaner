@@ -22,7 +22,7 @@
 						title: 'gauge',
 						itemId: 'gaugechart',
 						width: '96%',
-						height: '340px'
+						height: '65%'
 						//~ margin: '-45px 0 20px 0'
 					}
 				]
@@ -34,7 +34,7 @@
 						title: 'ratio',
 						itemId: 'ratiochart',
 						width: '96%',
-						height: '340px',
+						height: '65%'
 						//~ margin: '-85px 0 20px 0'
 					}	
 				]

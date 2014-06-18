@@ -14,7 +14,8 @@ Ext.define('studiplaner.controller.App', {
             viewPort: "viewport",
             modulesListContainer: "moduleslistcontainer",
             workListContainer: "worklistcontainer",
-            workloadContainer: 'workloadcontainer'
+            workloadContainer: 'workloadcontainer',
+            scheduleContainer: "schedulecontainer"
         },
         control: {
             viewPort: {
@@ -30,7 +31,9 @@ Ext.define('studiplaner.controller.App', {
 			workloadContainer: {
 				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
 			},
-			
+			scheduleContainer: {
+				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
+			}	
         }
     },
     
@@ -46,10 +49,10 @@ Ext.define('studiplaner.controller.App', {
 			break;
 		case "workload":
 			content = 2;
-			
 			Ext.Function.defer(Ext.Viewport.fireEvent('updateChartDataCommand', this), 500, this);
 			break;
 		case "calendar":
+			content = 3;
 			break;
 		case "assistent":
 			break;

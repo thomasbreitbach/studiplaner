@@ -45,7 +45,14 @@
         		]
         	}, {
 				xtype: 'chartcontainer',
-				itemId: 'chartcontainer'
+				itemId: 'chartcontainer',
+				//~ height: '85%'
+			}, {
+				xtype: 'button',
+				ui: 'normal',
+				text: 'Übersicht Arbeitsstunden &gt;',
+				docked: 'bottom',
+				margin: '15px 11px 15px 11px'
 			}
     	],
     	listeners: [
