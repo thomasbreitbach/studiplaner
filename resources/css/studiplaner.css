@@ -1,6 +1,10 @@
 .x-toolbar.two-buttons .x-title {
     max-width: 57%;
 }
+.x-toolbar.one-button .x-title {
+    max-width: 80%;
+    padding-left: 2.1em;
+}
 .x-list.slidemenu{
 	background-color: #31394a;
 }
