@@ -30,7 +30,7 @@ Ext.application({
 		'SlideMenu',
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
-        'workload.WorkloadContainer',
+        'workload.WorkloadContainer', 'workload.OverviewList', 'workload.OverviewListContainer',
         'schedule.ScheduleContainer', 'schedule.ScheduleCarousel'
     ],
     controllers: [
@@ -67,6 +67,9 @@ Ext.application({
 	
 		Ext.create('studiplaner.form.ModuleForm');
 		Ext.create('studiplaner.form.WorkForm');
+		Ext.create('studiplaner.view.workload.OverviewListContainer');
+		
+
 		
 		var modulesListContainer = {
 			xtype: "moduleslistcontainer"
@@ -80,6 +83,7 @@ Ext.application({
 		var scheduleContainer = {
 			xtype: "schedulecontainer"
 		};
+		
 	
 		studiplaner.view.SlideMenu.setMenu();
 		

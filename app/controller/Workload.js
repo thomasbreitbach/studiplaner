@@ -6,12 +6,14 @@ Ext.define("studiplaner.controller.Workload", {
     
     requires: [
 		'Ext.ComponentQuery',
-		'studiplaner.controller.App'
+		'studiplaner.controller.App',
+		'studiplaner.view.workload.OverviewList'
     ],
     
     config: {
         refs: {
             workloadContainer: "workloadcontainer",
+            workloadOverviewListContainer: "workloadoverviewlistcontainer"
         },
         control: {
             workloadContainer: {
@@ -23,11 +25,16 @@ Ext.define("studiplaner.controller.Workload", {
             },
             'viewport': {
 				updateChartDataCommand: 'onUpdateChartDataCommand'
+			},
+			workloadOverviewListContainer: {
+				backCommand: 'onOverviewListContainerBackCommand'
 			}     
         }
     },
-
-    
+    // Transitions
+    slideLeftTransition: { type: 'slide', direction: 'left' },
+    slideRightTransition: { type: 'slide', direction: 'right' },
+ 
     //************
 	//**HELPER**
 	//************
@@ -270,6 +277,17 @@ Ext.define("studiplaner.controller.Workload", {
 	
 	onOverviewListCommand: function () { 
 		console.log("onOverviewListCommand");
+		overviewListContainer = this.getWorkloadOverviewListContainer();
+		Ext.Viewport.animateActiveItem(overviewListContainer, this.slideLeftTransition);
+	},
+	
+	//*********************
+	//**OverviewContainer**
+	//*********************
+	onOverviewListContainerBackCommand: function () {
+		console.log("onOverviewListContainerBackCommand");
+		workloadContainer = this.getWorkloadContainer();
+		Ext.Viewport.animateActiveItem(workloadContainer, this.slideRightTransition);
 	},
 	
 	//------------------------------

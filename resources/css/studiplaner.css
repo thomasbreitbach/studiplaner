@@ -60,3 +60,9 @@
 {
     padding:10px;
 }
+.workload-overview-list-header
+{
+	text-align: center;
+	margin-top: 0.3em;
+	font-weight:lighter;
+}
