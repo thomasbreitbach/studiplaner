@@ -49,6 +49,7 @@ Ext.define('studiplaner.view.modules.ModulesListContainer', {
 		var modulesList = {
     		xtype: "moduleslist",
     		store: Ext.getStore("Modules"),
+    		itemHeight: 47,
     		listeners: {
        		 	itemtap: { fn: this.onModulesListTap, scope: this }
         	}
