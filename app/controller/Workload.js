@@ -155,8 +155,8 @@ Ext.define("studiplaner.controller.Workload", {
 			title: {
 				text: 'Workload-Verteilung',
 				align: 'center',
-				verticalAlign: 'middle',
-				y: -100
+				verticalAlign: 'top',
+				y: 50
 			},
 			exporting: { enabled: false },
 			credits: false,
