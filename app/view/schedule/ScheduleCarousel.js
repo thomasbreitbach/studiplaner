@@ -4,11 +4,11 @@
 Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
     extend: "Ext.carousel.Carousel",
     alias: "widget.schedulecarousel",
-    
+ 
     config: {
 		fullscreen: true,
 		direction: 'horizontal',
-		itemLength: window.innerWidth-60,
+		itemLength: (window.innerWidth*80)/100,
 		defaults: {
 			styleHtmlContent: true
 		},
