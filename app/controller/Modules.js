@@ -1,7 +1,7 @@
 /**
  * @author Thomas Breitbach
  */
-const H_PER_ECTS = 30;
+const H_PER_ECTS = 25;
 const H_PER_SWS = 0.75;
 const WEEKS_PER_SEM = 17;
 const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
