@@ -224,6 +224,8 @@ Ext.define("studiplaner.controller.Work", {
 			topToolbar.setTitle("Neues Arbeitsstelle");
 			deleteButton.hide();
 		}	
+		
+		workForm.getScrollable().getScroller().scrollToTop();
     	Ext.Viewport.animateActiveItem(workForm, this.slideLeftTransition);
 	},
 	

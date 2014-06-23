@@ -80,6 +80,7 @@ Ext.define("studiplaner.controller.Modules", {
 			bottomToolbar.hide();
 		}
 		
+		moduleForm.getScrollable().getScroller().scrollToTop();
     	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);
 	},
 	
