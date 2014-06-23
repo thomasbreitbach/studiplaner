@@ -49,6 +49,7 @@
 				//~ height: '85%'
 			}, {
 				xtype: 'button',
+				itemId: 'overviewListButton',
 				ui: 'normal',
 				text: 'Übersicht Arbeitsstunden &gt;',
 				docked: 'bottom',
@@ -65,13 +66,9 @@
         		event: "tap",
         		fn: "onToggleButtonTap"
 			}, {
-				delegate: '#numberfield_ects',
-				event: 'change',
-				fn: 'onNumberFieldChange'
-			}, {
-				delegate: '#numberfield_sws',
-				event: 'change',
-				fn: 'onNumberFieldChange'
+				delegate: "#overviewListButton",
+        		event: "tap",
+        		fn: "onOverviewListButtonTap"
 			}
         ]        
   	},
@@ -85,10 +82,13 @@
 	//Listener functions    
 	onMenuButtonTap: function (){
 		this.fireEvent("toggleSlideMenuCommand", this);
-	},
-	
+	},	
 	onToggleButtonTap: function () {
         console.log("flipChartCommand");
     	this.fireEvent("flipChartCommand", this);
 	},
+	onOverviewListButtonTap: function(){
+		console.log("overviewListCommand");
+		this.fireEvent("overviewListCommand", this);
+	}
 });

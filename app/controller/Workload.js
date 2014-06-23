@@ -18,7 +18,8 @@ Ext.define("studiplaner.controller.Workload", {
             	// The commands fired by the modules list container.
                 flipChartCommand: "onflipCardCommand",
                 buildChartsCommand: 'onBuildChartsCommand',
-                updateChartDataCommand: 'onUpdateChartDataCommand'
+                updateChartDataCommand: 'onUpdateChartDataCommand',
+                overviewListCommand: 'onOverviewListCommand'
             },
             'viewport': {
 				updateChartDataCommand: 'onUpdateChartDataCommand'
@@ -265,6 +266,10 @@ Ext.define("studiplaner.controller.Workload", {
 			studyWorkload = 1;
 		}
 		this.setRatioChartData(studyWorkload, jobWorkload);
+	},
+	
+	onOverviewListCommand: function () { 
+		console.log("onOverviewListCommand");
 	},
 	
 	//------------------------------
