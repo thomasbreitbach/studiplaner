@@ -27,7 +27,10 @@ Ext.define("studiplaner.controller.Workload", {
 				updateChartDataCommand: 'onUpdateChartDataCommand'
 			},
 			workloadOverviewListContainer: {
-				backCommand: 'onOverviewListContainerBackCommand'
+				backCommand: 'onOverviewListContainerBackCommand',
+				editListCommand: 'onEditListCommand',
+				deleteModuleCommand: 'onDeleteModuleCommand',
+				deleteWorkCommand: 'onDeleteWorkCommand'
 			}     
         }
     },
@@ -288,6 +291,83 @@ Ext.define("studiplaner.controller.Workload", {
 		console.log("onOverviewListContainerBackCommand");
 		workloadContainer = this.getWorkloadContainer();
 		Ext.Viewport.animateActiveItem(workloadContainer, this.slideRightTransition);
+	},
+	onEditListCommand:function () {
+		console.log("onEditListCommand");
+		var container = this.getWorkloadOverviewListContainer();	
+		var worklist = container.down('#workList');
+		var moduleslist = container.down('#modulesList');
+		if(container.inEditMode){
+			container.inEditMode = false;
+			worklist.addCls('hidden-disclosure-list');
+			moduleslist.addCls('hidden-disclosure-list');
+		}else{
+			container.inEditMode = true;
+			worklist.removeCls('hidden-disclosure-list');
+			moduleslist.removeCls('hidden-disclosure-list');
+		}
+		console.log(container.inEditMode);
+	},
+	onDeleteModuleCommand: function (list, record) {
+		console.log("onDeleteModuleCommand");
+		var container = this.getWorkloadOverviewListContainer();
+		if(container.inEditMode){
+			Ext.Msg.show({
+				title: 'Modul löschen?',
+				message: 'Möchtest du das Modul "' + record.data.name + '" wirklich löschen?',
+				buttons: [{
+					itemId: 'no',
+					text: 'Nein',
+					ui: 'action'
+				}, {
+					itemId: 'yes',
+					text: 'Ja',
+					ui: 'action'
+				}],		
+				fn: function(text,btn) {
+					if(text == 'yes'){
+						var modulesStore = Ext.getStore("Modules");		
+						modulesStore.remove(record);
+						modulesStore.sync();
+						
+						studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
+					}else{
+						return false;
+					}
+				}
+			});
+		}	
+	},
+	onDeleteWorkCommand: function (list, record) {
+		console.log("onDeleteWorkCommand");
+		var container = this.getWorkloadOverviewListContainer();
+
+		if(container.inEditMode){
+			Ext.Msg.show({
+				title: 'Arbeitsstelle löschen?',
+				message: 'Möchtest du die Arbeitsstelle "' + record.data.name + '" wirklich löschen?',
+				buttons: [{
+					itemId: 'no',
+					text: 'Nein',
+					ui: 'action'
+				}, {
+					itemId: 'yes',
+					text: 'Ja',
+					ui: 'action'
+				}],		
+				fn: function(text,btn) {
+					if(text == 'yes'){
+						var workStore = Ext.getStore("Work");		
+						workStore.remove(record);
+						workStore.sync();
+						
+						studiplaner.app.getController('Workload').onUpdateChartDataCommand();  
+					}else{
+						return false;
+					}
+				}
+			});
+		}
 	},
 	
 	//------------------------------

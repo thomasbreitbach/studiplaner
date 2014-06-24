@@ -34,6 +34,9 @@
 	right: 0.44em;
 }
 */
+.hidden-disclosure-list .x-list-disclosure {
+  display: none;
+}
 .list-item-name{
     float:left;
     width:60%;
@@ -42,7 +45,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right:15px;
-    background-image: url(./resources/images/login_student.png);
 }
 .list-item-workload{
     float:right;

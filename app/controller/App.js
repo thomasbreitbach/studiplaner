@@ -49,7 +49,8 @@ Ext.define('studiplaner.controller.App', {
 			break;
 		case "workload":
 			content = 2;
-			Ext.Function.defer(Ext.Viewport.fireEvent('updateChartDataCommand', this), 500, this);
+			//~ Ext.Function.defer(Ext.Viewport.fireEvent('updateChartDataCommand', this), 500, this);
+			studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
 			break;
 		case "calendar":
 			content = 3;

@@ -4,6 +4,7 @@
 Ext.define('studiplaner.view.workload.OverviewListContainer', {
 	extend: 'Ext.Container',
 	xtype: 'workloadoverviewlistcontainer',
+	inEditMode: false,
 
 	requires: [
 		'Ext.Menu',
@@ -55,11 +56,14 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
 
 		var moduleList = {
     		xtype: "moduleslist",
+    		itemId: 'modulesList',
+    		cls: 'hidden-disclosure-list',
     		store: Ext.getStore("Modules"),
+    		itemHeight: 47,
     		listeners: {
        		 	itemtap: { fn: this.onModulesListTap, scope: this }
         	},
-        	onItemDisclosure:false,
+        	onItemDisclosure:true,
         	grouped: false,
         	flex:1
     	};  
@@ -71,11 +75,14 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
     	
     	var workList = {
     		xtype: "worklist",
+    		itemId: 'workList',
+    		cls: 'hidden-disclosure-list',
     		store: Ext.getStore("Work"),
+    		itemHeight: 47,
     		listeners: {
-       		 	itemtap: { fn: this.onModulesListTap, scope: this }
+       		 	itemtap: { fn: this.onWorkListTap, scope: this }
         	},
-        	onItemDisclosure:false,
+        	onItemDisclosure:true,
         	grouped: false,
         	flex:1
     	};   
@@ -89,7 +96,10 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
     	this.fireEvent("editListCommand", this);
 	},	
 	onModulesListTap: function (list, index, target, record, evt, options) {
-    	this.fireEvent('editModuleCommand', this, record);
+    	this.fireEvent('deleteModuleCommand', this, record);
+	},
+	onWorkListTap: function (list, index, target, record, evt, options) {
+    	this.fireEvent('deleteWorkCommand', this, record);
 	}
 });
 
