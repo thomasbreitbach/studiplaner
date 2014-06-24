@@ -57,7 +57,7 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
 		var moduleList = {
     		xtype: "moduleslist",
     		itemId: 'modulesList',
-    		cls: 'hidden-disclosure-list',
+    		cls: ['overview-list-disclosure', 'overview-list-hidden-disclosure'],
     		store: Ext.getStore("Modules"),
     		itemHeight: 47,
     		listeners: {
@@ -76,7 +76,7 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
     	var workList = {
     		xtype: "worklist",
     		itemId: 'workList',
-    		cls: 'hidden-disclosure-list',
+    		cls: ['overview-list-disclosure', 'overview-list-hidden-disclosure'],
     		store: Ext.getStore("Work"),
     		itemHeight: 47,
     		listeners: {
@@ -85,7 +85,8 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
         	onItemDisclosure:true,
         	grouped: false,
         	flex:1
-    	};   
+    	};
+    	
     	this.add([topToolbar, moduleListHeader, moduleList, workListHeader, workList]);
 	},
 	

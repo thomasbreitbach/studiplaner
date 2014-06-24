@@ -34,8 +34,11 @@
 	right: 0.44em;
 }
 */
-.hidden-disclosure-list .x-list-disclosure {
-  display: none;
+.overview-list-hidden-disclosure .x-list-disclosure{
+	display: none;
+}
+.overview-list-disclosure .x-list-disclosure:before{
+	content: '*' !important;
 }
 .list-item-name{
     float:left;

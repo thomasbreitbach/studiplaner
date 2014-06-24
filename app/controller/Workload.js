@@ -299,12 +299,12 @@ Ext.define("studiplaner.controller.Workload", {
 		var moduleslist = container.down('#modulesList');
 		if(container.inEditMode){
 			container.inEditMode = false;
-			worklist.addCls('hidden-disclosure-list');
-			moduleslist.addCls('hidden-disclosure-list');
+			worklist.addCls('overview-list-hidden-disclosure');
+			moduleslist.addCls('overview-list-hidden-disclosure');
 		}else{
 			container.inEditMode = true;
-			worklist.removeCls('hidden-disclosure-list');
-			moduleslist.removeCls('hidden-disclosure-list');
+			worklist.removeCls('overview-list-hidden-disclosure');
+			moduleslist.removeCls('overview-list-hidden-disclosure');
 		}
 		console.log(container.inEditMode);
 	},
