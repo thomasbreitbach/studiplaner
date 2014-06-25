@@ -31,7 +31,7 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
 	
 		var editButton = {
             xtype: "button",
-        	iconCls: 'compose',
+        	iconCls: 'edit',
         	//~ text: 'Bearbeiten',
         	ui: 'action',
         	handler: this.onEditButtonTap,

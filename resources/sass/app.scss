@@ -16,6 +16,7 @@
 
 // Examples of using the icon mixin:
 // @include icon('user');
+@include icon('edit', 'p');
 
 @include icon('modules', '\e600', 'icons');
 @include icon('calendar', '\e601', 'icons');

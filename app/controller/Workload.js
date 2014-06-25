@@ -297,13 +297,17 @@ Ext.define("studiplaner.controller.Workload", {
 		var container = this.getWorkloadOverviewListContainer();	
 		var worklist = container.down('#workList');
 		var moduleslist = container.down('#modulesList');
+		console.log(worklist.down('.list-item-workload'));
 		if(container.inEditMode){
 			container.inEditMode = false;
 			worklist.addCls('overview-list-hidden-disclosure');
+			
+			
 			moduleslist.addCls('overview-list-hidden-disclosure');
 		}else{
 			container.inEditMode = true;
 			worklist.removeCls('overview-list-hidden-disclosure');
+			
 			moduleslist.removeCls('overview-list-hidden-disclosure');
 		}
 		console.log(container.inEditMode);

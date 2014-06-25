@@ -15,10 +15,8 @@ Ext.define("studiplaner.controller.Schedule", {
         },
         control: {
             scheduleContainer: {
-            	// The commands fired by the modules list container.
-                newModuleCommand: "onNewModuleCommand",
-                editModuleCommand: "onEditModuleCommand"
-                // swipeNoteCommand: "onSwipeNoteCommand"
+            	// The commands fired by the schedule container.
+                toggleModulesMenuCommand: "onToggleModulesMenuCommand"
             }
         }
     },
@@ -92,7 +90,6 @@ Ext.define("studiplaner.controller.Schedule", {
 	},
 	
 	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem, interest, severity) {
-		
 		switch(interest){
 		case 0:
 			interest = 0.9;
@@ -173,180 +170,13 @@ Ext.define("studiplaner.controller.Schedule", {
     //*************
     //**COMMANDS***
     //*************
-    onNewModuleCommand: function () {
-	    console.log("onNewModuleCommand");
-	    var newModule = Ext.create("studiplaner.model.Module", {
-	        type: 0,
-	        name: "",
-	        ects: null,
-	        sws: null,
-	        workload: null,
-	        interest: 1,
-	        severity: 1
-	    });
-	    this.activateModuleForm(newModule);
-	},
-	
-    onEditModuleCommand: function (list, record) {
-        console.log("onEditModuleCommand");
-        this.activateModuleForm(record);
-    },
-    
-    onSaveModuleCommand: function () {
-	    console.log("onSaveModuleCommand");
-		
-	    var moduleForm = this.getModuleForm();
-	    var currentModule = moduleForm.getRecord();
-	    var newValues = moduleForm.getValues();
-	    console.log(newValues);
-
-	    // Update the current note's fields with form values.
-	    // SegmentedButton values are saven on toggle
-	    currentModule.set("name", newValues.name);
-	    currentModule.set("ects", newValues.ects);
-	    currentModule.set("sws", newValues.sws);
-	    currentModule.set("workload", moduleForm.workloadPerWeek);
-	
-	    var errors = currentModule.validate();
-	
-	    if (!errors.isValid()) {
-			console.log(Ext.MessageBox);
-	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
-	        currentModule.reject();
-	        return;
-	    }
-	
-	    var modulesStore = Ext.getStore("Modules");	
-	    if (null == modulesStore.findRecord('id', currentModule.data.id)) {
-	        modulesStore.add(currentModule);
-	    }	
-	    
-	    modulesStore.sync();	
-	    modulesStore.sort([{ property: 'name', direction: 'DESC'}]);	
-	    this.activateModulesList();
-	},
-	
-	//~ onSwipeNoteCommand: function(list, record){
-		//~ console.log("onSwipeNoteCommand");
-		//~ 
-		//~ Ext.Msg.confirm('Löschen?', 'Möchtest du den Eintrag löschen', function(btn){
-			//~ if(btn == 'yes'){
-				//~ var notesStore = Ext.getStore("Notes");
-				//~ notesStore.removeAt(record);
-				//~ notesStore.sync();
-			//~ }else{
-				//~ return false;
-			//~ }
-		//~ });		
-	//~ },
-	
-	onDeleteModuleCommand: function () {
-	    console.log("onDeleteNoteCommand");
-	
-		var moduleForm = this.getModuleForm();
-		var currentModule = moduleForm.getRecord();
-		var controller = this;
-		
-		Ext.Msg.show({
-			title: 'Modul löschen?',
-			message: 'Möchtest du das Modul "' + currentModule.data.name + '" wirklich löschen?',
-			buttons: [{
-				itemId: 'no',
-				text: 'Nein',
-				ui: 'action'
-			}, {
-				itemId: 'yes',
-				text: 'Ja',
-				ui: 'action'
-			}],		
-			fn: function(text,btn) {
-				if(text == 'yes'){
-					var modulesStore = Ext.getStore("Modules");		
-					modulesStore.remove(currentModule);
-					modulesStore.sync();
-				
-					controller.activateModulesList();
-				}else{
-					return false;
-				}
-			}
-		});
-	},
-	
-	onBackToHomeCommand: function () {
-		console.log("onBackToHomeCommand");
-		this.activateModulesList();
-	},
-	
-	onSegmentedButtonCommand: function (form, container, button) {
-		console.log('onSegmentedButtonCommand');
-
-		var moduleForm = this.getModuleForm();
-		var currentModule = moduleForm.getRecord();
-		
-		var segmentedButton = container.getItemId();
-		var attribute;
-		switch(segmentedButton){
-			case "typeButton":
-				console.log("typeButton");
-				attribute = "type";
-				break;
-			case "interestButton":
-				console.log("interestButton");
-				attribute = "interest";
-				break;
-			case "severityButton":
-				console.log("severityButton");
-				attribute = "severity";
-				break;
-		}	
-		
-		//calc workload
-		var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
-		var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
-		var ects = moduleForm.down('#numberfield_ects').getValue();		
-		if(ects != null){
-			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
-			moduleForm.workloadPerWeek = workloadPerWeek;
-		}
-		
-		currentModule.set(attribute, button.value);
-	},
-	
-	onNumberFieldChangedCommand: function(moduleForm, field, newValue, oldValue, eOpts){
-		console.log("--> onNumberFieldChangedCommand <--");
-		var ects = 0;
-		var sws = 0;
-		var otherField;
-		var workloadPerWeek = 0;
-		var presencePerWeek = 1;
-		var selfStudyPerWeek = 1;
-		
-		if(field.getItemId() === 'numberfield_ects'){
-			if(newValue != "") ects = parseInt(newValue);	
-			otherField = moduleForm.down('#numberfield_sws').getValue();
-			if(otherField != null) sws =  otherField;
+    onToggleModulesMenuCommand: function () {
+		console.log("onToggleModulesMenuCommand");
+		if(Ext.Viewport.getMenus().right.isHidden()){
+			Ext.Viewport.showMenu('right');
 		}else{
-			if(newValue != "") sws = parseInt(newValue);
-			otherField = moduleForm.down('#numberfield_ects').getValue();
-			if(otherField != null) ects = otherField;
+			Ext.Viewport.hideMenu('right');
 		}
-				
-		//calc workload
-		if(ects != 0 || sws != 0){
-			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
-			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
-			
-			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
-			presencePerWeek = sws * H_PER_SWS;
-			selfStudyPerWeek = workloadPerWeek - presencePerWeek;
-		}		
-		
-		//set series data
-		this.setChartData(presencePerWeek, selfStudyPerWeek, workloadPerWeek);
-		
-		//store workload
-		moduleForm.workloadPerWeek = workloadPerWeek;
 	},
 
     launch: function () {

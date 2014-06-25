@@ -759,6 +759,7 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "studiplaner.controller.App": [],
   "studiplaner.controller.Modules": [],
+  "studiplaner.controller.Schedule": [],
   "studiplaner.controller.Work": [],
   "studiplaner.controller.Workload": [],
   "studiplaner.form.ModuleForm": [],
@@ -772,9 +773,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "studiplaner.view.SlideMenu": [],
   "studiplaner.view.modules.ModulesList": [],
   "studiplaner.view.modules.ModulesListContainer": [],
+  "studiplaner.view.schedule.ScheduleCarousel": [],
+  "studiplaner.view.schedule.ScheduleContainer": [],
   "studiplaner.view.work.WorkList": [],
   "studiplaner.view.work.WorkListContainer": [],
   "studiplaner.view.workload.ChartContainer": [],
+  "studiplaner.view.workload.OverviewList": [],
+  "studiplaner.view.workload.OverviewListContainer": [],
   "studiplaner.view.workload.WorkloadContainer": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1729,6 +1734,7 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.appcontroller"
   ],
   "studiplaner.controller.Modules": [],
+  "studiplaner.controller.Schedule": [],
   "studiplaner.controller.Work": [],
   "studiplaner.controller.Workload": [],
   "studiplaner.form.ModuleForm": [
@@ -1752,6 +1758,12 @@ Ext.ClassManager.addNameAliasMappings({
   "studiplaner.view.modules.ModulesListContainer": [
     "widget.moduleslistcontainer"
   ],
+  "studiplaner.view.schedule.ScheduleCarousel": [
+    "widget.schedulecarousel"
+  ],
+  "studiplaner.view.schedule.ScheduleContainer": [
+    "widget.schedulecontainer"
+  ],
   "studiplaner.view.work.WorkList": [
     "widget.worklist"
   ],
@@ -1760,6 +1772,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "studiplaner.view.workload.ChartContainer": [
     "widget.chartcontainer"
+  ],
+  "studiplaner.view.workload.OverviewList": [
+    "widget.workloadoverviewlist"
+  ],
+  "studiplaner.view.workload.OverviewListContainer": [
+    "widget.workloadoverviewlistcontainer"
   ],
   "studiplaner.view.workload.WorkloadContainer": [
     "widget.workloadcontainer"

@@ -60,6 +60,9 @@
     text-overflow: ellipsis;
     padding-right:30px;
 }
+.list-item-wordload-edit{
+	padding-right:0;
+}
 .x-item-selected .list-item-title{
     color:#ffffff;
 }

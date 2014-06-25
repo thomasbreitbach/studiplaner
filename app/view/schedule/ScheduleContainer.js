@@ -27,11 +27,12 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
         	scope: this
 		};
 	
-		var newButton = {
+		var modulesMenuButton = {
             xtype: "button",
-        	iconCls: 'add',
+        	iconCls: '',
+        	text: 'Module',
         	ui: 'action',
-        	handler: this.onNewButtonTap,
+        	handler: this.onModulesMenuButtonTap,
         	scope: this
 		};
 
@@ -42,7 +43,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		    items: [
 				menuButton,
 		        { xtype: 'spacer' },
-		        newButton
+		        modulesMenuButton
 		    ]
 		};
 
@@ -56,8 +57,9 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		this.fireEvent("toggleSlideMenuCommand", this);
 	},
 	  
-  	onNewButtonTap: function () {
-    	this.fireEvent("newModuleCommand", this);
+  	onModulesMenuButtonTap: function () {
+		console.log("onModulesMenuButtonTap");
+    	this.fireEvent("toggleModulesMenuCommand", this);
 	},
 	
 	onModulesListTap: function (list, index, target, record, evt, options) {

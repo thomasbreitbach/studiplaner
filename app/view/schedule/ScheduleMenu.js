@@ -1,7 +1,7 @@
 /**
  * @author Thomas Breitbach
  */
-Ext.define('studiplaner.view.SlideMenu', {
+Ext.define('studiplaner.view.schedule.ScheduleMenu', {
 	xtype: 'slidemenu',
 	singleton: true,
 	requires: ['Ext.Menu'],
@@ -11,8 +11,8 @@ Ext.define('studiplaner.view.SlideMenu', {
 	},
 	
 	setMenu: function (){	
-		Ext.Viewport.setMenu(this.createMenu('left'), {
-			side: 'left',
+		Ext.Viewport.setMenu(this.createMenu('right'), {
+			side: 'right',
 			cover: false
 		})
 	},
@@ -36,7 +36,8 @@ Ext.define('studiplaner.view.SlideMenu', {
                     {
 						title: 'Modulverwaltung',
 						iconCls: 'modules',
-						itemId: 'modules'
+						itemId: 'modules',
+						draggable: true
 					}, {
 						title: 'Arbeitszeiten', 
 						iconCls: 'briefcase',
@@ -70,7 +71,7 @@ Ext.define('studiplaner.view.SlideMenu', {
         });
     },
     
-    onListItemTap: function (list, index, target, record, evt, options){
-		Ext.Viewport.fireEvent('slideMenuCommand', this, record);
-	}
+    //~ onListItemTap: function (list, index, target, record, evt, options){
+		//~ Ext.Viewport.fireEvent('slideMenuCommand', this, record);
+	//~ }
 });
