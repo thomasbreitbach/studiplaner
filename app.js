@@ -30,7 +30,7 @@ Ext.application({
 		'SlideMenu',
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
-        'workload.WorkloadContainer', 'workload.OverviewList', 'workload.OverviewListContainer',
+        'workload.WorkloadContainer', 'workload.OverviewList', 'workload.OverviewListContainer', "workload.WorkloadWorkList", "workload.WorkloadModulesList",
         'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleMenu'
     ],
     controllers: [

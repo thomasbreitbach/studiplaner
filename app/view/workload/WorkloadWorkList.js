@@ -1,9 +1,9 @@
 /**
  * @author Thomas Breitbach
  */
-Ext.define("studiplaner.view.work.WorkList", {
+Ext.define("studiplaner.view.workload.WorkloadWorkList", {
     extend: "Ext.List",
-    alias: "widget.worklist",
+    alias: "widget.workloadworklist",
     
     config: {
         loadingText: "Lade Arbeitszeiten...",
@@ -11,6 +11,6 @@ Ext.define("studiplaner.view.work.WorkList", {
         onItemDisclosure:true,
         grouped: true,
         itemTpl: 	'</pre><div id="{id}"><span class="list-item-name">{name}</span>'+
-					'<span class="list-item-workload">{workload} Std./Woche</span><div><pre>'
+					'<span class="list-item-workload list-item-workload-nopad">{workload} Std./Woche</span><div><pre>'
     }
 });

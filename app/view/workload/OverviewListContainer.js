@@ -57,7 +57,7 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
 		};
 
 		var moduleList = {
-    		xtype: "moduleslist",
+    		xtype: "workloadmoduleslist",
     		itemId: 'modulesList',
     		cls: ['overview-list-disclosure', 'overview-list-hidden-disclosure'],
     		store: Ext.getStore("Modules"),
@@ -76,7 +76,7 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
 		};
     	
     	var workList = {
-    		xtype: "worklist",
+    		xtype: "workloadworklist",
     		itemId: 'workList',
     		cls: ['overview-list-disclosure', 'overview-list-hidden-disclosure'],
     		store: Ext.getStore("Work"),
