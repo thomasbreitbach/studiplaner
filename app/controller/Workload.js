@@ -294,21 +294,22 @@ Ext.define("studiplaner.controller.Workload", {
 	},
 	onEditListCommand:function () {
 		console.log("onEditListCommand");
-		var container = this.getWorkloadOverviewListContainer();	
+		var container = this.getWorkloadOverviewListContainer();
+		var editButton = container.down('#editButton');
 		var worklist = container.down('#workList');
 		var moduleslist = container.down('#modulesList');
-		console.log(worklist.down('.list-item-workload'));
 		if(container.inEditMode){
+			//disable edit mode
 			container.inEditMode = false;
 			worklist.addCls('overview-list-hidden-disclosure');
-			
-			
 			moduleslist.addCls('overview-list-hidden-disclosure');
-		}else{
+			editButton.removeCls('x-button-pressing');
+		}else{		
+			//enable edit mode
 			container.inEditMode = true;
 			worklist.removeCls('overview-list-hidden-disclosure');
-			
 			moduleslist.removeCls('overview-list-hidden-disclosure');
+			editButton.addCls('x-button-pressing');		
 		}
 		console.log(container.inEditMode);
 	},
