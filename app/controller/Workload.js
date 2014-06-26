@@ -294,22 +294,40 @@ Ext.define("studiplaner.controller.Workload", {
 	},
 	onEditListCommand:function () {
 		console.log("onEditListCommand");
-		var container = this.getWorkloadOverviewListContainer();
-		var editButton = container.down('#editButton');
-		var worklist = container.down('#workList');
-		var moduleslist = container.down('#modulesList');
+		var container = this.getWorkloadOverviewListContainer(),
+			editButton = container.down('#editButton'),
+			worklist = container.down('#workList'),
+			worklistViewItems = worklist.getViewItems()
+			moduleslist = container.down('#modulesList'),		
+			moduleslistViewItems = moduleslist.getViewItems();
+
 		if(container.inEditMode){
 			//disable edit mode
 			container.inEditMode = false;
 			worklist.addCls('overview-list-hidden-disclosure');
 			moduleslist.addCls('overview-list-hidden-disclosure');
 			editButton.removeCls('x-button-pressing');
+
+
+			for(var i=0; i < worklistViewItems.length; i++){
+				worklistViewItems[i].innerHtmlElement.dom.children[0].children[1].className += " list-item-workload-nopad";
+			}		
+			for(var i=0; i < moduleslistViewItems.length; i++){
+				moduleslistViewItems[i].innerHtmlElement.dom.children[0].children[1].className += " list-item-workload-nopad";
+			}		
 		}else{		
 			//enable edit mode
 			container.inEditMode = true;
 			worklist.removeCls('overview-list-hidden-disclosure');
 			moduleslist.removeCls('overview-list-hidden-disclosure');
 			editButton.addCls('x-button-pressing');		
+			
+			for(var i=0; i < worklistViewItems.length; i++){
+				worklistViewItems[i].innerHtmlElement.dom.children[0].children[1].className = "list-item-workload";
+			}
+			for(var i=0; i < moduleslistViewItems.length; i++){
+				moduleslistViewItems[i].innerHtmlElement.dom.children[0].children[1].className = "list-item-workload";
+			}		
 		}
 		console.log(container.inEditMode);
 	},

@@ -10,7 +10,7 @@ Ext.define("studiplaner.view.work.WorkList", {
         emptyText: '</pre><div class="notes-list-empty-text">Aktuell liegen keine Arbeitszeiten vor.</div> <pre>',
         onItemDisclosure:true,
         grouped: true,
-        itemTpl: 	'</pre><div><span class="list-item-name">{name}</span>'+
-					'<span class="list-item-workload">{workload} Std./Woche</span><div><pre>'
+        itemTpl: 	'</pre><div id="{id}"><span class="list-item-name">{name}</span>'+
+					'<span class="list-item-workload list-item-workload-nopad">{workload} Std./Woche</span><div><pre>'
     }
 });

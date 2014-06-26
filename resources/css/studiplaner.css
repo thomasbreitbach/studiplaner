@@ -59,6 +59,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right:30px;
+    margin-top: 3px;
+}
+.list-item-workload-nopad{
+	padding-right: 0;
 }
 .list-item-wordload-edit{
 	padding-right:0;
