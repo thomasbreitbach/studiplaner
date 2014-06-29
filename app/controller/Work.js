@@ -73,6 +73,10 @@ Ext.define("studiplaner.controller.Work", {
 			label: 'Tag',
 			itemId: 'day' + id,
 			usePicker: 'true',
+			defaultPhonePickerConfig : {
+				doneButton : 'Übernehmen',
+				cancelButton : 'Abbrechen'
+			},
 			options: [{
 				text: 'Montag',
 				value: 0

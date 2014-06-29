@@ -194,7 +194,15 @@ Ext.define('Ext.ux.picker.Time', {
          * The order of slots in the picker
          * @accessor
          */
-	    slotOrder: ['hour','minute','meridiem']
+	    slotOrder: ['hour','minute','meridiem'],
+	    
+	    //change to german
+	    doneButton: { 
+			text : 'Fertig'
+		},
+		cancelButton : {
+			text : 'Abbrechen'
+		}
 	},
     initialize: function() {
 		this.callParent();
