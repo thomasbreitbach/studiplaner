@@ -106,8 +106,7 @@ Ext.define("studiplaner.controller.Modules", {
 		});
 	},
 	
-	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem, interest, severity) {
-		
+	getValueForInterestId: function (interest) {
 		switch(interest){
 		case 0:
 			interest = 0.9;
@@ -118,7 +117,10 @@ Ext.define("studiplaner.controller.Modules", {
 			interest = 1.1;
 			break;
 		}
-		
+		return interest;
+	},
+	
+	getValueForSeverityId: function (severity) {
 		switch(severity){
 		case 0:
 			severity = 0.9;
@@ -129,6 +131,12 @@ Ext.define("studiplaner.controller.Modules", {
 			severity = 1.1;
 			break;
 		}
+		return severity;
+	},
+	
+	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem, interest, severity) {
+		var interest = this.getValueForInterestId(interest);	
+		var severity = this.getValueForSeverityId(severity);
 		
 		var workload = (ects * hPerEcts / weeksPerSem) * interest * severity;
 		console.log(workload);
@@ -317,12 +325,36 @@ Ext.define("studiplaner.controller.Modules", {
 		}	
 		
 		//calc workload
-		var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
-		var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
-		var ects = moduleForm.down('#numberfield_ects').getValue();		
-		if(ects != null){
-			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
-			moduleForm.workloadPerWeek = workloadPerWeek;
+		if(attribute == "interest" || attribute == "severity"){
+			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
+			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
+			var ects = moduleForm.down('#numberfield_ects').getValue();		
+			if(ects != null){
+				workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
+				moduleForm.workloadPerWeek = workloadPerWeek;
+			}
+			
+			//show info dialog
+			var factor = (attribute == "interest")? this.getValueForInterestId(interest) : this.getValueForSeverityId(severity);
+			console.log(localStorage.show_workload_info);
+			if(typeof localStorage.show_workload_info == 'undefined'){
+				Ext.Msg.show({
+					title:    'Info', 
+					message:	'Durch deine Wahl hast du den Workload für dieses Modul um den Faktor ' + 
+								factor + 
+								' beeinflusst.' + 
+								'<br/><br/><input type="checkbox" id="show_workload_info" /> Nicht wieder anzeigen!',
+					buttons:  Ext.Msg.OK,
+					fn: function(btn) {
+						if( btn == 'ok') {
+							if (Ext.get('show_workload_info').dom.checked){
+								//do not show again
+								localStorage.show_workload_info = false;
+							}
+						}
+					}
+				});	
+			}
 		}
 		
 		currentModule.set(attribute, button.value);
@@ -368,8 +400,7 @@ Ext.define("studiplaner.controller.Modules", {
         this.callParent();
         //load Store
         var store = Ext.getStore("Modules");
-        store.load();
-        
+        store.load();       
         console.log("launch");
     },
     
