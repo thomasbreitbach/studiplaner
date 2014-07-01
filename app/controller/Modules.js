@@ -134,6 +134,22 @@ Ext.define("studiplaner.controller.Modules", {
 		return severity;
 	},
 	
+	getMessageForSegmentedButtonId: function (id){
+		var message = 'Durch deine Wahl hast du den Workload für dieses Modul um ';
+		switch(id){
+		case 0:
+			message += '10% verringert.';
+			break;
+		case 1:
+			message += 'nicht beeinflusst.';
+			break;
+		case 2:
+			message += '10% erhöht.';
+			break;
+		}
+		return message;		
+	},
+	
 	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem, interest, severity) {
 		var interest = this.getValueForInterestId(interest);	
 		var severity = this.getValueForSeverityId(severity);
@@ -337,19 +353,17 @@ Ext.define("studiplaner.controller.Modules", {
 					text: '~' + workloadPerWeek + WORKLOAD_STRING,
 					align: 'center',
 					verticalAlign: 'middle',
-					y: 85
+					y: 85 
 				});
 			}
 			
 			//show info dialog
-			var factor = (attribute == "interest")? this.getValueForInterestId(interest) : this.getValueForSeverityId(severity);
+			var message = this.getMessageForSegmentedButtonId(button.value);
 			console.log(localStorage.show_workload_info);
 			if(typeof localStorage.show_workload_info == 'undefined'){
 				Ext.Msg.show({
 					title:    'Info', 
-					message:	'Durch deine Wahl hast du den Workload für dieses Modul um den Faktor ' + 
-								factor + 
-								' beeinflusst.' + 
+					message:	message +  
 								'<br/><br/><input type="checkbox" id="show_workload_info" /> Nicht wieder anzeigen!',
 					buttons:  Ext.Msg.OK,
 					fn: function(btn) {
