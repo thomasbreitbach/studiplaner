@@ -332,6 +332,13 @@ Ext.define("studiplaner.controller.Modules", {
 			if(ects != null){
 				workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
 				moduleForm.workloadPerWeek = workloadPerWeek;
+				
+				moduleForm.chart.setTitle({
+					text: '~' + workloadPerWeek + WORKLOAD_STRING,
+					align: 'center',
+					verticalAlign: 'middle',
+					y: 85
+				});
 			}
 			
 			//show info dialog
