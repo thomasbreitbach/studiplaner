@@ -83,6 +83,8 @@ Ext.application({
 		};
 	
 		studiplaner.view.SlideMenu.setMenu();
+		Ext.Viewport.getMenus().left.items.items[0].container.getItems().items[0].addCls('x-item-selected');
+		
 		studiplaner.view.schedule.ScheduleMenu.setMenu();
 		
         // Initialize the main view
