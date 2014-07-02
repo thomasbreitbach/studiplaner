@@ -245,6 +245,8 @@ Ext.define("studiplaner.controller.Modules", {
 	    currentModule.set("ects", newValues.ects);
 	    currentModule.set("sws", newValues.sws);
 	    currentModule.set("workload", moduleForm.workloadPerWeek);
+	    currentModule.set("presencePerWeek", moduleForm.presencePerWeek);
+	    currentModule.set("selfStudyPerWeek", moduleForm.selfStudyPerWeek);
 	
 	    var errors = currentModule.validate();
 	
@@ -415,6 +417,8 @@ Ext.define("studiplaner.controller.Modules", {
 		
 		//store workload
 		moduleForm.workloadPerWeek = workloadPerWeek;
+		moduleForm.selfStudyPerWeek = selfStudyPerWeek;
+		moduleForm.presencePerWeek = presencePerWeek;	
 	},
 
     launch: function () {

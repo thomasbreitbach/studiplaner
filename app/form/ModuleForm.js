@@ -10,6 +10,8 @@ Ext.define('studiplaner.form.ModuleForm', {
     alias: 'widget.moduleform',
     chart: null,
     workloadPerWeek: 0,
+    presencePerWeek: 0,
+    selfStudyPerWeek: 0,
     
     requires: [
     	"Ext.form.FieldSet",

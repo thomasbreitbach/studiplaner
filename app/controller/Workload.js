@@ -23,9 +23,6 @@ Ext.define("studiplaner.controller.Workload", {
                 updateChartDataCommand: 'onUpdateChartDataCommand',
                 overviewListCommand: 'onOverviewListCommand'
             },
-            'viewport': {
-				updateChartDataCommand: 'onUpdateChartDataCommand'
-			},
 			workloadOverviewListContainer: {
 				backCommand: 'onOverviewListContainerBackCommand',
 				editListCommand: 'onEditListCommand',

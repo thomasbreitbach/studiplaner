@@ -20,17 +20,21 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
 		var array = new Array();
 		for(var i=0; i<this.weekdays.length; i++){
 			var backgroundColor;
+			var blockCls;
 			if(i%2==0){
 				backgroundColor = 'background-color: #E5E5E5';
+				blockCls = 'schedule-weekday-block';
 			}else{
 				backgroundColor = 'background-color: white';
+				blockCls = ['schedule-weekday-block', 'schedule-weekday-block-dark'];
 			}
 				
 			array[i] = {
 				xtype: 'scheduledaycontainer',
 				name: this.weekdays[i],
 				style: backgroundColor,
-				itemId: this.weekdays[i]
+				itemId: this.weekdays[i],
+				blockCls: blockCls
 			}
 		}
 		this.add(array);

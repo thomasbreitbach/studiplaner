@@ -20,6 +20,8 @@ Ext.define('studiplaner.model.Module', {
             { name: 'ects', type: 'int' },
             { name: 'sws', type: 'int' },
             { name: 'workload', type: 'float'},
+            { name: 'presencePerWeek', type: 'float'},
+            { name: 'selfStudyPerWeek', type: 'float'},
             { name: 'interest', type: 'float' },   
 			{ name: 'severity', type: 'float' }
         ],
