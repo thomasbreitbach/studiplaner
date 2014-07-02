@@ -26,6 +26,11 @@ Ext.define('studiplaner.model.Module', {
 			{ name: 'severity', type: 'float' }
         ],
         
+        hasMany: {
+				model: 'studiplaner.model.ScheduleBlock',
+				name: 'scheduleBlocks'
+		},
+        
         validations: [{
 	    		type: 'presence',
 			    field: 'name',
