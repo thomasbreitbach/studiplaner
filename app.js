@@ -36,11 +36,9 @@ Ext.application({
     controllers: [
     	'App', 'Modules', 'Work', 'Workload', "Schedule"
     ],
-    forms: [
-    	'ModuleForm', 'WorkForm'
-    ],
-    models: ['Module', 'Work', 'WorkingTime'],
-    stores: ['Modules' , 'Work', 'WorkingTime'],
+    forms: ['ModuleForm', 'WorkForm'],
+    models: ['Module', 'Work', 'WorkingTime', 'ScheduleBlock'],
+    stores: ['Modules' , 'Work', 'WorkingTime', 'ScheduleBlock'],
 
 
     icon: {

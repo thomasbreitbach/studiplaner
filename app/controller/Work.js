@@ -285,7 +285,6 @@ Ext.define("studiplaner.controller.Work", {
 	    var workingTimes = currentWork.workingTimes();
 	    var newValues = workForm.getValues();
 	    var timeMode = workForm.down('#modeButton').getPressedButtons()[0].value
-	    console.log(currentWork);
 
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
@@ -304,7 +303,7 @@ Ext.define("studiplaner.controller.Work", {
 			var begins=[] , ends=[];
 			
 			workingTimes.removeAll(true, true); //TODO Performance!
-			var picker = newValues.picker
+			var picker = newValues.picker;
 			if(typeof picker != 'undefined'){					
 				for(var i = 0; i<picker.length; i=i+3){			
 					var begin = newValues.picker[i+1];

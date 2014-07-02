@@ -85,7 +85,6 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	activateModulesList: function () {
-		console.log("activateModulesList");
 	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);
 	},
 	
@@ -236,11 +235,12 @@ Ext.define("studiplaner.controller.Modules", {
 		
 	    var moduleForm = this.getModuleForm();
 	    var currentModule = moduleForm.getRecord();
+	    var scheduleBlocks = currentModule.scheduleBlocks();
 	    var newValues = moduleForm.getValues();
-	    console.log(newValues);
+	    console.log(scheduleBlocks);
 
-	    // Update the current note's fields with form values.
-	    // SegmentedButton values are saven on toggle
+	    // Update the current module's fields with form values.
+	    // Hint: SegmentedButton values are saved on toggle
 	    currentModule.set("name", newValues.name);
 	    currentModule.set("ects", newValues.ects);
 	    currentModule.set("sws", newValues.sws);
@@ -248,38 +248,48 @@ Ext.define("studiplaner.controller.Modules", {
 	    currentModule.set("presencePerWeek", moduleForm.presencePerWeek);
 	    currentModule.set("selfStudyPerWeek", moduleForm.selfStudyPerWeek);
 	
+		//Validate!
 	    var errors = currentModule.validate();
-	
 	    if (!errors.isValid()) {
-			console.log(Ext.MessageBox);
 	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
 	        currentModule.reject();
 	        return;
 	    }
-	
+	    
+	    //calculate schedule blocks
+	    scheduleBlocks.removeAll(); //TODO Performance!
+	    var presenceBlocksCount = moduleForm.presencePerWeek/1.5;
+	    var selfStudyBlocksCount = moduleForm.selfStudyPerWeek/1.5;
+	    
+	    for(var i=0;i<presenceBlocksCount;i++){
+			scheduleBlocks.add({
+				day: null,
+				phase: null,
+				block: null,
+				type: 'presence',
+				assigned: false
+			});
+		}
+		for(var i=0;i<selfStudyBlocksCount;i++){
+			scheduleBlocks.add({
+				day: null,
+				phase: null,
+				block: null,
+				type: 'self',
+				assigned: false
+			});
+		}
+		
 	    var modulesStore = Ext.getStore("Modules");	
 	    if (null == modulesStore.findRecord('id', currentModule.data.id)) {
 	        modulesStore.add(currentModule);
 	    }	
 	    
+	    scheduleBlocks.sync();
 	    modulesStore.sync();	
 	    modulesStore.sort([{ property: 'name', direction: 'DESC'}]);	
 	    this.activateModulesList();
 	},
-	
-	//~ onSwipeNoteCommand: function(list, record){
-		//~ console.log("onSwipeNoteCommand");
-		//~ 
-		//~ Ext.Msg.confirm('Löschen?', 'Möchtest du den Eintrag löschen', function(btn){
-			//~ if(btn == 'yes'){
-				//~ var notesStore = Ext.getStore("Notes");
-				//~ notesStore.removeAt(record);
-				//~ notesStore.sync();
-			//~ }else{
-				//~ return false;
-			//~ }
-		//~ });		
-	//~ },
 	
 	onDeleteModuleCommand: function () {
 	    console.log("onDeleteNoteCommand");
