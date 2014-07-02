@@ -14,27 +14,41 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 	],
 	  
   	config: {
-		scrollable: 'vertical',
+		scrollable: 'vertical',		
 		layout: {
-        	type: 'fit'
+        	type: 'vbox',
+        	align: 'center'
     	}
   	},
 
   	initialize: function(){
 		this.callParent(arguments);
 		
+		
+		
 		var header = {
+			xtype: 'container',
 			html: '<div class="schedule-weekday-header">' + this.name + '</div>',
             height: 40
 		}
 		
 		var array = new Array();
 		array[0] = header;
-		//~ for(var i=0; i<this.blocks.length; i++){
-			//~ array[i+1] = {
-				//~ html: this.blocks[i]
-			//~ }
-		//~ }
+		for(var i=0; i<this.blocks.length; i++){
+			array[i+1] = {
+				xtype: 'container',
+				layout: {
+					type: 'hbox',
+					align: 'center'
+				},
+				height: 100,
+				width: '100%',
+				itemId: 'block'+i,
+				cls: 'schedule-weekday-block',
+				html: this.blocks[i]
+			}
+		}
+		
 		this.add(array);
 	}
 });

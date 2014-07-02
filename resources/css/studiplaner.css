@@ -84,6 +84,13 @@
 .schedule-weekday-header{
 	text-align: center;
 	margin-top: 0.3em;
-	font-weight:lighter;
-	background-color: #E9E9E9;
+	font-size: 1.3em;
+	margin-top: -5px;
+}
+.schedule-weekday-block{
+	border-style: dashed;
+	border-width: 2px;
+	border-color: #F8F8FF;
+	padding: 5px;
+	margin-bottom: 3px;
 }
