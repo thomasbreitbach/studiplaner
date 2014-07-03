@@ -305,7 +305,6 @@ Ext.define("studiplaner.controller.Workload", {
 			moduleslist.addCls('overview-list-hidden-disclosure');
 			editButton.removeCls('x-button-pressing');
 
-
 			for(var i=0; i < worklistViewItems.length; i++){
 				worklistViewItems[i].innerHtmlElement.dom.children[0].children[1].className += " list-item-workload-nopad";
 			}		

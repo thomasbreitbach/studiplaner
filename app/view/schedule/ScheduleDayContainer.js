@@ -44,10 +44,7 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 				width: '100%',
 				itemId: 'block'+i,
 				cls: this.blockCls,
-				html: this.blocks[i],
-				//~ draggable: {
-                    //~ direction: 'both',
-                //~ },
+				html: this.blocks[i]
 			}
 		}
 		

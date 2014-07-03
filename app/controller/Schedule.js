@@ -3,6 +3,7 @@
  */
 Ext.define("studiplaner.controller.Schedule", {
     extend: "Ext.app.Controller",
+    scheduleBlocksStore: null,
     
     requires: [
 		'Ext.ComponentQuery',
@@ -16,7 +17,7 @@ Ext.define("studiplaner.controller.Schedule", {
         control: {
             scheduleContainer: {
             	// The commands fired by the schedule container.
-                toggleModulesMenuCommand: "onToggleModulesMenuCommand",
+                toggleBlocksPanelCommand: "onToggleBlocksPanelCommand",
                 updateBlocksCommand: "onUpdateBlocksCommand"
             }
         }
@@ -34,25 +35,46 @@ Ext.define("studiplaner.controller.Schedule", {
     //*************
     //**COMMANDS***
     //*************
-    onToggleModulesMenuCommand: function () {
+    onToggleBlocksPanelCommand: function (container, btn) {
 		console.log("onToggleModulesMenuCommand");
-		if(Ext.Viewport.getMenus().right.isHidden()){
-			Ext.Viewport.showMenu('right');
+		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
+		if(blocksPanel.isHidden()){
+			blocksPanel.show();
+			btn.addCls('x-button-pressing');
 		}else{
-			Ext.Viewport.hideMenu('right');
+			blocksPanel.hide();
+			btn.removeCls('x-button-pressing');
 		}
 	},
 	
 	onUpdateBlocksCommand: function () {
 		console.log("onUpdateBlocks");
+		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
+		var blocks = this.scheduleBlocksStore.getData().items;
+		var modulesStore = Ext.getStore('Modules');
+		
+		for(var i=0; i<blocks.length; i++){
+			var moduleName = modulesStore.getById(blocks[i].get('module_id')).get('name');
+			var type = blocks[i].get('type');
+			blocksPanel.add({
+				xtype: 'component',
+				itemId: 'block' + i,
+				height: 100,
+				html: '<p>' + moduleName + ' ' + type +'</p>',
+				draggable: {
+                    direction: 'both',
+                }
+			});
+		}
 		
 	},
 
     launch: function () {
         this.callParent();
         //load Store
-        var store = Ext.getStore("Modules");
-        store.load();
+        this.scheduleBlocksStore = Ext.getStore("ScheduleBlocks");
+        this.scheduleBlocksStore.load();
+        console.log(this.scheduleBlocksStore);
         
         console.log("launch");
     },
