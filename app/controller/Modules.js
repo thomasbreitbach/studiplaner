@@ -256,7 +256,7 @@ Ext.define("studiplaner.controller.Modules", {
 	        return;
 	    }
 	    
-	    //calculate schedule blocks
+	    //calculate and store schedule blocks
 	    scheduleBlocks.removeAll(); //TODO Performance!
 	    var presenceBlocksCount = moduleForm.presencePerWeek/1.5;
 	    var selfStudyBlocksCount = moduleForm.selfStudyPerWeek/1.5;

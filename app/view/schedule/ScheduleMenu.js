@@ -18,56 +18,35 @@ Ext.define('studiplaner.view.schedule.ScheduleMenu', {
 	},
 
     createMenu: function(side){
-        var items = [
-            {
-                xtype: 'list',
-                itemTpl: new Ext.XTemplate(
-					'<div class="x-button x-iconalign-center x-button-plain x-layout-box-item x-stretched">',
-						'<span class="x-button-icon x-shown {iconCls}"></span>',
-						'<span class="x-button-label" style="text-align: left !important; margin-left: 1em;">{title}</span>',
-					'</div>'
-				),
-                width: 250,
-                height: '100%',
-                margin: '0 0 0 0',
-                cls: 'slidemenu',
-                scrollable: true,
-                data: [
-                    {
-						title: 'Modulverwaltung',
-						iconCls: 'modules',
-						itemId: 'modules',
-						draggable: true
-					}, {
-						title: 'Arbeitszeiten', 
-						iconCls: 'briefcase',
-						itemId: 'work'
-					}, {
-						title: 'Workload', 
-						iconCls: 'dashboard',
-						itemId: 'workload'
-					}, {
-						title: 'Wochenplan',
-						iconCls: 'calendar',
-						itemId: 'calendar'
-					}, {
-						title: 'Assistent',
-						iconCls: 'magic',
-						itemId: 'assistent'
-					}, {
-						title: 'Export',
-						iconCls: 'upload',
-						itemId: 'export'
-					}
-                ],
-                listeners: {
-					itemtap: { fn: this.onListItemTap, scope: this }
-				}
-            }
-        ];
+        var blocksContainer = Ext.create('Ext.Container', {
+			//~ xtype: 'container',
+			itemId: 'blocksContainer',
+			width: 250,
+			scrollable: 'vertical',
+			layout: {
+				type: 'vbox',
+				align: 'center'
+			}
+		});
+		
+		blocksContainer.add([{
+			xtype: 'container',
+			width: 200,
+			height: 100,
+			layout: {
+				type: 'hbox',
+				align: 'center'
+			},
+			draggable: {
+				direction: 'both',
+			},
+			html: '<p>Blaaap</p>',
+			style: 'background-color: white'
+		}]);
+		
         return Ext.create('Ext.Menu', {
             style: 'padding: 0',
-            items: items
+            items: [blocksContainer]
         });
     },
     

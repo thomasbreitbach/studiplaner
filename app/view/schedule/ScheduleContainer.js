@@ -7,6 +7,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 
 	requires: [
 		'Ext.Menu',
+		'Ext.Panel',
 		'Ext.dataview.List'
 	],
 	  
@@ -27,14 +28,26 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
         	scope: this
 		};
 	
-		var modulesMenuButton = {
-            xtype: "button",
+		var modulesMenuButton = Ext.create('Ext.Button', {
         	iconCls: '',
         	text: 'Module',
         	ui: 'action',
         	handler: this.onModulesMenuButtonTap,
         	scope: this
-		};
+		});
+		
+		var blocksPanel = Ext.create('Ext.Panel', {
+			itemId: 'blocksPanel',
+			html: 'Floating Panel',
+			left: 0,
+			width: '90%',
+			layout: {
+				type: 'vbox',
+				align: 'middle'
+			}
+		});
+		blocksPanel.showBy(modulesMenuButton);
+		blocksPanel.hide();
 
 		var topToolbar = {
 		    xtype: "toolbar",
@@ -50,7 +63,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		var carousel = {
     		xtype: "schedulecarousel"
     	};    
-    	this.add([topToolbar, carousel]);
+    	this.add([topToolbar, carousel, blocksPanel]);
 	},
 	
 	onMenuButtonTap: function (){
@@ -59,7 +72,8 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 	  
   	onModulesMenuButtonTap: function () {
 		console.log("onModulesMenuButtonTap");
-    	this.fireEvent("toggleModulesMenuCommand", this);
+		this.down('#blocksPanel').show();
+    	//~ this.fireEvent("toggleModulesMenuCommand", this);
 	},
 	
 	onModulesListTap: function (list, index, target, record, evt, options) {
