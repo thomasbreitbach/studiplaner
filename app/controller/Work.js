@@ -225,7 +225,7 @@ Ext.define("studiplaner.controller.Work", {
 		}else{
 			//new mode
 			submitButton.setText("Hinzufügen");
-			topToolbar.setTitle("Neues Arbeitsstelle");
+			topToolbar.setTitle("Neue Arbeitsstelle");
 			deleteButton.hide();
 		}	
 		

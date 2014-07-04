@@ -38,7 +38,7 @@ Ext.define('studiplaner.view.SlideMenu', {
 						iconCls: 'modules',
 						itemId: 'modules'
 					}, {
-						title: 'Arbeitszeiten', 
+						title: 'Arbeitsstellen', 
 						iconCls: 'briefcase',
 						itemId: 'work'
 					}, {
@@ -49,11 +49,13 @@ Ext.define('studiplaner.view.SlideMenu', {
 						title: 'Wochenplan',
 						iconCls: 'calendar',
 						itemId: 'calendar'
-					}, {
-						title: 'Assistent',
-						iconCls: 'magic',
-						itemId: 'assistent'
-					}, {
+					}, 
+					//~ {
+						//~ title: 'Assistent',
+						//~ iconCls: 'magic',
+						//~ itemId: 'assistent'
+					//~ }, 
+					{
 						title: 'Export',
 						iconCls: 'upload',
 						itemId: 'export'

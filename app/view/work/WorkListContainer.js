@@ -37,7 +37,7 @@
 
 		var topToolbar = {
 		    xtype: "toolbar",
-		    title: 'Arbeitszeiten',
+		    title: 'Arbeitsstellen',
 		    docked: "top",
 		    items: [
 				menuButton,
