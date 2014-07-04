@@ -45,7 +45,8 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			cls: 'blocks-panel',
 			layout: {
 				type: 'vbox',
-				pack: 'start'
+				pack: 'start',
+				align: 'center'
 			}
 		});
 		blocksPanel.hide();

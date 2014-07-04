@@ -91,12 +91,24 @@
 	border-style: dashed;
 	border-width: 2px;
 	border-color: #F8F8FF;
-	padding: 5px;
 	margin-bottom: 3px;
 }
 .schedule-weekday-block-dark{
 	border-color: #E5E5E5;
 }
+.schedule-weekday-block:before{
+	text-align: center;
+	vertical-align: middle;
+	font-family: "Pictos";
+	content: "+";
+	font-size: 2.3em;
+	color: rgba(0, 0, 0, 0.04);
+	display: block;
+	width: 100%;
+	height: 100%;
+	line-height: 100px;
+}
+
 .blocks-panel .x-panel-inner {
     background-color: rgba(229,229,229,0.9) !important;
 }

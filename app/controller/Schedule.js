@@ -60,6 +60,8 @@ Ext.define("studiplaner.controller.Schedule", {
 				xtype: 'component',
 				itemId: 'block' + i,
 				height: 100,
+				width: '80%',
+				style: 'background-color: #DDDBFF',
 				html: '<p>' + moduleName + ' ' + type +'</p>',
 				draggable: {
                     direction: 'both',
