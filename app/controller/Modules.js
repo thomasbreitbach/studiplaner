@@ -293,8 +293,6 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	onDeleteModuleCommand: function () {
-	    console.log("onDeleteNoteCommand");
-	
 		var moduleForm = this.getModuleForm();
 		var currentModule = moduleForm.getRecord();
 		var scheduleBlocks = currentModule.scheduleBlocks();
@@ -331,7 +329,6 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	onBackToHomeCommand: function () {
-		console.log("onBackToHomeCommand");
 		this.activateModulesList();
 	},
 	
@@ -392,9 +389,9 @@ Ext.define("studiplaner.controller.Modules", {
 							}
 						}
 					}
-				});	
+				});	//msg
 			}
-		}
+		}//if calc workload
 		
 		currentModule.set(attribute, button.value);
 	},
@@ -441,10 +438,7 @@ Ext.define("studiplaner.controller.Modules", {
         this.callParent();
         //load Store
         var store = Ext.getStore("Modules");
-        store.load();       
-        
-        //~ var blocksStore = Ext.getStore("ScheduleBlocks");
-        //~ blocksStore.load();
+        store.load();
         
         console.log("launch");
     },
