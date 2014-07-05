@@ -41,14 +41,9 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			width: '98%',
 			height: '98%',
 			margin: '5 5 5 5',
-			scrollable: 'vertical',
-			style: 'background-color: transparent;',
+			//~ style: 'background-color: transparent;',
 			cls: 'blocks-panel',
-			layout: {
-				type: 'fit',
-				//~ pack: 'start',
-				//~ align: 'stretch'
-			}
+			layout: 'fit'
 		});
 		blocksPanel.hide();
 		
