@@ -11,5 +11,9 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
             type: 'localstorage',
             id: 'scheduleBlock-store'
         },
+        sorters: [{
+            property: 'assigned',
+            direction: 'ASC'
+        }],
     }
 });

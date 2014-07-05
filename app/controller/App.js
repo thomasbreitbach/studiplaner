@@ -53,7 +53,7 @@ Ext.define('studiplaner.controller.App', {
 			break;
 		case "calendar":
 			content = 3;
-			studiplaner.app.getController('Schedule').onUpdateBlocksCommand(); 
+			//~ studiplaner.app.getController('Schedule').onUpdateBlocksCommand(); 
 			break;
 		case "assistent":
 			break;

@@ -36,17 +36,41 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		for(var i=0; i<this.times.length; i++){
 			array[i+1] = {
 				xtype: 'container',
+				itemId: 'block'+i,
 				layout: {
 					type: 'hbox',
 					align: 'center'
 				},
 				height: 100,
 				width: '100%',
-				itemId: 'block'+i,
 				cls: this.blockCls,
-				html: this.times[i]
+				html: this.times[i],
+				listeners: [
+					{
+						element: 'element',
+						event: 'longpress',
+						fn: this.onBlockLongPress,
+						scope: this
+					}
+					//~ {
+						//~ element: 'element',
+						//~ event: 'singletap',
+						//~ fn: this.onBlockTap,
+						//~ scope: this
+					//~ }
+				]
 			}
 		}
 		this.add(array);
-	}
+	},
+	
+	onBlockLongPress: function (event, container, options, eOpts) {
+		console.log("onBlockLongPress");
+		this.fireEvent("blockLongPressCommand", this, container);
+	},
+	
+	//~ onBlockTap: function (event, container, options, eOpts) {
+		//~ console.log("onBlockTap");
+		//~ this.fireEvent("blockTapCommand", this, container);
+	//~ },
 });

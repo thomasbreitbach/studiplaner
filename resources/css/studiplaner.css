@@ -96,6 +96,9 @@
 .schedule-weekday-block-dark{
 	border-color: #E5E5E5;
 }
+.schedule-weekday-block-tap{
+	border-color: #1e93e4;
+}
 .schedule-weekday-block:before{
 	text-align: center;
 	vertical-align: middle;
@@ -110,5 +113,9 @@
 }
 
 .blocks-panel .x-panel-inner {
-    background-color: rgba(229,229,229,0.9) !important;
+    background-color: rgba(229,229,229,0.8) !important;
+}
+.blocks-panel-block{
+	margin: 5px;
+	background-color: #1E93E4
 }

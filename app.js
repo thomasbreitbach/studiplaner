@@ -31,7 +31,7 @@ Ext.application({
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
         'workload.WorkloadContainer', 'workload.OverviewList', 'workload.OverviewListContainer', "workload.WorkloadWorkList", "workload.WorkloadModulesList",
-        'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleMenu', 'schedule.ScheduleDayContainer'
+        'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleDayContainer', 'schedule.BlocksList'
     ],
     controllers: [
     	'App', 'Modules', 'Work', 'Workload', "Schedule"
@@ -83,7 +83,6 @@ Ext.application({
 		studiplaner.view.SlideMenu.setMenu();
 		//~ Ext.Viewport.getMenus().left.items.items[0].container.getItems().items[0].addCls('x-item-selected');
 		
-		studiplaner.view.schedule.ScheduleMenu.setMenu();
 		
         // Initialize the main view
         Ext.Viewport.add([modulesListContainer, workListContainer, workloadContainer, scheduleContainer]);

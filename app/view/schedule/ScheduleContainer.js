@@ -28,6 +28,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 	
 		var modulesMenuButton = Ext.create('Ext.Button', {
         	iconCls: '',
+        	itemId: 'modulesBtn',
         	text: 'Module',
         	ui: 'action',
         	handler: this.onModulesButtonTap,
@@ -41,15 +42,25 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			height: '98%',
 			margin: '5 5 5 5',
 			scrollable: 'vertical',
-			style:'background-color: transparent;',
+			style: 'background-color: transparent;',
 			cls: 'blocks-panel',
 			layout: {
-				type: 'vbox',
-				pack: 'start',
-				align: 'center'
+				type: 'fit',
+				//~ pack: 'start',
+				//~ align: 'stretch'
 			}
 		});
 		blocksPanel.hide();
+		
+		var blocksList = {
+    		xtype: "blockslist",
+    		store: Ext.getStore("ScheduleBlocks"),
+    		itemHeight: 55,
+    		listeners: {
+       		 	itemtap: { fn: this.onModulesListTap, scope: this }
+        	}
+    	}; 
+    	blocksPanel.add(blocksList);
 
 		var topToolbar = {
 		    xtype: "toolbar",
