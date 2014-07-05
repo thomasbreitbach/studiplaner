@@ -28,7 +28,6 @@ Ext.define("studiplaner.controller.Modules", {
                 // swipeNoteCommand: "onSwipeNoteCommand"
             },
             moduleForm: {
-		        // The commands fired by the note editor.
 		        saveModuleCommand: "onSaveModuleCommand",
 		        deleteModuleCommand: "onDeleteModuleCommand",
 		        backToHomeCommand: "onBackToHomeCommand",
