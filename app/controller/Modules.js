@@ -4,6 +4,7 @@
 const H_PER_ECTS = 25;
 const H_PER_SWS = 0.75;
 const WEEKS_PER_SEM = 17;
+const H_PER_BLOCK = 1.5;
 const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
 
 Ext.define("studiplaner.controller.Modules", {
@@ -258,8 +259,8 @@ Ext.define("studiplaner.controller.Modules", {
 	    
 	    //calculate and store schedule blocks
 	    scheduleBlocks.removeAll(); //TODO Performance!
-	    var presenceBlocksCount = moduleForm.presencePerWeek/1.5;
-	    var selfStudyBlocksCount = moduleForm.selfStudyPerWeek/1.5;
+	    var presenceBlocksCount = moduleForm.presencePerWeek/H_PER_BLOCK;
+	    var selfStudyBlocksCount = moduleForm.selfStudyPerWeek/H_PER_BLOCK;
 	    
 	    for(var i=0;i<presenceBlocksCount;i++){
 			scheduleBlocks.add({
@@ -296,6 +297,7 @@ Ext.define("studiplaner.controller.Modules", {
 	
 		var moduleForm = this.getModuleForm();
 		var currentModule = moduleForm.getRecord();
+		var scheduleBlocks = currentModule.scheduleBlocks();
 		var controller = this;
 		
 		Ext.Msg.show({
@@ -312,10 +314,14 @@ Ext.define("studiplaner.controller.Modules", {
 			}],		
 			fn: function(text,btn) {
 				if(text == 'yes'){
+					//del related schedule blocks
+					scheduleBlocks.removeAll();
+					scheduleBlocks.sync();
+					//del module
 					var modulesStore = Ext.getStore("Modules");		
 					modulesStore.remove(currentModule);
 					modulesStore.sync();
-				
+						
 					controller.activateModulesList();
 				}else{
 					return false;
@@ -436,6 +442,10 @@ Ext.define("studiplaner.controller.Modules", {
         //load Store
         var store = Ext.getStore("Modules");
         store.load();       
+        
+        //~ var blocksStore = Ext.getStore("ScheduleBlocks");
+        //~ blocksStore.load();
+        
         console.log("launch");
     },
     
