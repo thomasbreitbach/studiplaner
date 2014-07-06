@@ -2,7 +2,7 @@
  * @author Thomas Breitbach
  */
 Ext.define('studiplaner.model.ScheduleBlock', {
-    extend: 'Ext.data.Model',
+    extend: 'studiplaner.model.BaseModel',
     
     requires: [
     	'Ext.data.identifier.Uuid'
@@ -21,7 +21,15 @@ Ext.define('studiplaner.model.ScheduleBlock', {
             { name: 'phase', type: 'int'}
         ],
         
-		associations: { type: 'belongsTo', model: 'studiplaner.model.Module' },
+		belongsTo: [
+			{
+				model: 'studiplaner.model.Module',
+				name: 'Module',
+				primaryKey: 'id',
+				foreignKey: 'module_id',
+				foreignStore: 'Modules'
+			}
+		],
 		
 		proxy: {
     		type: 'localstorage',

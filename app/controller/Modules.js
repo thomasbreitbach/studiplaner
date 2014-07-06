@@ -237,7 +237,6 @@ Ext.define("studiplaner.controller.Modules", {
 	    var currentModule = moduleForm.getRecord();
 	    var scheduleBlocks = currentModule.scheduleBlocks();
 	    var newValues = moduleForm.getValues();
-	    console.log(scheduleBlocks);
 
 	    // Update the current module's fields with form values.
 	    // Hint: SegmentedButton values are saved on toggle

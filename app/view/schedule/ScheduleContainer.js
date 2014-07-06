@@ -49,8 +49,8 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		
 		var blocksList = {
     		xtype: "blockslist",
-    		store: Ext.getStore("ScheduleBlocks"),
-    		itemHeight: 55,
+    		itemId: 'blockslist',
+    		//~ store:  Ext.getStore("ScheduleBlocks"),
     		listeners: {
        		 	itemtap: { fn: this.onModulesListTap, scope: this }
         	}

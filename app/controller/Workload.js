@@ -6,8 +6,7 @@ Ext.define("studiplaner.controller.Workload", {
     
     requires: [
 		'Ext.ComponentQuery',
-		'studiplaner.controller.App',
-		'studiplaner.view.workload.OverviewList'
+		'studiplaner.controller.App'
     ],
     
     config: {
@@ -348,7 +347,7 @@ Ext.define("studiplaner.controller.Workload", {
 						var modulesStore = Ext.getStore("Modules");		
 						modulesStore.remove(record);
 						modulesStore.sync();
-						
+						//update workload chart
 						studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
 					}else{
 						return false;
@@ -379,7 +378,7 @@ Ext.define("studiplaner.controller.Workload", {
 						var workStore = Ext.getStore("Work");		
 						workStore.remove(record);
 						workStore.sync();
-						
+						//update workload chart
 						studiplaner.app.getController('Workload').onUpdateChartDataCommand();  
 					}else{
 						return false;

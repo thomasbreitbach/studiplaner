@@ -2,7 +2,7 @@
  * @author Thomas Breitbach
  */
 Ext.define('studiplaner.model.Module', {
-    extend: 'Ext.data.Model',
+    extend: 'studiplaner.model.BaseModel',
     
     requires: [
     	'Ext.data.identifier.Uuid',
@@ -28,7 +28,10 @@ Ext.define('studiplaner.model.Module', {
         
         hasMany: {
 				model: 'studiplaner.model.ScheduleBlock',
-				name: 'scheduleBlocks'
+				name: 'scheduleBlocks',
+				primaryKey: 'id',
+				foreignKey: 'module_id',
+				foreignStore: 'Modules'
 		},
         
         validations: [{

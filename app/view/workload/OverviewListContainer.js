@@ -65,8 +65,6 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
     		listeners: {
        		 	itemtap: { fn: this.onModulesListTap, scope: this }
         	},
-        	onItemDisclosure:true,
-        	grouped: false,
         	flex:1
     	};  
     	
@@ -84,8 +82,6 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
     		listeners: {
        		 	itemtap: { fn: this.onWorkListTap, scope: this }
         	},
-        	onItemDisclosure:true,
-        	grouped: false,
         	flex:1
     	};
     	

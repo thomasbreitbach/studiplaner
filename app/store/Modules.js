@@ -7,6 +7,7 @@ Ext.define("studiplaner.store.Modules", {
     
     config: {
         model: "studiplaner.model.Module",
+        autoLoad: true,
         proxy: {
             type: 'localstorage',
             id: 'modules-store'

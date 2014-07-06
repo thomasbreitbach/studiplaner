@@ -7,6 +7,7 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
     
     config: {
         model: "studiplaner.model.ScheduleBlock",
+        autoLoad: true,
         proxy: {
             type: 'localstorage',
             id: 'scheduleBlock-store'

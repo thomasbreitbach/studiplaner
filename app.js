@@ -30,14 +30,14 @@ Ext.application({
 		'SlideMenu',
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
-        'workload.WorkloadContainer', 'workload.OverviewList', 'workload.OverviewListContainer', "workload.WorkloadWorkList", "workload.WorkloadModulesList",
+        'workload.WorkloadContainer', 'workload.OverviewListContainer', "workload.WorkloadWorkList", "workload.WorkloadModulesList",
         'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleDayContainer', 'schedule.BlocksList'
     ],
     controllers: [
     	'App', 'Modules', 'Work', 'Workload', "Schedule"
     ],
     forms: ['ModuleForm', 'WorkForm'],
-    models: ['Module', 'Work', 'WorkingTime', 'ScheduleBlock'],
+    models: ['BaseModel', 'Module', 'Work', 'WorkingTime', 'ScheduleBlock'],
     stores: ['Modules' , 'Work', 'WorkingTime', 'ScheduleBlocks'],
 
 
