@@ -55,7 +55,16 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
        		 	itemtap: { fn: this.onModulesListTap, scope: this }
         	}
     	}; 
-    	blocksPanel.add(blocksList);
+    	
+    	var listHeader = {
+			xtype: 'container',
+			docked: 'top',
+			itemId: 'blockList-listHeader',
+            height: 35,
+            cls: 'blocklist-listheader'
+		};
+    	blocksPanel.add([listHeader, blocksList]);
+
 
 		var topToolbar = {
 		    xtype: "toolbar",

@@ -12,6 +12,6 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
         
         
         itemTpl: 	'</pre><div id="{id}"><span class="list-item-name">{Module.name}</span>'+
-					'<span class="list-item-workload">{assigned}</span><div><pre>'
+					'<span class="list-item-workload">zugew.: {assigned}</span><div><pre>'
     }
 });

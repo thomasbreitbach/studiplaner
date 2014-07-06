@@ -36,7 +36,7 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		for(var i=0; i<this.times.length; i++){
 			array[i+1] = {
 				xtype: 'container',
-				itemId: 'block'+i,
+				itemId: this.id+i,
 				layout: {
 					type: 'hbox',
 					align: 'center'
@@ -52,12 +52,6 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 						fn: this.onBlockLongPress,
 						scope: this
 					}
-					//~ {
-						//~ element: 'element',
-						//~ event: 'singletap',
-						//~ fn: this.onBlockTap,
-						//~ scope: this
-					//~ }
 				]
 			}
 		}
@@ -66,7 +60,9 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 	
 	onBlockLongPress: function (event, container, options, eOpts) {
 		console.log("onBlockLongPress");
-		this.fireEvent("blockLongPressCommand", this, container);
+		var id = eOpts.firingArguments[0].delegatedTarget.id; //find container id
+		var pressedContainer = Ext.getCmp(id);
+		this.fireEvent("blockLongPressCommand", this, pressedContainer);
 	},
 	
 	//~ onBlockTap: function (event, container, options, eOpts) {
