@@ -38,9 +38,9 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		var blocksPanel = Ext.create('Ext.Panel', {
 			itemId: 'blocksPanel',
 			left: 0,
-			width: '98%',
-			height: '98%',
-			margin: '5 5 5 5',
+			width: '88%',
+			height: '88%',
+			margin: '5% 0 0 6%',
 			//~ style: 'background-color: transparent;',
 			cls: 'blocks-panel',
 			layout: 'fit'
