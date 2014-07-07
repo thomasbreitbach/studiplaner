@@ -17,7 +17,9 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
     
     initialize: function(){
 		this.callParent(arguments);
-		var array = new Array();
+		var blocksArray = new Array();
+		
+		//add blocks for weekdays
 		for(var i=0; i<this.weekdays.length; i++){
 			var backgroundColor;
 			var blockCls;
@@ -29,15 +31,14 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
 				blockCls = ['schedule-weekday-block', 'schedule-weekday-block-dark'];
 			}
 				
-			array[i] = {
+			blocksArray[i] = {
 				xtype: 'scheduledaycontainer',
 				name: this.weekdays[i],
 				style: backgroundColor,
-				itemId: this.weekdays[i],
-				id: this.weekdays[i],
+				itemId: 'phase-1-weekday-' + i,
 				blockCls: blockCls
 			}
 		}
-		this.add(array);
+		this.add(blocksArray);
 	}
 });

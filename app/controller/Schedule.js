@@ -75,10 +75,11 @@ Ext.define("studiplaner.controller.Schedule", {
 	
 	onBlockLongPressCommand: function (dayContainer, pressedContainer) {
 		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
-		var listHeader = blocksPanel.down('#blockList-listHeader');
-		listHeader.setHtml(pressedContainer.getItemId());
-			
 		
+		//set panels header
+		var listHeader = blocksPanel.down('#blockList-listHeader');
+		listHeader.setHtml(pressedContainer.name);
+				
 		//~ blocksPanel.down('#blockslist').refresh();
 		var moduleButton = this.getScheduleContainer().down('#modulesBtn');
 		if(blocksPanel.isHidden()){

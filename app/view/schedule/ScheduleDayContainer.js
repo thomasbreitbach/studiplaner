@@ -6,7 +6,6 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 	xtype: 'scheduledaycontainer',
 	times: ['8:00 - 9:30',  '9:45 - 11:15', '11:30 - 13:00', '14:00 - 15:30', '15:40 - 17:10', '17:20 - 18:50', '19:00 - 20:30'],
 	name: null,
-	id: null,
 	blockCls: null,
 
 	requires: [
@@ -36,15 +35,16 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		for(var i=0; i<this.times.length; i++){
 			array[i+1] = {
 				xtype: 'container',
-				itemId: this.id+i,
-				layout: {
-					type: 'hbox',
-					align: 'center'
-				},
+				itemId: this.getItemId() +'-block-' +i,
+				name: this.name + ' - ' + (i+1) + '. Block (' + this.times[i] + ')',
 				height: 100,
 				width: '100%',
 				cls: this.blockCls,
 				html: this.times[i],
+				layout: {
+					type: 'hbox',
+					align: 'center'
+				},
 				listeners: [
 					{
 						element: 'element',
