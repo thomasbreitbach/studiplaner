@@ -110,25 +110,33 @@ Ext.define("studiplaner.controller.Schedule", {
 		var selection = blocksList.getSelection();
 		
 		if(selection.length > 0){
-			var selectedModuelBlock = selection[0];
-			console.log(selectedModuelBlock);
+			var selectedScheduleBlock = selection[0];
+			console.log(selectedScheduleBlock);
 			console.log(this.lastPressedContainer);
 			
-			//1. update module block attributes
-			selectedModuelBlock.set("block", this.lastPressedContainer.blockId);
-			selectedModuelBlock.set("day", this.lastPressedContainer.weekdayId);
-			selectedModuelBlock.set("phase", this.lastPressedContainer.phaseId);
-			selectedModuelBlock.set("assigned", true);
+			//1. update module block attributes		
+			var attribute;	
+			switch(this.lastPressedContainer.phaseId){
+			case 0: 
+				attribute = "phase1AssignedTo";
+				break;
+			case 1: 
+				attribute = "phase2AssignedTo";
+				break;
+			case 2: 
+				attribute = "phase3AssignedTo";
+				break;
+			}
+			console.log(this.lastPressedContainer.getItemId());
+			selectedScheduleBlock.set(attribute, this.lastPressedContainer.getItemId());
 			
 			var store = Ext.getStore("ScheduleBlocks");
 			store.sync();
 			
 			//2. add module block to schedule block
-			this.lastPressedContainer.setHtml("blubb");
+			var curContent = this.lastPressedContainer.getHtml();
+			this.lastPressedContainer.setHtml(curContent + '<p>' + selectedScheduleBlock.ModuleBelongsToInstance.data.name + '</p>');
 			
-			
-			//3. diable list item
-			blocksList.setDisableSelection(true);
 		
 			//last step: hide panel
 			blocksPanel.hide();

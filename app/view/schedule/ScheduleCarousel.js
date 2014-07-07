@@ -36,7 +36,7 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
 				name: this.weekdays[i],
 				style: backgroundColor,
 				itemId: 'phaseId-0-weekdayId-' + i,
-				phaseId: 1,
+				phaseId: 0,
 				weekdayId: i,
 				blockCls: blockCls
 			}

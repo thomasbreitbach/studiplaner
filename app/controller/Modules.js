@@ -262,20 +262,18 @@ Ext.define("studiplaner.controller.Modules", {
 	    
 	    for(var i=0;i<presenceBlocksCount;i++){
 			scheduleBlocks.add({
-				day: null,
-				phase: null,
-				block: null,
 				type: 'presence',
-				assigned: false
+				phase1assigendTo: null,
+				phase2assigendTo: null,
+				phase3assigendTo: null
 			});
 		}
 		for(var i=0;i<selfStudyBlocksCount;i++){
 			scheduleBlocks.add({
-				day: null,
-				phase: null,
-				block: null,
 				type: 'self',
-				assigned: false
+				phase1assigendTo: null,
+				phase2assigendTo: null,
+				phase3assigendTo: null
 			});
 		}
 		

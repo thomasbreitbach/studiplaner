@@ -15,10 +15,9 @@ Ext.define('studiplaner.model.ScheduleBlock', {
         fields: [
         	{ name: 'id', type: 'auto' },       	
             { name: 'type', type: 'string' },
-            { name: 'assigned', type: 'boolean' },
-            { name: 'day', type: 'int' },
-            { name: 'block', type: 'int' },
-            { name: 'phase', type: 'int'}
+            { name: 'phase1AssignedTo', type: 'string' },
+            { name: 'phase2AssignedTo', type: 'string' },
+            { name: 'phase3AssignedTo', type: 'string' }
         ],
         
 		belongsTo: [
