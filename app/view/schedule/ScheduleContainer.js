@@ -25,15 +25,6 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
         	handler: this.onMenuButtonTap,
         	scope: this
 		};
-	
-		//~ var modulesMenuButton = Ext.create('Ext.Button', {
-        	//~ iconCls: '',
-        	//~ itemId: 'modulesBtn',
-        	//~ text: 'Module',
-        	//~ ui: 'action',
-        	//~ handler: this.onModulesButtonTap,
-        	//~ scope: this
-		//~ });
 		
 		var blocksPanel = Ext.create('Ext.Panel', {
 			itemId: 'blocksPanel',
@@ -52,7 +43,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
     		itemId: 'blockslist',
     		//~ store:  Ext.getStore("ScheduleBlocks"),
     		listeners: {
-       		 	itemtap: { fn: this.onModulesListTap, scope: this }
+       		 	itemtap: { fn: this.onBlocksListTap, scope: this }
         	}
     	}; 
     	
@@ -80,7 +71,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 					xtype: 'button',
 					ui: 'confirm',
 					text: 'Übernehmen',
-					width: '48%',
+					width: '49%',
 					handler: this.onConfirmButtonTap,
 					scope: this
 				}
@@ -94,11 +85,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		    xtype: "toolbar",
 		    title: 'Wochenplan',
 		    docked: "top",
-		    items: [
-				menuButton
-		        //~ { xtype: 'spacer' },
-		        //~ modulesMenuButton
-		    ]
+		    items: [menuButton]
 		};
 
 		var carousel = {
@@ -118,14 +105,10 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 	
 	onConfirmButtonTap: function (){
 		this.fireEvent("hideBlocksPanel", this);
-	},
-	  
-  	onModulesButtonTap: function (btn) {
-		console.log("onModulesMenuButtonTap");
-    	this.fireEvent("toggleBlocksPanelCommand", this, btn);
-	},
+	}
 	
-	onModulesListTap: function (list, index, target, record, evt, options) {
-    	this.fireEvent('editModuleCommand', this, record);
+	onBlocksListTap: function (list, index, target, record, evt, options) {
+		console.log("onBlocksListTap");
+    	this.fireEvent('selectBlockCommand', this, record);
 	}
 });
