@@ -3,7 +3,6 @@
  */
 Ext.define("studiplaner.controller.Schedule", {
     extend: "Ext.app.Controller",
-    scheduleBlocksStore: null,
     
     requires: [
 		'Ext.ComponentQuery',
@@ -19,7 +18,8 @@ Ext.define("studiplaner.controller.Schedule", {
             scheduleContainer: {
             	// The commands fired by the schedule container.
                 toggleBlocksPanelCommand: "onToggleBlocksPanelCommand",
-                updateBlocksCommand: "onUpdateBlocksCommand"
+                updateBlocksCommand: "onUpdateBlocksCommand",
+                hideBlocksPanel: 'onHideBlocksPanel'
             },
             scheduleDayContainer: {
 				blockLongPressCommand: "onBlockLongPressCommand",
@@ -97,12 +97,17 @@ Ext.define("studiplaner.controller.Schedule", {
 		//~ console.log(blockContainer);
 		//~ blockContainer.addCls("schedule-weekday-block-tap");
 	//~ },
+	
+	onHideBlocksPanel: function () {
+		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
+		blocksPanel.hide();
+	},
 
     launch: function () {
         this.callParent();
         //load Store
-        this.scheduleBlocksStore = Ext.getStore("ScheduleBlocks");
-        this.scheduleBlocksStore.load();
+        var scheduleBlocksStore = Ext.getStore("ScheduleBlocks");
+		scheduleBlocksStore.load();
         
         console.log("launch");
     },

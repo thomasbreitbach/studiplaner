@@ -26,14 +26,14 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
         	scope: this
 		};
 	
-		var modulesMenuButton = Ext.create('Ext.Button', {
-        	iconCls: '',
-        	itemId: 'modulesBtn',
-        	text: 'Module',
-        	ui: 'action',
-        	handler: this.onModulesButtonTap,
-        	scope: this
-		});
+		//~ var modulesMenuButton = Ext.create('Ext.Button', {
+        	//~ iconCls: '',
+        	//~ itemId: 'modulesBtn',
+        	//~ text: 'Module',
+        	//~ ui: 'action',
+        	//~ handler: this.onModulesButtonTap,
+        	//~ scope: this
+		//~ });
 		
 		var blocksPanel = Ext.create('Ext.Panel', {
 			itemId: 'blocksPanel',
@@ -63,7 +63,31 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
             height: 35,
             cls: 'blocklist-listheader'
 		};
-    	blocksPanel.add([listHeader, blocksList]);
+		
+		var buttonsToolbar = {
+			xtype: 'toolbar',
+			docked: 'bottom',
+			style: 'background-color: black; background-image: none;',
+			items: [
+				{
+					xtype: 'button',
+					ui: 'decline',
+					text: 'Abbrechen',
+					width: '48%',
+					handler: this.onCancelButtonTap,
+					scope: this
+				}, {
+					xtype: 'button',
+					ui: 'confirm',
+					text: 'Übernehmen',
+					width: '48%',
+					handler: this.onConfirmButtonTap,
+					scope: this
+				}
+			]
+		};
+		
+    	blocksPanel.add([listHeader, blocksList, buttonsToolbar]);
 
 
 		var topToolbar = {
@@ -71,20 +95,29 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		    title: 'Wochenplan',
 		    docked: "top",
 		    items: [
-				menuButton,
-		        { xtype: 'spacer' },
-		        modulesMenuButton
+				menuButton
+		        //~ { xtype: 'spacer' },
+		        //~ modulesMenuButton
 		    ]
 		};
 
 		var carousel = {
     		xtype: "schedulecarousel"
     	};    
+    	
     	this.add([topToolbar, carousel, blocksPanel]);
 	},
 	
 	onMenuButtonTap: function (){
 		this.fireEvent("toggleSlideMenuCommand", this);
+	},
+	
+	onCancelButtonTap: function (){
+		this.fireEvent("hideBlocksPanel", this);
+	},
+	
+	onConfirmButtonTap: function (){
+		this.fireEvent("hideBlocksPanel", this);
 	},
 	  
   	onModulesButtonTap: function (btn) {
