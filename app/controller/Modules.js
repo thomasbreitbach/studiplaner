@@ -266,8 +266,7 @@ Ext.define("studiplaner.controller.Modules", {
 				type: 'presence',
 				phase1assigendTo: null,
 				phase2assigendTo: null,
-				phase3assigendTo: null,
-				module_id: currentModule.get('id')
+				phase3assigendTo: null
 			});
 		}
 		for(var i=0;i<selfStudyBlocksCount;i++){
@@ -275,8 +274,7 @@ Ext.define("studiplaner.controller.Modules", {
 				type: 'self',
 				phase1assigendTo: null,
 				phase2assigendTo: null,
-				phase3assigendTo: null,
-				module_id: currentModule.get('id')
+				phase3assigendTo: null
 			});
 		}
 		
