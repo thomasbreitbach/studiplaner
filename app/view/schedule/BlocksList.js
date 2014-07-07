@@ -15,7 +15,7 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
 						'<div id="{id}">'+
 							'<span >{Module.name}</span>'+
 							'<span class="blocklist-assigned">'+
-								'zugew.: '+
+								'zugewiesen: '+
 								'<tpl if="assigned">'+
 									'ja'+
 								'<tpl else>'+
