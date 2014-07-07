@@ -318,15 +318,20 @@ Ext.define("studiplaner.controller.Modules", {
 				text: 'Ja',
 				ui: 'action'
 			}],		
-			fn: function(text,btn) {
+			fn: function(text, btn) {
 				if(text == 'yes'){
 					//del related schedule blocks
-					scheduleBlocks.removeAll();
+					scheduleBlocks.removeAll();			
 					scheduleBlocks.sync();
+					
 					//del module
 					var modulesStore = Ext.getStore("Modules");		
 					modulesStore.remove(currentModule);
 					modulesStore.sync();
+					
+					//load new data
+					var store_sb = Ext.getStore("ScheduleBlocks");
+					store_sb.load();
 						
 					controller.activateModulesList();
 				}else{

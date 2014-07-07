@@ -7,7 +7,7 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
     
     config: {
         model: "studiplaner.model.ScheduleBlock",
-        autoLoad: true,      
+        autoLoad: false,      
         proxy: {
             type: 'localstorage',
             id: 'scheduleBlock-store'
@@ -17,7 +17,7 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
             sortProperty: "type",
             direction: "ASC",
             groupFn: function (record) {
-				
+				//~ console.log(record.ModuleBelongsToInstance);
                 if (record && record.data.type) {
 					if(record.data.type === 'presence'){
 						return 'Anwesenheit';

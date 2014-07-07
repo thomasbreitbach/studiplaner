@@ -344,9 +344,19 @@ Ext.define("studiplaner.controller.Workload", {
 				}],		
 				fn: function(text,btn) {
 					if(text == 'yes'){
+						//del related schedule blocks
+						scheduleBlocks.removeAll();			
+						scheduleBlocks.sync();
+						
+						//del module
 						var modulesStore = Ext.getStore("Modules");		
 						modulesStore.remove(record);
 						modulesStore.sync();
+						
+						//load new data
+						var store_sb = Ext.getStore("ScheduleBlocks");
+						store_sb.load();
+						
 						//update workload chart
 						studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
 					}else{
