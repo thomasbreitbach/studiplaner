@@ -236,6 +236,7 @@ Ext.define("studiplaner.controller.Modules", {
 	    var moduleForm = this.getModuleForm();
 	    var currentModule = moduleForm.getRecord();
 	    var scheduleBlocks = currentModule.scheduleBlocks();
+	    var store_sb = Ext.getStore("ScheduleBlocks");
 	    var newValues = moduleForm.getValues();
 
 	    // Update the current module's fields with form values.
@@ -265,7 +266,8 @@ Ext.define("studiplaner.controller.Modules", {
 				type: 'presence',
 				phase1assigendTo: null,
 				phase2assigendTo: null,
-				phase3assigendTo: null
+				phase3assigendTo: null,
+				module_id: currentModule.get('id')
 			});
 		}
 		for(var i=0;i<selfStudyBlocksCount;i++){
@@ -273,7 +275,8 @@ Ext.define("studiplaner.controller.Modules", {
 				type: 'self',
 				phase1assigendTo: null,
 				phase2assigendTo: null,
-				phase3assigendTo: null
+				phase3assigendTo: null,
+				module_id: currentModule.get('id')
 			});
 		}
 		
@@ -282,9 +285,20 @@ Ext.define("studiplaner.controller.Modules", {
 	        modulesStore.add(currentModule);
 	    }	
 	    
+	    modulesStore.sync();
 	    scheduleBlocks.sync();
-	    modulesStore.sync();	
-	    modulesStore.sort([{ property: 'name', direction: 'DESC'}]);	
+	    /*
+	     * Important!
+	     * Load new data into ScheduleBlocks-Store
+	     * to see all data in studiplaner.view.schedule.BlocksList
+	     * 
+	     * The use of scheduleBlocks.sync(); alone doesn't work
+	     * because scheduleBlocks is another store instance which holds 
+	     * only blocks of the current module and does not 
+	     * have any connection to the list.
+	     */
+        store_sb.load();
+	    
 	    this.activateModulesList();
 	},
 	
@@ -435,6 +449,8 @@ Ext.define("studiplaner.controller.Modules", {
         //load Store
         var store = Ext.getStore("Modules");
         store.load();
+        var store_sb = Ext.getStore("ScheduleBlocks");
+        store_sb.load();
         
         console.log("launch");
     },

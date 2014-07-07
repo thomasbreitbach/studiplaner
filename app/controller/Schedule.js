@@ -132,6 +132,7 @@ Ext.define("studiplaner.controller.Schedule", {
 			
 			var store = Ext.getStore("ScheduleBlocks");
 			store.sync();
+			store.load();
 			
 			//2. add module block to schedule block
 			var curContent = this.lastPressedContainer.getHtml();

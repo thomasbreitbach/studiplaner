@@ -6,16 +6,18 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
     alias: "widget.blockslist",
 
     config: {
+		loadingText: "Lade Module...",
 		itemHeight: 70,
         emptyText: '</pre> <div class="notes-list-empty-text">Bevor der Wocheplan angelegt werden kann, musst du zuerst in der Modulverwaltung deine Module eintragen.</div> <pre>',
-        
+        onItemDisclosure:false,
+        grouped: true,
         
         itemTpl: 	'</pre>'+
-						'<div id="{id}">'+
+						'<div>'+
 							'<span >{Module.name}</span>'+
 							'<span class="blocklist-assigned">'+
 								'zugewiesen: '+
-								'<tpl if="assigned">'+
+								'<tpl if="phase1AssignedTo">'+
 									'ja'+
 								'<tpl else>'+
 									'nein'+

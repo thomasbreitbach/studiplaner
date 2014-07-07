@@ -5,7 +5,8 @@ Ext.define('studiplaner.model.ScheduleBlock', {
     extend: 'studiplaner.model.BaseModel',
     
     requires: [
-    	'Ext.data.identifier.Uuid'
+    	'Ext.data.identifier.Uuid',
+    	'Ext.data.Field'
     ],
     
     config: {
