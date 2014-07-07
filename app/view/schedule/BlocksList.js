@@ -14,10 +14,24 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
         itemTpl: 	'</pre>'+
 						'<div id="{id}">'+
 							'<span >{Module.name}</span>'+
-							'<span class="blocklist-assigned">zugew.: {assigned}</span>'+
+							'<span class="blocklist-assigned">'+
+								'zugew.: '+
+								'<tpl if="assigned">'+
+									'ja'+
+								'<tpl else>'+
+									'nein'+
+								'</tpl>'+
+							'</span>'+
 						'</div>'+
 						'<div class="blocklist-row-2">'+
-							'<span >{type}</span>'+
+							'<span >'+
+								'<tpl switch="type">'+
+									'<tpl case="self">'+
+										'Selbststudium'+
+									'<tpl case="presence">'+
+										'Anwesenheit'+
+								'</tpl>'+
+							'</span>'+
 							'<span class="blocklist-assigendTo">{day} - {block}</span>'+
 						'</div>'+
 					'<pre>'					
