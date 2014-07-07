@@ -35,7 +35,7 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		for(var i=0; i<this.times.length; i++){
 			array[i+1] = {
 				xtype: 'container',
-				itemId: this.getItemId() +'-block-' +i,
+				itemId: this.getItemId() +'-blockId-' +i,
 				name: this.name + ' - ' + (i+1) + '. Block (' + this.times[i] + ')',
 				height: 100,
 				width: '100%',
