@@ -34,7 +34,9 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			margin: '5% 0 0 6%',
 			//~ style: 'background-color: transparent;',
 			cls: 'blocks-panel',
-			layout: 'fit'
+			layout: 'fit',
+			showAnimation: 'fadeIn',
+			hideAnimation: 'fadeOut'
 		});
 		blocksPanel.hide();
 		
@@ -100,15 +102,16 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 	},
 	
 	onCancelButtonTap: function (){
-		this.fireEvent("hideBlocksPanel", this);
+		this.fireEvent("hideBlocksPanelCommand", this);
 	},
 	
 	onConfirmButtonTap: function (){
-		this.fireEvent("hideBlocksPanel", this);
-	}
+		this.fireEvent("assignBlockCommand", this);
+	},
 	
 	onBlocksListTap: function (list, index, target, record, evt, options) {
 		console.log("onBlocksListTap");
-    	this.fireEvent('selectBlockCommand', this, record);
+		//~ console.log(this.down('#blockslist').getSelection());
+    	//~ this.fireEvent('selectBlockCommand', this, record);
 	}
 });
