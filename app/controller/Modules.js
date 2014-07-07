@@ -134,16 +134,16 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	getMessageForSegmentedButtonId: function (id){
-		var message = 'Durch deine Wahl hast du den Workload für dieses Modul um ';
+		var message = 'Durch deine Wahl hast du den Workload für dieses Modul ';
 		switch(id){
 		case 0:
-			message += '10% verringert.';
+			message += 'um 10% verringert.';
 			break;
 		case 1:
 			message += 'nicht beeinflusst.';
 			break;
 		case 2:
-			message += '10% erhöht.';
+			message += 'um 10% erhöht.';
 			break;
 		}
 		return message;		
