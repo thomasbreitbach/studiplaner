@@ -6,6 +6,8 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 	xtype: 'scheduledaycontainer',
 	times: ['8:00 - 9:30',  '9:45 - 11:15', '11:30 - 13:00', '14:00 - 15:30', '15:40 - 17:10', '17:20 - 18:50', '19:00 - 20:30'],
 	name: null,
+	phaseId: null,
+	weekdayId: null,
 	blockCls: null,
 
 	requires: [
@@ -36,6 +38,9 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 			array[i+1] = {
 				xtype: 'container',
 				itemId: this.getItemId() +'-blockId-' +i,
+				phaseId: this.phaseId,
+				weekdayId: this.weekdayId,
+				blockId: i,
 				name: this.name + ' - ' + (i+1) + '. Block (' + this.times[i] + ')',
 				height: 100,
 				width: '100%',
@@ -63,10 +68,5 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		var id = eOpts.firingArguments[0].delegatedTarget.id; //find container id
 		var pressedContainer = Ext.getCmp(id);
 		this.fireEvent("blockLongPressCommand", this, pressedContainer);
-	},
-	
-	//~ onBlockTap: function (event, container, options, eOpts) {
-		//~ console.log("onBlockTap");
-		//~ this.fireEvent("blockTapCommand", this, container);
-	//~ },
+	}
 });

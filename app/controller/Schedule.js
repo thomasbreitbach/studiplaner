@@ -3,10 +3,10 @@
  */
 Ext.define("studiplaner.controller.Schedule", {
     extend: "Ext.app.Controller",
+    lastPressedContainer: null,
     
     requires: [
-		'Ext.ComponentQuery',
-		'studiplaner.form.ModuleForm'
+		'Ext.ComponentQuery'
     ],
     
     config: {
@@ -18,12 +18,13 @@ Ext.define("studiplaner.controller.Schedule", {
             scheduleContainer: {
             	// The commands fired by the schedule container.
                 toggleBlocksPanelCommand: "onToggleBlocksPanelCommand",
-                updateBlocksCommand: "onUpdateBlocksCommand",
-                hideBlocksPanel: 'onHideBlocksPanel'
+                //~ updateBlocksCommand: "onUpdateBlocksCommand",
+                hideBlocksPanelCommand: 'onHideBlocksPanelCommand',
+                selectBlockCommand: 'onSelectBlockCommand',
+                assignBlockCommand: 'onAssignBlockCommand'
             },
             scheduleDayContainer: {
-				blockLongPressCommand: "onBlockLongPressCommand",
-				blockTapCommand: "onBlockTapCommand"
+				blockLongPressCommand: "onBlockLongPressCommand"
 			}
         }
     },
@@ -76,33 +77,68 @@ Ext.define("studiplaner.controller.Schedule", {
 	onBlockLongPressCommand: function (dayContainer, pressedContainer) {
 		console.log("onBlockLongPressCommand: " + pressedContainer.getItemId());
 		
+		this.lastPressedContainer = pressedContainer;
 		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
 		var listHeader = blocksPanel.down('#blockList-listHeader');
 		//set panels header
 		listHeader.setHtml(pressedContainer.name);
 				
 		//~ blocksPanel.down('#blockslist').refresh();
-		var moduleButton = this.getScheduleContainer().down('#modulesBtn');
 		if(blocksPanel.isHidden()){
 			blocksPanel.show();
-			moduleButton.addCls('x-button-pressing');
 		}else{
 			blocksPanel.hide();
-			moduleButton.removeCls('x-button-pressing');
 		}
 	},
 	
-	//~ blockTapCommand: function (dayContainer, blockContainer) {
-		//~ console.log("blockTapCommand");
-		//~ console.log(blockContainer);
-		//~ blockContainer.addCls("schedule-weekday-block-tap");
-	//~ },
-	
-	onHideBlocksPanel: function () {
+	onHideBlocksPanelCommand: function () {
 		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
 		blocksPanel.hide();
 	},
+	
+	onSelectBlockCommand: function (panel, record) {
+		console.log("onSelectBlockCommand");
+	},
+	
+	onAssignBlockCommand: function () {
+		console.log("onAssignBlockCommand");
+		
+		
+		
+		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
+		var blocksList = blocksPanel.down('#blockslist');
+		var selection = blocksList.getSelection();
+		
+		if(selection.length > 0){
+			var selectedModuelBlock = selection[0];
+			console.log(selectedModuelBlock);
+			console.log(this.lastPressedContainer);
+			
+			//1. update module block attributes
+			selectedModuelBlock.set("block", this.lastPressedContainer.blockId);
+			selectedModuelBlock.set("day", this.lastPressedContainer.weekdayId);
+			selectedModuelBlock.set("phase", this.lastPressedContainer.phaseId);
+			selectedModuelBlock.set("assigned", true);
+			
+			var store = Ext.getStore("ScheduleBlocks");
+			store.sync();
+			
+			//2. add module block to schedule block
+			this.lastPressedContainer.setHtml("blubb");
+			
+			
+			//3. diable list item
+			blocksList.setDisableSelection(true);
+		
+			//last step: hide panel
+			blocksPanel.hide();
+		}else{
+			//no block selected
+			Ext.Msg.alert('Kein Auswahl', 'Bitte wähle einen Block aus der Liste!', Ext.emptyFn);
+		}
+	},
 
+	//--------------------------------
     launch: function () {
         this.callParent();
         //load Store

@@ -45,7 +45,15 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
     		itemId: 'blockslist',
     		//~ store:  Ext.getStore("ScheduleBlocks"),
     		listeners: {
-       		 	itemtap: { fn: this.onBlocksListTap, scope: this }
+       		 	itemtap: { fn: this.onBlocksListTap, scope: this },
+       		 	itemtap: { 
+					fn: function(list, index, target, record, evt, options) {
+						if (record.get('assigned') === true) {
+							return false;
+						}
+					},
+					order: 'before'
+				}
         	}
     	}; 
     	

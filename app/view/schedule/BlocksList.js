@@ -20,6 +20,6 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
 							'<span >{type}</span>'+
 							'<span class="blocklist-assigendTo">{day} - {block}</span>'+
 						'</div>'+
-					'<pre>'
+					'<pre>'					
     }
 });
