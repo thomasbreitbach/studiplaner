@@ -16,7 +16,6 @@ Ext.define("studiplaner.controller.Schedule", {
         },
         control: {
             scheduleContainer: {
-            	// The commands fired by the schedule container.
                 toggleBlocksPanelCommand: "onToggleBlocksPanelCommand",
                 //~ updateBlocksCommand: "onUpdateBlocksCommand",
                 hideBlocksPanelCommand: 'onHideBlocksPanelCommand',
@@ -37,7 +36,52 @@ Ext.define("studiplaner.controller.Schedule", {
     //***********
     //**HELPER***
     //***********
-    
+    showBlocksPanel function (headerString) {
+		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
+		var listHeader = blocksPanel.down('#blockList-listHeader');
+		listHeader.setHtml(headerString);
+
+		if(blocksPanel.isHidden()){
+			blocksPanel.show();
+		}else{
+			blocksPanel.hide();
+		}
+	},
+	
+	deleteBlockFromContainer: function (block, container) {
+		Ext.Msg.show({
+			title: 'Block löschen?',
+			message: 'Möchtest du den Block "' + currentModule.data.name + '" wirklich löschen?',
+			buttons: [{
+				itemId: 'no',
+				text: 'Nein',
+				ui: 'action'
+			}, {
+				itemId: 'yes',
+				text: 'Ja',
+				ui: 'action'
+			}],		
+			fn: function(text, btn) {
+				if(text == 'yes'){
+					/*
+					 * TODO!
+					 */
+					
+					//remove block from container
+					
+					//delete phasexAssignedTo id
+					
+					//load new data
+					var store_sb = Ext.getStore("ScheduleBlocks");
+					store_sb.sync();
+						
+					
+				}else{
+					return false;
+				}
+			}
+		});
+	},
     
     //*************
     //**COMMANDS***
@@ -54,45 +98,22 @@ Ext.define("studiplaner.controller.Schedule", {
 		}
 	},
 	
-	//~ onUpdateBlocksCommand: function () {
-		//~ console.log("onUpdateBlocks");
-		//~ var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
-		//~ var blocks = this.scheduleBlocksStore.getData().items;
-		//~ var modulesStore = Ext.getStore('Modules');
-		//~ 
-		//~ for(var i=0; i<blocks.length; i++){
-			//~ var moduleName = modulesStore.getById(blocks[i].get('module_id')).get('name');
-			//~ var type = blocks[i].get('type');
-			//~ blocksPanel.add({
-				//~ xtype: 'component',
-				//~ itemId: 'block' + i,
-				//~ height: 100,
-				//~ width: '80%',
-				//~ cls: "blocks-panel-block",
-				//~ html: '<p>' + moduleName + ' ' + type +'</p>'
-			//~ });
-		//~ }
-		//~ 
-	//~ },
-	
 	onBlockLongPressCommand: function (dayContainer, pressedContainer) {
 		console.log("onBlockLongPressCommand: " + pressedContainer.getItemId());
-		
 		this.lastPressedContainer = pressedContainer;
-		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
-		var listHeader = blocksPanel.down('#blockList-listHeader');
-		//set panels header
-		listHeader.setHtml(pressedContainer.name);
-				
-		//~ blocksPanel.down('#blockslist').refresh();
-		if(blocksPanel.isHidden()){
-			blocksPanel.show();
+		
+		console.log(pressedContainer.getAt(0));
+		//already assigned to?
+		if(pressedContainer.getAt(0) != undefined){
+			this.deleteBlockFromContainer(block, container);
 		}else{
-			blocksPanel.hide();
+			//no block assigned --> show panel
+			this.showBlocksPanel(pressedContainer.name);
 		}
 	},
 	
 	onHideBlocksPanelCommand: function () {
+		console.log("onHideBlocksPanelCommand");
 		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
 		blocksPanel.hide();
 	},
@@ -135,7 +156,6 @@ Ext.define("studiplaner.controller.Schedule", {
 			var curContent = this.lastPressedContainer.getHtml();
 			this.lastPressedContainer.setHtml(curContent + '<p>' + selectedScheduleBlock.ModuleBelongsToInstance.data.name + '</p>');
 			
-		
 			//last step: hide panel
 			blocksPanel.hide();
 		}else{
@@ -147,17 +167,69 @@ Ext.define("studiplaner.controller.Schedule", {
 	onPhaseChangedCommand: function (container, value) {
 		console.log("onPhaseChangedCommand " + value);
 		var phasesCarousel = this.getScheduleContainer().down('#phasesCarousel');
-		phasesCarousel.animateActiveItem(value, {type: 'slide', direction: 'down'});
+		phasesCarousel.animateActiveItem(value, {type: 'fade'});
 	},
+	
+	//~ onUpdateBlocksCommand: function () {
+		//~ console.log("onUpdateBlocks");
+		//~ var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
+		//~ var blocks = this.scheduleBlocksStore.getData().items;
+		//~ var modulesStore = Ext.getStore('Modules');
+		//~ 
+		//~ for(var i=0; i<blocks.length; i++){
+			//~ var moduleName = modulesStore.getById(blocks[i].get('module_id')).get('name');
+			//~ var type = blocks[i].get('type');
+			//~ blocksPanel.add({
+				//~ xtype: 'component',
+				//~ itemId: 'block' + i,
+				//~ height: 100,
+				//~ width: '80%',
+				//~ cls: "blocks-panel-block",
+				//~ html: '<p>' + moduleName + ' ' + type +'</p>'
+			//~ });
+		//~ }
+		//~ 
+	//~ },
 
 	//--------------------------------
     launch: function () {
+		console.log("launch");
         this.callParent();
         //load Store
         var scheduleBlocksStore = Ext.getStore("ScheduleBlocks");
 		scheduleBlocksStore.load();
-        
-        console.log("launch");
+		
+		//build schedule/timetable
+		console.log("build schedule/timetable");
+		var scheduleContainer = this.getScheduleContainer();
+		var count = scheduleBlocksStore.getTotalCount();
+		
+		for(var i = 0; i < count; i++){
+			var record = scheduleBlocksStore.getAt(i);
+			console.log(record);
+			var name = record.data.Module.name;
+			
+			var phase1 = record.get('phase1AssignedTo');
+			if(phase1 != null){
+				var phase1Id = "#" + phase1;
+				var c1 = scheduleContainer.down(phase1Id);
+				c1.setHtml(c1.getHtml() + ' ' + name);		//TODO!
+			}
+			
+			var phase2 = record.get('phase2AssignedTo');
+			if(phase2 != null){
+				var phase2Id = "#" + phase2;
+				var c2 = scheduleContainer.down(phase2Id);
+				c2.setHtml(c2.getHtml() + ' ' + name);		//TODO!
+			}
+			
+			var phase3 = record.get('phase3AssignedTo');
+			if(phase3 != null){
+				var phase3Id = "#" + phase3;
+				var c3 = scheduleContainer.down(phase3Id);
+				c3.setHtml(c3.getHtml() + ' ' + name);		//TODO!
+			}	
+		}    
     },
     
     init: function () {

@@ -135,6 +135,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		var carousel = Ext.create('studiplaner.view.LockableCarousel', {
 			direction: "vertical",
 			itemId: "phasesCarousel",
+			indicator: false,
 			items: [
 				{
 					xtype: "schedulecarousel",
@@ -160,6 +161,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 	},
 	
 	onCancelButtonTap: function (){
+		console.log("onCancelButtonTap");
 		this.fireEvent("hideBlocksPanelCommand", this);
 	},
 	
