@@ -196,9 +196,12 @@ Ext.define('Ext.ux.picker.Time', {
          */
 	    slotOrder: ['hour','minute','meridiem'],
 	    
-	    //change to german
+	    /**
+	     * change button text to german
+	     * @author Thomas Breitbach
+	     */
 	    doneButton: { 
-			text : 'Fertig'
+			text : 'Übernehmen'
 		},
 		cancelButton : {
 			text : 'Abbrechen'
