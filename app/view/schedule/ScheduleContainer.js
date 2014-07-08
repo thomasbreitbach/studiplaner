@@ -26,6 +26,16 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
         	scope: this
 		};
 		
+		var topToolbar = {
+		    xtype: "toolbar",
+		    title: 'Wochenplan',
+		    docked: "top",
+		    items: [menuButton]
+		};
+		
+		/*
+		 * PANEL
+		 */
 		var blocksPanel = Ext.create('Ext.Panel', {
 			itemId: 'blocksPanel',
 			left: 0,
@@ -37,8 +47,6 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			showAnimation: 'fadeIn',
 			hideAnimation: 'fadeOut'
 		});
-		blocksPanel.hide();
-		
 		var blocksList = {
     		xtype: "blockslist",
     		itemId: 'blockslist',
@@ -56,16 +64,14 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 					//~ order: 'before'
 				//~ }
         	}
-    	}; 
-    	
+    	}; 	
     	var listHeader = {
 			xtype: 'container',
 			docked: 'top',
 			itemId: 'blockList-listHeader',
             height: 35,
             cls: 'blocklist-listheader'
-		};
-		
+		};	
 		var buttonsToolbar = {
 			xtype: 'toolbar',
 			docked: 'bottom',
@@ -88,18 +94,35 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 					scope: this
 				}
 			]
-		};
-		
+		};	
     	blocksPanel.add([listHeader, blocksList, buttonsToolbar]);
+    	blocksPanel.hide();
 
 
-		var topToolbar = {
-		    xtype: "toolbar",
-		    title: 'Wochenplan',
-		    docked: "top",
-		    items: [menuButton]
-		};
+		var phasesChooser = {
+			xtype: 'container',
+			docked: 'top',
+			items: [
+				{
+					xtype: 'selectfield',
+					label: 'Phase',
+					usePicker: 'true',
+					defaultPhonePickerConfig : {
+						doneButton : 'Übernehmen',
+						cancelButton : 'Abbrechen'
+					},
+					options: [
+						{text: '1. Hälfte des Semesters',  value: 'first'},
+						{text: '2. Hälfte des Semesters', value: 'second'},
+						{text: 'Semesterferien',  value: 'third'}
+					]
+				}
+			]
+		}
 
+		/*
+		 * 2-Dim-Carousel
+		 */
 		var carousel = Ext.create('studiplaner.view.LockableCarousel', {
 			direction: "vertical",
 			itemId: "phasesCarousel",
@@ -112,7 +135,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
     	});
     	carousel.lock();    
     	
-    	this.add([topToolbar, carousel, blocksPanel]);
+    	this.add([topToolbar, phasesChooser, carousel, blocksPanel]);
 	},
 	
 	onMenuButtonTap: function (){
