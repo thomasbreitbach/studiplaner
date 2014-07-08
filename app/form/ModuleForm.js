@@ -115,6 +115,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         	},{
 				xtype: "fieldset",
         		itemId: "bla",
+        		instructions: 'Durch die Wahl des persönlichen Interesses und des eingeschätzen Schwierigkeitsgrades kannst du den zu leistenden Workload für das Modul beeinflussen.',
         		items: [
 				{
 					title: 'yourInterest',
