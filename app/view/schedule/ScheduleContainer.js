@@ -32,7 +32,6 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			width: '88%',
 			height: '88%',
 			margin: '5% 0 0 6%',
-			//~ style: 'background-color: transparent;',
 			cls: 'blocks-panel',
 			layout: 'fit',
 			showAnimation: 'fadeIn',
@@ -76,14 +75,15 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 					xtype: 'button',
 					ui: 'decline',
 					text: 'Abbrechen',
-					width: '48%',
+					width: '49%',
+					style: 'margin-left: -1px',
 					handler: this.onCancelButtonTap,
 					scope: this
 				}, {
 					xtype: 'button',
 					ui: 'confirm',
 					text: 'Übernehmen',
-					width: '49%',
+					width: '50%',
 					handler: this.onConfirmButtonTap,
 					scope: this
 				}
