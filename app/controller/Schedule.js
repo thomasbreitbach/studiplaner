@@ -63,9 +63,6 @@ Ext.define("studiplaner.controller.Schedule", {
 			}],		
 			fn: function(text, btn) {
 				if(text == 'yes'){
-					/*
-					 * TODO!
-					 */
 					var store_sb = Ext.getStore("ScheduleBlocks");
 					
 					//delete phasexAssignedTo id
@@ -76,9 +73,8 @@ Ext.define("studiplaner.controller.Schedule", {
 					//remove block from container
 					container.removeAt(0);
 					
-					//load new data
+					//sync data
 					store_sb.sync();
-	
 				}else{
 					return false;
 				}
@@ -222,7 +218,6 @@ Ext.define("studiplaner.controller.Schedule", {
 				var phase1Id = "#" + phase1;
 				var c1 = scheduleContainer.down(phase1Id);
 				
-				//~ c1.setHtml(c1.getHtml() + ' ' + name);		//TODO!
 				c1.add({
 					xtype: 'container',
 					html: name,
@@ -234,7 +229,7 @@ Ext.define("studiplaner.controller.Schedule", {
 			if(phase2 != null){
 				var phase2Id = "#" + phase2;
 				var c2 = scheduleContainer.down(phase2Id);
-				//~ c2.setHtml(c2.getHtml() + ' ' + name);		//TODO!
+
 				c2.add({
 					xtype: 'container',
 					html: name,
@@ -246,11 +241,12 @@ Ext.define("studiplaner.controller.Schedule", {
 			if(phase3 != null){
 				var phase3Id = "#" + phase3;
 				var c3 = scheduleContainer.down(phase3Id);
-				//~ c3.setHtml(c3.getHtml() + ' ' + name);		//TODO!
+
 				c3.add({
 					xtype: 'container',
 					html: name,
 					scheduleBlockId: record.data.id
+					style: 'background-color: white'
 				});
 			}	
 		}    
