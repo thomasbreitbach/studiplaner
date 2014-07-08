@@ -27,7 +27,7 @@ Ext.application({
     ],
 
     views: [
-		'SlideMenu',
+		'SlideMenu', 'LockableCarousel',
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
         'workload.WorkloadContainer', 'workload.OverviewListContainer', "workload.WorkloadWorkList", "workload.WorkloadModulesList",

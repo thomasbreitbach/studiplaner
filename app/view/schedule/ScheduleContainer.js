@@ -100,9 +100,17 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		    items: [menuButton]
 		};
 
-		var carousel = {
-    		xtype: "schedulecarousel"
-    	};    
+		var carousel = Ext.create('studiplaner.view.LockableCarousel', {
+			direction: "vertical",
+			itemId: "phasesCarousel",
+			items: [
+				{xtype: "schedulecarousel"},
+				{xtype: "schedulecarousel"},
+				{xtype: "schedulecarousel"}
+			]
+    		
+    	});
+    	carousel.lock();    
     	
     	this.add([topToolbar, carousel, blocksPanel]);
 	},
