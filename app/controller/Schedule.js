@@ -110,9 +110,7 @@ Ext.define("studiplaner.controller.Schedule", {
 		
 		if(selection.length > 0){
 			var selectedScheduleBlock = selection[0];
-			console.log(selectedScheduleBlock);
-			console.log(this.lastPressedContainer);
-			
+	
 			//1. update module block attributes		
 			var attribute;	
 			switch(this.lastPressedContainer.phaseId){
@@ -148,7 +146,8 @@ Ext.define("studiplaner.controller.Schedule", {
 	
 	onPhaseChangedCommand: function (container, value) {
 		console.log("onPhaseChangedCommand " + value);
-		
+		var phasesCarousel = this.getScheduleContainer().down('#phasesCarousel');
+		phasesCarousel.animateActiveItem(value, {type: 'slide', direction: 'down'});
 	},
 
 	//--------------------------------

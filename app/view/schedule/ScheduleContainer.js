@@ -1,3 +1,4 @@
+
 /**
  * @author Thomas Breitbach
  */
@@ -54,7 +55,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
     		itemId: 'blockslist',
     		store:  Ext.getStore("ScheduleBlocks"),
     		listeners: {
-       		 	itemtap: { fn: this.onBlocksListTap, scope: this }
+       		 	//~ itemtap: { fn: this.onBlocksListTap, scope: this }
        		 	//~ itemtap: { 
 					//~ fn: function(list, index, target, record, evt, options) {
 						//~ if (record.get('assigned') === false) {
@@ -110,6 +111,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 				{
 					xtype: 'selectfield',
 					label: 'Phase',
+					itemId: 'phaseSelectField',
 					usePicker: 'true',
 					defaultPhonePickerConfig : {
 						doneButton : 'Übernehmen',

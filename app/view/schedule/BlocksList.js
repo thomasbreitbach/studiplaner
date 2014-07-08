@@ -18,8 +18,15 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
 							'<span class="blocklist-assigned">'+
 								'zugewiesen: '+
 								'<tpl if="phase1AssignedTo">'+
-									'ja'+
-								'<tpl else>'+
+									'P1 '+
+								'</tpl>'+
+								'<tpl if="phase2AssignedTo">'+
+									'P2 '+
+								'</tpl>'+
+								'<tpl if="phase3AssignedTo">'+
+									'P3 '+
+								'</tpl>'+
+								'<tpl if="!phase3AssignedTo && !phase2AssignedTo && !phase3AssignedTo">'+
 									'nein'+
 								'</tpl>'+
 							'</span>'+
