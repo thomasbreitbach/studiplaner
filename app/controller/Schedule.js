@@ -36,7 +36,7 @@ Ext.define("studiplaner.controller.Schedule", {
     //***********
     //**HELPER***
     //***********
-    showBlocksPanel function (headerString) {
+    showBlocksPanel: function (headerString) {
 		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
 		var listHeader = blocksPanel.down('#blockList-listHeader');
 		listHeader.setHtml(headerString);
@@ -48,10 +48,10 @@ Ext.define("studiplaner.controller.Schedule", {
 		}
 	},
 	
-	deleteBlockFromContainer: function (block, container) {
+	clearBlockContainer: function (block, container) {
 		Ext.Msg.show({
 			title: 'Block löschen?',
-			message: 'Möchtest du den Block "' + currentModule.data.name + '" wirklich löschen?',
+			message: 'Möchtest du den Block wirklich löschen?',
 			buttons: [{
 				itemId: 'no',
 				text: 'Nein',
@@ -66,16 +66,19 @@ Ext.define("studiplaner.controller.Schedule", {
 					/*
 					 * TODO!
 					 */
-					
-					//remove block from container
+					var store_sb = Ext.getStore("ScheduleBlocks");
 					
 					//delete phasexAssignedTo id
+					var record = store_sb.findRecord('id', block.scheduleBlockId);
+					var attribute = "phase" + (container.phaseId+1) + "AssignedTo";
+					record.set(attribute , null);
+					
+					//remove block from container
+					container.removeAt(0);
 					
 					//load new data
-					var store_sb = Ext.getStore("ScheduleBlocks");
 					store_sb.sync();
-						
-					
+	
 				}else{
 					return false;
 				}
@@ -103,9 +106,10 @@ Ext.define("studiplaner.controller.Schedule", {
 		this.lastPressedContainer = pressedContainer;
 		
 		console.log(pressedContainer.getAt(0));
+		var block = pressedContainer.getAt(0);
 		//already assigned to?
-		if(pressedContainer.getAt(0) != undefined){
-			this.deleteBlockFromContainer(block, container);
+		if(block != undefined){
+			this.clearBlockContainer(block, pressedContainer);
 		}else{
 			//no block assigned --> show panel
 			this.showBlocksPanel(pressedContainer.name);
@@ -154,7 +158,11 @@ Ext.define("studiplaner.controller.Schedule", {
 			
 			//2. add module block to schedule block
 			var curContent = this.lastPressedContainer.getHtml();
-			this.lastPressedContainer.setHtml(curContent + '<p>' + selectedScheduleBlock.ModuleBelongsToInstance.data.name + '</p>');
+			this.lastPressedContainer.add({
+				xtype: 'container',
+				html: selectedScheduleBlock.ModuleBelongsToInstance.data.name,
+				scheduleBlockId: selectedScheduleBlock.data.id
+			})
 			
 			//last step: hide panel
 			blocksPanel.hide();
@@ -213,21 +221,37 @@ Ext.define("studiplaner.controller.Schedule", {
 			if(phase1 != null){
 				var phase1Id = "#" + phase1;
 				var c1 = scheduleContainer.down(phase1Id);
-				c1.setHtml(c1.getHtml() + ' ' + name);		//TODO!
+				
+				//~ c1.setHtml(c1.getHtml() + ' ' + name);		//TODO!
+				c1.add({
+					xtype: 'container',
+					html: name,
+					scheduleBlockId: record.data.id
+				});
 			}
 			
 			var phase2 = record.get('phase2AssignedTo');
 			if(phase2 != null){
 				var phase2Id = "#" + phase2;
 				var c2 = scheduleContainer.down(phase2Id);
-				c2.setHtml(c2.getHtml() + ' ' + name);		//TODO!
+				//~ c2.setHtml(c2.getHtml() + ' ' + name);		//TODO!
+				c2.add({
+					xtype: 'container',
+					html: name,
+					scheduleBlockId: record.data.id
+				});
 			}
 			
 			var phase3 = record.get('phase3AssignedTo');
 			if(phase3 != null){
 				var phase3Id = "#" + phase3;
 				var c3 = scheduleContainer.down(phase3Id);
-				c3.setHtml(c3.getHtml() + ' ' + name);		//TODO!
+				//~ c3.setHtml(c3.getHtml() + ' ' + name);		//TODO!
+				c3.add({
+					xtype: 'container',
+					html: name,
+					scheduleBlockId: record.data.id
+				});
 			}	
 		}    
     },
