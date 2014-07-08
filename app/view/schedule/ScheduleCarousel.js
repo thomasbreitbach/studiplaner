@@ -5,6 +5,7 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
     extend: "Ext.carousel.Carousel",
     alias: "widget.schedulecarousel",
     weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+    phaseId: null,
  
     config: {
 		fullscreen: true,
@@ -35,8 +36,8 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
 				xtype: 'scheduledaycontainer',
 				name: this.weekdays[i],
 				style: backgroundColor,
-				itemId: 'phaseId-0-weekdayId-' + i,
-				phaseId: 0,
+				itemId: 'phaseId-' + this.phaseId + '-weekdayId-' + i,
+				phaseId: this.phaseId,
 				weekdayId: i,
 				blockCls: blockCls
 			}

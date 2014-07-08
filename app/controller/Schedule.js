@@ -21,7 +21,8 @@ Ext.define("studiplaner.controller.Schedule", {
                 //~ updateBlocksCommand: "onUpdateBlocksCommand",
                 hideBlocksPanelCommand: 'onHideBlocksPanelCommand',
                 selectBlockCommand: 'onSelectBlockCommand',
-                assignBlockCommand: 'onAssignBlockCommand'
+                assignBlockCommand: 'onAssignBlockCommand',
+                phaseChangedCommand: 'onPhaseChangedCommand'
             },
             scheduleDayContainer: {
 				blockLongPressCommand: "onBlockLongPressCommand"
@@ -102,9 +103,7 @@ Ext.define("studiplaner.controller.Schedule", {
 	
 	onAssignBlockCommand: function () {
 		console.log("onAssignBlockCommand");
-		
-		
-		
+
 		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
 		var blocksList = blocksPanel.down('#blockslist');
 		var selection = blocksList.getSelection();
@@ -145,6 +144,11 @@ Ext.define("studiplaner.controller.Schedule", {
 			//no block selected
 			Ext.Msg.alert('Kein Auswahl', 'Bitte wähle einen Block aus der Liste!', Ext.emptyFn);
 		}
+	},
+	
+	onPhaseChangedCommand: function (container, value) {
+		console.log("onPhaseChangedCommand " + value);
+		
 	},
 
 	//--------------------------------

@@ -18,14 +18,16 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
   	initialize: function(){
 		this.callParent(arguments);
 	
+		/*
+		 * TOP TOOLBAR
+		 */
 		var menuButton = {
             xtype: "button",
         	iconCls: 'list',
         	ui: 'action',
         	handler: this.onMenuButtonTap,
         	scope: this
-		};
-		
+		};	
 		var topToolbar = {
 		    xtype: "toolbar",
 		    title: 'Wochenplan',
@@ -34,7 +36,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		};
 		
 		/*
-		 * PANEL
+		 * BLOCKS PANEL
 		 */
 		var blocksPanel = Ext.create('Ext.Panel', {
 			itemId: 'blocksPanel',
@@ -52,7 +54,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
     		itemId: 'blockslist',
     		store:  Ext.getStore("ScheduleBlocks"),
     		listeners: {
-       		 	itemtap: { fn: this.onBlocksListTap, scope: this },
+       		 	itemtap: { fn: this.onBlocksListTap, scope: this }
        		 	//~ itemtap: { 
 					//~ fn: function(list, index, target, record, evt, options) {
 						//~ if (record.get('assigned') === false) {
@@ -98,7 +100,9 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
     	blocksPanel.add([listHeader, blocksList, buttonsToolbar]);
     	blocksPanel.hide();
 
-
+		/*
+		 * PHASE CHOOSER
+		 */
 		var phasesChooser = {
 			xtype: 'container',
 			docked: 'top',
@@ -112,10 +116,13 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 						cancelButton : 'Abbrechen'
 					},
 					options: [
-						{text: '1. Hälfte des Semesters',  value: 'first'},
-						{text: '2. Hälfte des Semesters', value: 'second'},
-						{text: 'Semesterferien',  value: 'third'}
-					]
+						{text: '1. Hälfte des Semesters',  value: 0},
+						{text: '2. Hälfte des Semesters', value: 1},
+						{text: 'Semesterferien',  value: 2}
+					],
+					listeners: {
+						change: { fn: this.onSelectFieldChanged, scope: this }
+					}
 				}
 			]
 		}
@@ -127,11 +134,19 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			direction: "vertical",
 			itemId: "phasesCarousel",
 			items: [
-				{xtype: "schedulecarousel"},
-				{xtype: "schedulecarousel"},
-				{xtype: "schedulecarousel"}
-			]
-    		
+				{
+					xtype: "schedulecarousel",
+					phaseId: 0
+				},
+				{
+					xtype: "schedulecarousel",
+					phaseId: 1
+				},
+				{
+					xtype: "schedulecarousel",
+					phaseId: 2
+				}
+			]	
     	});
     	carousel.lock();    
     	
@@ -150,9 +165,13 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 		this.fireEvent("assignBlockCommand", this);
 	},
 	
-	onBlocksListTap: function (list, index, target, record, evt, options) {
-		console.log("onBlocksListTap");
+	onSelectFieldChanged: function (element, value) {
+		this.fireEvent("phaseChangedCommand", this, value);
+	},
+	
+	//~ onBlocksListTap: function (list, index, target, record, evt, options) {
+		//~ console.log("onBlocksListTap");
 		//~ console.log(this.down('#blockslist').getSelection());
     	//~ this.fireEvent('selectBlockCommand', this, record);
-	}
+	//~ }
 });
