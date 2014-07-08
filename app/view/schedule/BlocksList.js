@@ -26,7 +26,7 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
 								'<tpl if="phase3AssignedTo">'+
 									'P3 '+
 								'</tpl>'+
-								'<tpl if="!phase3AssignedTo && !phase2AssignedTo && !phase3AssignedTo">'+
+								'<tpl if="phase1AssignedTo == null && phase2AssignedTo == null && phase3AssignedTo == null">'+
 									'nein'+
 								'</tpl>'+
 							'</span>'+
