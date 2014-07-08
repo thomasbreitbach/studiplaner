@@ -246,7 +246,6 @@ Ext.define("studiplaner.controller.Schedule", {
 					xtype: 'container',
 					html: name,
 					scheduleBlockId: record.data.id
-					style: 'background-color: white'
 				});
 			}	
 		}    
