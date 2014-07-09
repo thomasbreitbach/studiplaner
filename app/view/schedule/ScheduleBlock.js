@@ -19,16 +19,15 @@ Ext.define('studiplaner.view.schedule.ScheduleBlock', {
 		this.callParent(arguments);
 		
 		if(this.getType() === 'presence'){
-			this.setStyle('background-color: rgba(128,186,36, 0.5');
+			this.setStyle('background-color: rgba(128,186,36, 0.6');
 		}else{
-			this.setStyle('background-color: rgba(72,92,102, 0.5');
+			this.setStyle('background-color: rgba(72,92,102, 0.6');
 		}
 		
-		var content = '<p>Name: ' + this.getName() + '</p>' +
-						'<p>Typ: ' + this.getType() + '</p>'; 
+		var content = '<h4>' + this.getName() + '</h4>';
+		var typ = (this.getType() === 'self') ? "Selbststudium" : "Anwesenheit";
+		content += '<p>' + typ + '</p>'; 
 						
-						
-		
 		this.setHtml(content);
 	}
 });
