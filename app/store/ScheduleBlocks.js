@@ -7,10 +7,10 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
     
     config: {
         model: "studiplaner.model.ScheduleBlock",
-        autoLoad: false,      
+        autoLoad: true,      
         proxy: {
             type: 'localstorage',
-            id: 'scheduleBlock-store'
+            id: 'scheduleBlocks-store'
         },
         sorters: [{ property: 'type', direction: 'ASC'}],
         grouper: {

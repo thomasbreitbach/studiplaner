@@ -252,7 +252,7 @@ Ext.define("studiplaner.controller.Workload", {
 		var jobWorkload = 0;
 		var studyWorkload = 0;
 		
-		var workStore = Ext.getStore("Work");
+		var workStore = Ext.getStore("Works");
 		var modulesStore = Ext.getStore("Modules");
 		
 		var work = workStore.getData().items;
@@ -385,7 +385,7 @@ Ext.define("studiplaner.controller.Workload", {
 				}],		
 				fn: function(text,btn) {
 					if(text == 'yes'){
-						var workStore = Ext.getStore("Work");		
+						var workStore = Ext.getStore("Works");		
 						workStore.remove(record);
 						workStore.sync();
 						//update workload chart

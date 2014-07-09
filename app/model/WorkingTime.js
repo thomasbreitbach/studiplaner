@@ -2,7 +2,7 @@
  * @author Thomas Breitbach
  */
 Ext.define('studiplaner.model.WorkingTime', {
-    extend: 'Ext.data.Model',
+    extend: 'studiplaner.model.BaseModel',
     
     requires: [
     	'Ext.data.identifier.Uuid',
@@ -20,12 +20,20 @@ Ext.define('studiplaner.model.WorkingTime', {
             { name: 'end', type: 'date' },
             { name: 'work_id', type: 'auto'}
         ],
-        
-		associations: { type: 'belongsTo', model: 'studiplaner.model.Work' },
+		
+		belongsTo: [
+			{
+				model: 'studiplaner.model.Work',
+				name: 'Work',
+				primaryKey: 'id',
+				foreignKey: 'work_id',
+				foreignStore: 'Works'
+			}
+		],
 		
 		proxy: {
     		type: 'localstorage',
-    		id: 'workingTime-store'
+    		id: 'workingTimes-store'
 		}
     }
 });

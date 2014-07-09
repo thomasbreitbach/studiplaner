@@ -77,7 +77,6 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
     		xtype: "workloadworklist",
     		itemId: 'workList',
     		cls: ['overview-list-disclosure', 'overview-list-hidden-disclosure'],
-    		store: Ext.getStore("Work"),
     		itemHeight: 47,
     		listeners: {
        		 	itemtap: { fn: this.onWorkListTap, scope: this }

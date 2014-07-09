@@ -31,14 +31,14 @@ Ext.application({
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
         'workload.WorkloadContainer', 'workload.OverviewListContainer', "workload.WorkloadWorkList", "workload.WorkloadModulesList",
-        'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleDayContainer', 'schedule.BlocksList'
+        'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleDayContainer', 'schedule.BlocksList', 'schedule.ScheduleBlock'
     ],
     controllers: [
     	'App', 'Modules', 'Work', 'Workload', "Schedule"
     ],
     forms: ['ModuleForm', 'WorkForm'],
     models: ['BaseModel', 'Module', 'Work', 'WorkingTime', 'ScheduleBlock'],
-    stores: ['Modules' , 'Work', 'WorkingTime', 'ScheduleBlocks'],
+    stores: ['Modules' , 'Works', 'WorkingTimes', 'ScheduleBlocks'],
 
 
     icon: {

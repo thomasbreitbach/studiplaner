@@ -7,6 +7,7 @@ Ext.define("studiplaner.view.workload.WorkloadWorkList", {
     
     config: {
         loadingText: "Lade Arbeitszeiten...",
+        store: 'Works',
         emptyText: '</pre><div class="notes-list-empty-text">Aktuell liegen keine Arbeitszeiten vor.</div> <pre>',
         onItemDisclosure:true,
         grouped: false,

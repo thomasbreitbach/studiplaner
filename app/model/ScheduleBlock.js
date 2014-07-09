@@ -33,7 +33,7 @@ Ext.define('studiplaner.model.ScheduleBlock', {
 		
 		proxy: {
     		type: 'localstorage',
-    		id: 'scheduleBlock-store'
+    		id: 'scheduleBlocks-store'
 		}
     }
 });

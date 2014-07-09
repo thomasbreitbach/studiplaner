@@ -66,7 +66,7 @@ Ext.define("studiplaner.controller.Schedule", {
 					var store_sb = Ext.getStore("ScheduleBlocks");
 					
 					//delete phasexAssignedTo id
-					var record = store_sb.findRecord('id', block.scheduleBlockId);
+					var record = store_sb.findRecord('id', block.getScheduleBlockId());
 					var attribute = "phase" + (container.phaseId+1) + "AssignedTo";
 					record.set(attribute , null);
 					
@@ -80,6 +80,72 @@ Ext.define("studiplaner.controller.Schedule", {
 				}
 			}
 		});
+	},
+	
+	buildSchedule: function (scheduleBlocksStore, workingTimesStore) {
+		console.log("build schedule/timetable");
+		var scheduleContainer = this.getScheduleContainer();
+		
+		/*
+		 * add study blocks
+		 */
+		var scheduleBlocksCount = scheduleBlocksStore.getTotalCount();
+		
+		for(var i = 0; i < scheduleBlocksCount; i++){
+			var record = scheduleBlocksStore.getAt(i);
+			console.log(record);
+			var name = record.data.Module.name;
+			
+			var phase1 = record.get('phase1AssignedTo');
+			if(phase1 != null){
+				var phase1Id = "#" + phase1;
+				var c1 = scheduleContainer.down(phase1Id);
+				
+				c1.add({
+					xtype: 'scheduleblock',
+					name: name,
+					type: record.data.type,
+					scheduleBlockId: record.data.id
+				});
+				console.log(c1.getAt(0).getName());
+			}
+			
+			var phase2 = record.get('phase2AssignedTo');
+			if(phase2 != null){
+				var phase2Id = "#" + phase2;
+				var c2 = scheduleContainer.down(phase2Id);
+
+				c2.add({
+					xtype: 'scheduleblock',
+					name: name,
+					scheduleBlockId: record.data.id
+				});
+			}
+			
+			var phase3 = record.get('phase3AssignedTo');
+			if(phase3 != null){
+				var phase3Id = "#" + phase3;
+				var c3 = scheduleContainer.down(phase3Id);
+
+				c3.add({
+					xtype: 'scheduleblock',
+					name: name,
+					scheduleBlockId: record.data.id
+				});
+			}	
+		}    
+		
+		/*
+		 * add working blocks
+		 */
+		//~ workingTimesStore.filter
+
+		//~ var workingTimesCount = workingTimesStore.getTotalCount();
+		//~ 
+		//~ for(var i = 0; i < workingTimesCount; i++){
+			//~ 
+		//~ }
+		console.log(workingTimesStore.getAt(0));
 	},
     
     //*************
@@ -155,10 +221,11 @@ Ext.define("studiplaner.controller.Schedule", {
 			//2. add module block to schedule block
 			var curContent = this.lastPressedContainer.getHtml();
 			this.lastPressedContainer.add({
-				xtype: 'container',
-				html: selectedScheduleBlock.ModuleBelongsToInstance.data.name,
+				xtype: 'scheduleblock',
+				name: selectedScheduleBlock.ModuleBelongsToInstance.data.name,
+				type: selectedScheduleBlock.data.type,
 				scheduleBlockId: selectedScheduleBlock.data.id
-			})
+			});
 			
 			//last step: hide panel
 			blocksPanel.hide();
@@ -200,55 +267,11 @@ Ext.define("studiplaner.controller.Schedule", {
 		console.log("launch");
         this.callParent();
         //load Store
-        var scheduleBlocksStore = Ext.getStore("ScheduleBlocks");
-		scheduleBlocksStore.load();
-		
+        var scheduleBlocksStore = Ext.getStore("ScheduleBlocks");		
+		var workingTimesStore = Ext.getStore("WorkingTimes");
+
 		//build schedule/timetable
-		console.log("build schedule/timetable");
-		var scheduleContainer = this.getScheduleContainer();
-		var count = scheduleBlocksStore.getTotalCount();
-		
-		for(var i = 0; i < count; i++){
-			var record = scheduleBlocksStore.getAt(i);
-			console.log(record);
-			var name = record.data.Module.name;
-			
-			var phase1 = record.get('phase1AssignedTo');
-			if(phase1 != null){
-				var phase1Id = "#" + phase1;
-				var c1 = scheduleContainer.down(phase1Id);
-				
-				c1.add({
-					xtype: 'container',
-					html: name,
-					scheduleBlockId: record.data.id
-				});
-			}
-			
-			var phase2 = record.get('phase2AssignedTo');
-			if(phase2 != null){
-				var phase2Id = "#" + phase2;
-				var c2 = scheduleContainer.down(phase2Id);
-
-				c2.add({
-					xtype: 'container',
-					html: name,
-					scheduleBlockId: record.data.id
-				});
-			}
-			
-			var phase3 = record.get('phase3AssignedTo');
-			if(phase3 != null){
-				var phase3Id = "#" + phase3;
-				var c3 = scheduleContainer.down(phase3Id);
-
-				c3.add({
-					xtype: 'container',
-					html: name,
-					scheduleBlockId: record.data.id
-				});
-			}	
-		}    
+		this.buildSchedule(scheduleBlocksStore, workingTimesStore);
     },
     
     init: function () {

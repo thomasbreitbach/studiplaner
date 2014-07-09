@@ -2,7 +2,7 @@
  * @author Thomas Breitbach
  */
 Ext.define('studiplaner.model.Work', {
-    extend: 'Ext.data.Model',
+    extend: 'studiplaner.model.BaseModel',
     
     requires: [
     	'Ext.data.identifier.Uuid',
@@ -20,10 +20,13 @@ Ext.define('studiplaner.model.Work', {
             { name: 'timeMode', type: 'int' },
             { name: 'workload', type: 'int' }
         ],
-        
-        hasMany: {
+		
+		hasMany: {
 				model: 'studiplaner.model.WorkingTime',
-				name: 'workingTimes'
+				name: 'workingTimes',
+				primaryKey: 'id',
+				foreignKey: 'work_id',
+				foreignStore: 'Works'
 		},
         
         validations: [{

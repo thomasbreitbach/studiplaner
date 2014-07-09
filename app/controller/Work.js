@@ -283,6 +283,7 @@ Ext.define("studiplaner.controller.Work", {
 		console.log(workForm.getValues());
 	    var currentWork = workForm.getRecord();
 	    var workingTimes = currentWork.workingTimes();
+	    var store_wt = Ext.getStore("WorkingTimes");
 	    var newValues = workForm.getValues();
 	    var timeMode = workForm.down('#modeButton').getPressedButtons()[0].value
 
@@ -336,14 +337,25 @@ Ext.define("studiplaner.controller.Work", {
 			workingTimes.removeAll();
 		}	
 		
-		var workStore = Ext.getStore("Work");
+		var workStore = Ext.getStore("Works");
 		if (null == workStore.findRecord('id', currentWork.data.id)) {
 			workStore.add(currentWork);
 		}
 
+		workStore.sync();
 		workingTimes.sync();
-	    workStore.sync();	
-	    workStore.sort([{ property: 'name', direction: 'DESC'}]);
+	    
+	    /*
+	     * Important!
+	     * Load new data into ScheduleBlocks-Store
+	     * to see all data in studiplaner.view.schedule.BlocksList
+	     * 
+	     * The use of scheduleBlocks.sync(); alone doesn't work
+	     * because scheduleBlocks is another store instance which holds 
+	     * only blocks of the current module and does not 
+	     * have any connection to the list.
+	     */	
+	    store_wt.load();
 	    this.activateWorkList();
 	},
 	
@@ -368,7 +380,7 @@ Ext.define("studiplaner.controller.Work", {
 			}],	
 			fn: function(text,btn) {
 				if(text == 'yes'){
-					var workStore = Ext.getStore("Work");		
+					var workStore = Ext.getStore("Works");		
 					workStore.remove(currentWork);
 					var workingTimes = currentWork.workingTimes();
 					workingTimes.removeAll(true, true)
@@ -417,10 +429,12 @@ Ext.define("studiplaner.controller.Work", {
     launch: function () {
         this.callParent();
         //load Store
-        var store = Ext.getStore("Work");
+        var store = Ext.getStore("Works");
         store.load();
-        var store_wt = Ext.getStore("WorkingTime");
+        var store_wt = Ext.getStore("WorkingTimes");
         store_wt.load();
+        
+        console.log(store_wt);
 
         console.log("launch");
     },    

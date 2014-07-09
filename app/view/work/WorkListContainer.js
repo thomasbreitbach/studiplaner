@@ -48,7 +48,7 @@
 
 		var workList = {
     		xtype: "worklist",
-    		store: Ext.getStore("Work"),
+    		store: Ext.getStore("Works"),
     		itemHeight: 47,
     		listeners: {
        		 	itemtap: { fn: this.onWorkListTap, scope: this }
