@@ -19,9 +19,9 @@ Ext.define('studiplaner.view.schedule.ScheduleBlock', {
 		this.callParent(arguments);
 		
 		if(this.getType() === 'presence'){
-			this.setStyle('background-color: rgba(128,186,36, 0.6');
+			this.setStyle('background-color: rgba(128, 186, 36, 0.6);');
 		}else{
-			this.setStyle('background-color: rgba(72,92,102, 0.6');
+			this.setStyle('background-color: rgba(72, 92, 102, 0.6);');
 		}
 		
 		var content = '<h4>' + this.getName() + '</h4>';
