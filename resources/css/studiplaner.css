@@ -91,6 +91,9 @@
 .schedule-block-type{
 	font-size: 0.8em;
 }
+.schedule-block-time{
+	padding-left: 5px;
+}
 .schedule-weekday-header{
 	text-align: center;
 	margin-top: 0.3em;
