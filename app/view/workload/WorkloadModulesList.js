@@ -7,7 +7,7 @@ Ext.define("studiplaner.view.workload.WorkloadModulesList", {
     
     config: {
         loadingText: "Lade Module...",
-        emptyText: '</pre> <div class="notes-list-empty-text">Aktuell liegen keine Module vor.</div> <pre>',
+        emptyText: '</pre> <div class="list-empty-text">Aktuell liegen keine Module vor.</div> <pre>',
         onItemDisclosure:true,
         grouped: false,
         itemTpl: 	'</pre><div id="{id}"><span class="list-item-name">{name}</span>'+

@@ -73,8 +73,8 @@
 .x-item-selected .list-item-workload{
     color:#ffffff;
 }
-.modules-list-empty-text{
-    padding:10px;
+.list-empty-text{
+    font-size: 0.8em;
 }
 .workload-overview-list-header{
 	text-align: center;

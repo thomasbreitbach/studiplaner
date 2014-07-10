@@ -344,9 +344,9 @@ Ext.define("studiplaner.controller.Workload", {
 				}],		
 				fn: function(text,btn) {
 					if(text == 'yes'){
-						//del related schedule blocks
-						scheduleBlocks.removeAll();			
-						scheduleBlocks.sync();
+						//del related schedule blocks	
+						record.scheduleBlocks().removeAll();			
+						record.scheduleBlocks().sync();
 						
 						//del module
 						var modulesStore = Ext.getStore("Modules");		
@@ -385,6 +385,10 @@ Ext.define("studiplaner.controller.Workload", {
 				}],		
 				fn: function(text,btn) {
 					if(text == 'yes'){
+						//TODO delete related workintimes!!
+						record.workingTimes().removeAll();
+						record.workingTimes().sync();
+						
 						var workStore = Ext.getStore("Works");		
 						workStore.remove(record);
 						workStore.sync();
