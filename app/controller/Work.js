@@ -433,8 +433,6 @@ Ext.define("studiplaner.controller.Work", {
         store.load();
         var store_wt = Ext.getStore("WorkingTimes");
         store_wt.load();
-        
-        console.log(store_wt);
 
         console.log("launch");
     },    
