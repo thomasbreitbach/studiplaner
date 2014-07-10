@@ -161,25 +161,53 @@ Ext.define("studiplaner.controller.Schedule", {
 		var scheduleBlocks = Ext.getStore("ScheduleBlocks");
 		scheduleBlocks.clearFilter();
 		
-		scheduleBlocks.filterBy(function (record, id) {
-			var type = record.data.Module.type;
-			var ret = false;
-			switch(selection){
-			case 0:
-				//1.Phase des Semesters
-				ret = (type == 0 || type == 2) ? true : false;
-				break;	
-			case 1:
-				//2.Phase des Semesters
-				ret = (type == 0) ? true : false;
-				break;
-			case 2:
-				//Semesterferien
-				ret = (type == 1) ? true : false;
-				break;
-			}
-			return ret;
-		}, this);
+		//~ scheduleBlocks.filterBy(function (record, id) {
+			//~ var type = record.data.Module.type;
+			//~ var ret = false;
+			//~ switch(selection){
+			//~ case 0:
+				//~ //1.Phase des Semesters
+				//~ ret = (type == 0 || type == 2) ? true : false;
+				//~ break;	
+			//~ case 1:
+				//~ //2.Phase des Semesters
+				//~ ret = (type == 0) ? true : false;
+				//~ break;
+			//~ case 2:
+				//~ //Semesterferien
+				//~ ret = (type == 1) ? true : false;
+				//~ break;
+			//~ }
+			//~ return ret;
+		//~ }, this);
+		//~ 
+		//~ scheduleBlocks.filter([
+			Ext.create('Ext.util.Filter', 
+				{
+					filterFn: function(record) { 
+						var type = record.data.Module.type;
+						var ret = false;
+						switch(selection){
+						case 0:
+							//1.Phase des Semesters
+							ret = (type == 0 || type == 2) ? true : false;
+							break;	
+						case 1:
+							//2.Phase des Semesters
+							ret = (type == 0) ? true : false;
+							break;
+						case 2:
+							//Semesterferien
+							ret = (type == 1) ? true : false;
+							break;
+						}
+						return ret;
+					}, 
+					root: 'data',
+					scope: this
+				}
+			)
+		]);
 	},
     
     //*************

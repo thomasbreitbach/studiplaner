@@ -283,8 +283,12 @@ Ext.define("studiplaner.controller.Modules", {
 	        modulesStore.add(currentModule);
 	    }	
 	    
+	    
+	    
 	    modulesStore.sync();
+	    
 	    scheduleBlocks.sync();
+	    console.log("before sync");
 	    /*
 	     * Important!
 	     * Load new data into ScheduleBlocks-Store
@@ -295,7 +299,9 @@ Ext.define("studiplaner.controller.Modules", {
 	     * only blocks of the current module and does not 
 	     * have any connection to the list.
 	     */
+	    store_sb.clearFilter();
         store_sb.load();
+        studiplaner.app.getController('Schedule').filterBlocksList(0);
 	    
 	    this.activateModulesList();
 	},
