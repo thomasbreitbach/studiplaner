@@ -26,7 +26,7 @@ Ext.define('studiplaner.view.schedule.ScheduleBlock', {
 		
 		var content = '<h4>' + this.getName() + '</h4>';
 		var typ = (this.getType() === 'self') ? "Selbststudium" : "Anwesenheit";
-		content += '<p>' + typ + '</p>'; 
+		content += '<p class="schedule-block-type">' + typ + '</p>'; 
 						
 		this.setHtml(content);
 	}

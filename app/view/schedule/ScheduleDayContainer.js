@@ -45,7 +45,7 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 				height: 100,
 				width: '100%',
 				cls: this.blockCls,
-				html: this.times[i],
+				html: '<span style="padding-left: 5px">' + this.times[i] + '</span>',
 				layout: {
 					type: 'vbox',
 					align: 'center'
