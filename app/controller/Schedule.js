@@ -148,7 +148,7 @@ Ext.define("studiplaner.controller.Schedule", {
 		console.log(workingTimesStore.getAt(0));
 	},
 	
-	filterBlocksList: function (value) {
+	filterBlocksList: function (selection) {
 		var scheduleBlocks = Ext.getStore("ScheduleBlocks");
 		scheduleBlocks.clearFilter();
 		
@@ -158,14 +158,17 @@ Ext.define("studiplaner.controller.Schedule", {
 		scheduleBlocks.filterBy(function (record, id) {
 			var type = record.data.Module.type;
 			var ret = false;
-			switch(value){
+			switch(selection){
 			case 0:
+				//1.Phase des Semesters
 				ret = (type == 0 || type == 2) ? true : false;
 				break;	
 			case 1:
+				//2.Phase des Semesters
 				ret = (type == 0) ? true : false;
 				break;
 			case 2:
+				//Semesterferien
 				ret = (type == 1) ? true : false;
 				break;
 			}
@@ -300,6 +303,9 @@ Ext.define("studiplaner.controller.Schedule", {
 
 		//build schedule/timetable
 		this.buildSchedule(scheduleBlocksStore, workingTimesStore);
+		
+		//filter blocks list (schedule blocks)
+		this.filterBlocksList(0);
     },
     
     init: function () {
