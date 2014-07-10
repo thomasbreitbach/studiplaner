@@ -93,7 +93,6 @@ Ext.define("studiplaner.controller.Schedule", {
 		
 		for(var i = 0; i < scheduleBlocksCount; i++){
 			var record = scheduleBlocksStore.getAt(i);
-			//~ console.log(record);
 			var name = record.data.Module.name;
 			
 			var phase1 = record.get('phase1AssignedTo');
@@ -138,22 +137,29 @@ Ext.define("studiplaner.controller.Schedule", {
 		/*
 		 * add working blocks
 		 */
-		//~ workingTimesStore.filter
-
-		//~ var workingTimesCount = workingTimesStore.getTotalCount();
-		//~ 
-		//~ for(var i = 0; i < workingTimesCount; i++){
-			//~ 
-		//~ }
-		console.log(workingTimesStore.getAt(0));
+		
+		var workingTimesCount = workingTimesStore.getTotalCount();
+		
+		for(var i = 0; i < workingTimesCount; i++){
+			var workingTime = workingTimesStore.getAt(i);
+			var workName = this.getWorknameForWorkingTime(workingTimes);
+			
+			
+			console.log(workName);
+			
+		}
+	},
+	
+	getWorknameForWorkingTime: function (record) {
+		var worksStore = Ext.getStore('Works');
+		var work_id = record.data.work_id;
+		var work = worksStore.findRecord('id', work_id);
+		return (work == null) ? null : work.data.name;
 	},
 	
 	filterBlocksList: function (selection) {
 		var scheduleBlocks = Ext.getStore("ScheduleBlocks");
 		scheduleBlocks.clearFilter();
-		
-		console.log(scheduleBlocks.getAt(0));
-		
 		
 		scheduleBlocks.filterBy(function (record, id) {
 			var type = record.data.Module.type;
