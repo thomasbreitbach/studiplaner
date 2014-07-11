@@ -181,7 +181,7 @@ Ext.define("studiplaner.controller.Schedule", {
 			//~ return ret;
 		//~ }, this);
 		//~ 
-		//~ scheduleBlocks.filter([
+		scheduleBlocks.filter([
 			Ext.create('Ext.util.Filter', 
 				{
 					filterFn: function(record) { 
