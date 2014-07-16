@@ -281,11 +281,11 @@ Ext.define("studiplaner.controller.Work", {
 	    
 	    var workForm = this.getWorkForm();
 		console.log(workForm.getValues());
-	    var currentWork = workForm.getRecord();
-	    var workingTimes = currentWork.workingTimes();
-	    var store_wt = Ext.getStore("WorkingTimes");
-	    var newValues = workForm.getValues();
-	    var timeMode = workForm.down('#modeButton').getPressedButtons()[0].value
+	    var currentWork = workForm.getRecord(),
+			workingTimes = currentWork.workingTimes(),
+			store_wt = Ext.getStore("WorkingTimes"),
+			newValues = workForm.getValues(),
+			timeMode = workForm.down('#modeButton').getPressedButtons()[0].value;
 
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
