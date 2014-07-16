@@ -299,8 +299,9 @@ Ext.define("studiplaner.controller.Work", {
 	        return;
 	    }
 	    
-	    console.log("TimeMode: " + currentWork.timeMode);
+	    console.log("TimeMode: " + currentWork.data.timeMode);
 	    if(timeMode == 0){
+			//Detailed input selected
 			var begins=[] , ends=[];
 			
 			workingTimes.removeAll(true, true); //TODO Performance!
@@ -310,19 +311,18 @@ Ext.define("studiplaner.controller.Work", {
 					var begin = newValues.picker[i+1];
 					var end = newValues.picker[i+2];
 					
-					if(begin.getTime() <  end.getTime()){
-						begins.push(begin);
-						ends.push(end);
-							
-						workingTimes.add({
-							'day': newValues.picker[i],
-							'begin': begin,
-							'end': end,
-						});
-					}else{
-						Ext.Msg.alert('Fehlerhafte Arbeitszeiten', "Der Beginn deiner Arbeitszeit muss vor dem Ende liegen. Bitte überprüfe deine Eingabe!", Ext.emptyFn);
-						return;
+					if(begin.getTime() > end.getTime()){
+						end.setDate((end.getDate()+1));						
 					}
+					
+					begins.push(begin);
+					ends.push(end);
+					
+					workingTimes.add({
+						'day': newValues.picker[i],
+						'begin': begin,
+						'end': end,
+					});
 				}
 			}	    	
 			//calc workload
@@ -330,6 +330,7 @@ Ext.define("studiplaner.controller.Work", {
 			currentWork.set("workload", Math.round(workload));		
 			
 	    }else{
+			//hours input selected
 			console.log(workForm.down('#numberfield_hours'));
 			currentWork.set("workload", workForm.down('#numberfield_hours').getValue());
 			
