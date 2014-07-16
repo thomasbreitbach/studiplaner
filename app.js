@@ -23,7 +23,8 @@ Ext.application({
     name: 'studiplaner',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox',
+        'Ext.data.Validations'
     ],
 
     views: [
@@ -62,6 +63,27 @@ Ext.application({
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
+        
+        Ext.applyIf(Ext.data.Validations, {
+ 
+			checkEcts: function (config, value) {
+		 
+				if (arguments.length === 1) {
+					 value = config;
+				}
+				  
+				return value <= 50 && value > 0;
+			},
+			
+			checkSws: function (config, value) {
+		 
+				if (arguments.length === 1) {
+					 value = config;
+				}
+				  
+				return value <= 50 && value > -1;
+			}
+		});
 	
 		Ext.create('studiplaner.form.ModuleForm');
 		Ext.create('studiplaner.form.WorkForm');

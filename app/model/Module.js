@@ -34,11 +34,22 @@ Ext.define('studiplaner.model.Module', {
 				foreignStore: 'Modules'
 		},
         
-        validations: [{
+        validations: [
+			{
+	    		type: 'checkSws',
+			    field: 'sws',
+			    message: "Bitte überpüfe die Eingabe der SWS-Punkte (Der Wert muss zwischen -1 und 51 liegen)"
+		    },
+			{
+				type: 'checkEcts',
+				field: 'ects',
+				message: 'Bitte überpüfe die Eingabe der ECTS-Punkte (Der Wert muss zwischen 0 und 51 liegen)'
+			},
+			{
 	    		type: 'presence',
 			    field: 'name',
 			    message: "Bitte gib einen Modulnamen an."
-		    }
+		    }		    
 		]
     }
 });

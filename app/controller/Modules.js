@@ -250,8 +250,12 @@ Ext.define("studiplaner.controller.Modules", {
 	
 		//Validate!
 	    var errors = currentModule.validate();
+	    console.log(errors)
 	    if (!errors.isValid()) {
-	        Ext.Msg.alert('Hoppla!', errors.getByField("name")[0].getMessage(), Ext.emptyFn);
+			errors.each(function (item, index, length){
+				Ext.Msg.alert('Hoppla!', item.getMessage(), Ext.emptyFn);
+			});
+	        
 	        currentModule.reject();
 	        return;
 	    }
