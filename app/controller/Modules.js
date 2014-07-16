@@ -207,6 +207,13 @@ Ext.define("studiplaner.controller.Modules", {
 			}]
 		});
 	},
+	
+	checkInputVal: function (input, ll, ul) {
+		var parsed = parseInt(input);
+		if(isNaN(parsed)) return 0;
+		if(parsed < ll || parsed > ul)  return 0;
+		return parsed;
+	},
     
     //*************
     //**COMMANDS***
@@ -429,11 +436,11 @@ Ext.define("studiplaner.controller.Modules", {
 		var selfStudyPerWeek = 1;
 		
 		if(field.getItemId() === 'numberfield_ects'){
-			if(newValue != "") ects = parseInt(newValue);	
+			ects = this.checkInputVal(newValue, 0, 50);	
 			otherField = moduleForm.down('#numberfield_sws').getValue();
 			if(otherField != null) sws =  otherField;
 		}else{
-			if(newValue != "") sws = parseInt(newValue);
+			sws = this.checkInputVal(newValue, 0, 50);
 			otherField = moduleForm.down('#numberfield_ects').getValue();
 			if(otherField != null) ects = otherField;
 		}
