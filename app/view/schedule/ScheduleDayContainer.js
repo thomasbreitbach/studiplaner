@@ -53,8 +53,9 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 				listeners: [
 					{
 						element: 'element',
-						event: 'longpress',
-						fn: this.onBlockLongPress,
+						event: 'tap',
+						//~ event: 'longpress',
+						fn: this.onBlockTap,
 						scope: this
 					}
 				]
@@ -63,8 +64,15 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		this.add(array);
 	},
 	
-	onBlockLongPress: function (event, container, options, eOpts) {
-		console.log("onBlockLongPress");
+	//~ onBlockLongPress: function (event, container, options, eOpts) {
+		//~ console.log("onBlockLongPress");
+		//~ var id = eOpts.firingArguments[0].delegatedTarget.id; //find container id
+		//~ var pressedContainer = Ext.getCmp(id);
+		//~ this.fireEvent("blockLongPressCommand", this, pressedContainer);
+	//~ },
+	
+	onBlockTap: function (event, container, options, eOpts) {
+		console.log("onBlockTap");
 		var id = eOpts.firingArguments[0].delegatedTarget.id; //find container id
 		var pressedContainer = Ext.getCmp(id);
 		this.fireEvent("blockLongPressCommand", this, pressedContainer);
