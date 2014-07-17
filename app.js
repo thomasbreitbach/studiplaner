@@ -32,7 +32,8 @@ Ext.application({
         'modules.ModulesListContainer', 'modules.ModulesList', 
         'work.WorkListContainer', 'work.WorkList',
         'workload.WorkloadContainer', 'workload.OverviewListContainer', "workload.WorkloadWorkList", "workload.WorkloadModulesList",
-        'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleDayContainer', 'schedule.BlocksList', 'schedule.ScheduleBlock'
+        'schedule.ScheduleContainer', 'schedule.ScheduleCarousel', 'schedule.ScheduleDayContainer', 'schedule.BlocksList', 'schedule.ScheduleBlock',
+		'imprint.ImprintContainer'
     ],
     controllers: [
     	'App', 'Modules', 'Work', 'Workload', "Schedule"
@@ -64,23 +65,20 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
         
+        //add custom validations for forms
         Ext.applyIf(Ext.data.Validations, {
  
 			checkEcts: function (config, value) {
-		 
-				if (arguments.length === 1) {
+				if(arguments.length === 1){
 					 value = config;
-				}
-				  
-				return value <= 50 && value > 0;
+				} 
+				return value <= 50 && value > -1;
 			},
 			
 			checkSws: function (config, value) {
-		 
-				if (arguments.length === 1) {
+				if(arguments.length === 1){
 					 value = config;
 				}
-				  
 				return value <= 50 && value > -1;
 			}
 		});
@@ -101,13 +99,16 @@ Ext.application({
 		var scheduleContainer = {
 			xtype: "schedulecontainer"
 		};
+		var imprintContainer = {
+			xtype: "imprintcontainer"
+		};
 	
 		studiplaner.view.SlideMenu.setMenu();
 		//~ Ext.Viewport.getMenus().left.items.items[0].container.getItems().items[0].addCls('x-item-selected');
 		
 		
         // Initialize the main view
-        Ext.Viewport.add([modulesListContainer, workListContainer, workloadContainer, scheduleContainer]);
+        Ext.Viewport.add([modulesListContainer, workListContainer, workloadContainer, scheduleContainer, imprintContainer]);
     },
 
     onUpdated: function() {

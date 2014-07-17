@@ -12,7 +12,7 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
             type: 'localstorage',
             id: 'scheduleBlocks-store'
         },
-        sorters: [{ property: 'type', direction: 'ASC'}],
+        
         grouper: {
             sortProperty: "type",
             direction: "ASC",
@@ -28,6 +28,7 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
                     return '';
                 }
             }
-        }
+        },
+        sorters: [{ property: 'Model.name', direction: 'ASC'}],
     }
 });

@@ -15,7 +15,8 @@ Ext.define('studiplaner.controller.App', {
             modulesListContainer: "moduleslistcontainer",
             workListContainer: "worklistcontainer",
             workloadContainer: 'workloadcontainer',
-            scheduleContainer: "schedulecontainer"
+            scheduleContainer: "schedulecontainer",
+            imprintContainer: "imprintcontainer"
         },
         control: {
             viewPort: {
@@ -33,7 +34,10 @@ Ext.define('studiplaner.controller.App', {
 			},
 			scheduleContainer: {
 				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			}	
+			},
+			imprintContainer: {
+				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
+			}		
         }
     },
     
@@ -55,9 +59,11 @@ Ext.define('studiplaner.controller.App', {
 			content = 3;
 			//~ studiplaner.app.getController('Schedule').onUpdateBlocksCommand(); 
 			break;
-		case "assistent":
-			break;
 		case "export":
+			//~ content = 4;
+			break;
+		case "imprint":
+			content = 4;
 			break;
 		}
 		

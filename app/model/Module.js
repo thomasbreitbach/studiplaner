@@ -38,12 +38,12 @@ Ext.define('studiplaner.model.Module', {
 			{
 	    		type: 'checkSws',
 			    field: 'sws',
-			    message: "Bitte überpüfe die Eingabe der SWS-Punkte (Der Wert muss zwischen -1 und 51 liegen)"
+			    message: "Bitte überpüfe die Eingabe der SWS-Punkte (Der Wert muss mindestens 0 und maximal 50 betragen)"
 		    },
 			{
 				type: 'checkEcts',
 				field: 'ects',
-				message: 'Bitte überpüfe die Eingabe der ECTS-Punkte (Der Wert muss zwischen 0 und 51 liegen)'
+				message: 'Bitte überpüfe die Eingabe der ECTS-Punkte (Der Wert muss mindestens 0 und maximal 50 betragen)'
 			},
 			{
 	    		type: 'presence',
