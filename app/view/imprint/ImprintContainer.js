@@ -38,8 +38,9 @@ Ext.define('studiplaner.view.imprint.ImprintContainer', {
 		var content = {
 			xtype: "container",
 			cls: 'imprint-body',
-			html: '<h1>Dies ist ein Produkt der THM - Technische Hochschule Mittelhessen</h1>'+
-					'<p>Wiesenstraße 14,<br>35390 Gießen</p>'+
+			html: 	'<div class="thm-logo"></div>'+
+					'<h1>Dies ist ein Produkt der THM - Technische Hochschule Mittelhessen</h1>'+
+					'<p>Wiesenstraße 14<br>35390 Gießen</p>'+
 					'<p>Planung und Realisierung:<br>Thomas Breitbach<p>'+
 					'<p>Modul:<br>Entwicklunsprojekt</p>'+
 					'<p>Source-Code:<br><a href="https://github.com/thomasbreitbach/studiplaner" title="Studiplaner Source-Code auf GitHub">Studiplaner auf GitHub</a></p>'
