@@ -257,44 +257,51 @@ Ext.define("studiplaner.controller.Schedule", {
 		var blocksList = blocksPanel.down('#blockslist');
 		var selection = blocksList.getSelection();
 		
-		if(selection.length > 0){
-			var selectedScheduleBlock = selection[0];
-	
-			//1. update module block attributes		
-			var attribute;	
-			switch(this.lastPressedContainer.phaseId){
-			case 0: 
-				attribute = "phase1AssignedTo";
-				break;
-			case 1: 
-				attribute = "phase2AssignedTo";
-				break;
-			case 2: 
-				attribute = "phase3AssignedTo";
-				break;
-			}
-			console.log(this.lastPressedContainer.getItemId());
-			selectedScheduleBlock.set(attribute, this.lastPressedContainer.getItemId());
-			
-			var store = Ext.getStore("ScheduleBlocks");
-			store.sync();
-			store.load();
-			
-			//2. add module block to schedule block
-			var curContent = this.lastPressedContainer.getHtml();
-			this.lastPressedContainer.add({
-				xtype: 'scheduleblock',
-				name: selectedScheduleBlock.ModuleBelongsToInstance.data.name,
-				type: selectedScheduleBlock.data.type,
-				scheduleBlockId: selectedScheduleBlock.data.id
-			});
-			
-			//last step: hide panel
-			blocksPanel.hide();
-		}else{
+		if(selection.length < 1){
 			//no block selected
 			Ext.Msg.alert('Kein Auswahl', 'Bitte wähle einen Block aus der Liste!', Ext.emptyFn);
+			return;
 		}
+		
+		var selectedScheduleBlock = selection[0];
+	
+		//1. update module block attributes		
+		var attribute;	
+		switch(this.lastPressedContainer.phaseId){
+		case 0: 
+			attribute = "phase1AssignedTo";
+			break;
+		case 1: 
+			attribute = "phase2AssignedTo";
+			break;
+		case 2: 
+			attribute = "phase3AssignedTo";
+			break;
+		}
+	
+		if(selectedScheduleBlock.get(attribute) != null){
+			//block already used in this phase
+			Ext.Msg.alert('Bereits verwendet!', 'Diesen Block hast du in der aktuellen Phase bereits zugewiesen.', Ext.emptyFn);
+			return;
+		}
+		
+		selectedScheduleBlock.set(attribute, this.lastPressedContainer.getItemId());
+		
+		var store = Ext.getStore("ScheduleBlocks");
+		store.sync();
+		store.load();
+		
+		//2. add module block to schedule block
+		var curContent = this.lastPressedContainer.getHtml();
+		this.lastPressedContainer.add({
+			xtype: 'scheduleblock',
+			name: selectedScheduleBlock.ModuleBelongsToInstance.data.name,
+			type: selectedScheduleBlock.data.type,
+			scheduleBlockId: selectedScheduleBlock.data.id
+		});
+		
+		//last step: hide panel
+		blocksPanel.hide();
 	},
 	
 	onPhaseChangedCommand: function (container, value) {

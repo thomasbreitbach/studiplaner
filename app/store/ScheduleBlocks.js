@@ -30,12 +30,8 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
 			{
 				// Sort by first letter of last name, in descending order
 				sorterFn: function(record1, record2) {
-					var modulesStore = Ext.getStore('Modules'),
-						mod1 = modulesStore.getById(record1.data.module_id),
-						mod2 = modulesStore.getById(record2.data.module_id),
-						name1 = mod1.data.name.substr(0, 1),
-						name2 = mod2.data.name.substr(0, 1);
-
+					var	name1 = record1.getAssociatedData().Module.name.substr(0, 1),
+						name2 = record2.getAssociatedData().Module.name.substr(0, 1);
 					return name1 > name2 ? 1 : (name1 === name2 ? 0 : -1);
 				},
 				direction: 'ASC'
