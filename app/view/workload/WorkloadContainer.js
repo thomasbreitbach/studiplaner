@@ -46,7 +46,6 @@
         	}, {
 				xtype: 'chartcontainer',
 				itemId: 'chartcontainer',
-				//~ height: '85%'
 			}, {
 				xtype: 'button',
 				itemId: 'overviewListButton',
