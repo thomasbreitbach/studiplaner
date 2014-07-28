@@ -45,7 +45,7 @@
         		]
         	}, {
 				xtype: 'chartcontainer',
-				itemId: 'chartcontainer',
+				itemId: 'chartcontainer'
 			}, {
 				xtype: 'button',
 				itemId: 'overviewListButton',

@@ -177,7 +177,8 @@ Ext.define("studiplaner.controller.Workload", {
 			exporting: { enabled: false },
 			credits: false,
 			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				pointFormat: 'Anteil: <strong>{point.percentage:.1f}%</strong><br>'+
+								'Absolut: <strong>{point.y:.1f} Std./Woche</strong>'
 			},
 			plotOptions: {
 				pie: {

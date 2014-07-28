@@ -175,7 +175,8 @@ Ext.define("studiplaner.controller.Modules", {
 				y: 85
 			},		
 			tooltip: {
-				pointFormat: 'Anteil: <b>{point.percentage:.1f}%</b>'
+				pointFormat: 'Anteil: <b>{point.percentage:.1f}%</b><br>' +
+							'Absolut: <strong>{point.y:.1f} Std./Woche</strong>'
 			},			
 			exporting: { enabled: false },
 			credits: false,			
