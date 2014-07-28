@@ -13,19 +13,30 @@ Ext.define('studiplaner.view.imprint.ImprintContainer', {
 		layout: {
         	type: 'fit'
     	},
-    	scrollable:'vertical',
-    	items: [{
-			xtype: "toolbar",
-			title: 'Impressum',
-			docked: "top",
-			items: [{
-				xtype: "button",
-				iconCls: 'list',
-				ui: 'action',
-				handler: this.onMenuButtonTap,
-				scope: this
-			}]
-		}, {
+    	scrollable:'vertical'
+  	},
+
+  	initialize: function(){
+		this.callParent(arguments);
+	
+		var menuButton = {
+            xtype: "button",
+        	iconCls: 'list',
+        	ui: 'action',
+        	handler: this.onMenuButtonTap,
+        	scope: this
+		};
+
+		var topToolbar = {
+		    xtype: "toolbar",
+		    title: 'Impressum',
+		    docked: "top",
+		    items: [
+				menuButton
+		    ]
+		};
+		
+		var content = {
 			xtype: "container",
 			cls: 'imprint-body',
 			html: 	'<div class="thm-logo"></div>'+
@@ -36,8 +47,10 @@ Ext.define('studiplaner.view.imprint.ImprintContainer', {
 					'<p>Planung und Realisierung:<br>Thomas Breitbach<p>'+
 					'<p>Idee:<br>M. H. Edu. Sabine Langkamm<p>'+		
 					'<p>Source-Code:<br><a href="https://github.com/thomasbreitbach/studiplaner" title="Studiplaner Source-Code auf GitHub">Studiplaner auf GitHub</a></p>'
-		}]
-  	},
+		};
+
+    	this.add([topToolbar, content]);
+	},
 	
 	onMenuButtonTap: function (){
 		this.fireEvent("toggleSlideMenuCommand", this);
