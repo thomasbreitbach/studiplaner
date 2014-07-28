@@ -255,13 +255,11 @@ Ext.define("studiplaner.controller.Workload", {
 	//**COMMANDS**
 	//************ 	
     onBuildChartsCommand: function(container){
-		console.log("onBuildChartsCommand");
 		this.getWorkloadContainer().down('#chartcontainer').gaugeChart = this.buildGaugeChart();
 		this.getWorkloadContainer().down('#chartcontainer').ratioChart = this.buildRatioChart();
 	},
 	
 	onflipCardCommand: function(container){
-		console.log("onflipCardCommand");		
 		var chartContainer = container.down('#chartcontainer');
 		var toggleButton = container.down('#toggleButton');
 		var activeItem = chartContainer.getActiveItem().getItemId();
@@ -313,7 +311,6 @@ Ext.define("studiplaner.controller.Workload", {
 	},
 	
 	onOverviewListCommand: function () { 
-		console.log("onOverviewListCommand");
 		overviewListContainer = this.getWorkloadOverviewListContainer();
 		Ext.Viewport.animateActiveItem(overviewListContainer, this.slideLeftTransition);
 	},

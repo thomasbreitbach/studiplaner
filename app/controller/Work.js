@@ -191,7 +191,6 @@ Ext.define("studiplaner.controller.Work", {
 			timeContainer.removeAll(true, true);
 			var times = record.workingTimes();
 			times.load(); //important!
-			console.log(times);
 			if(times.getTotalCount() > 0){
 				for(var i=0; i<times.data.length; i++){
 					var workingTime = times.data.items[i].data;			
@@ -403,7 +402,18 @@ Ext.define("studiplaner.controller.Work", {
 	},	
 	onAddWorkingTimeCommand:function(){	
 		var workForm = this.getWorkForm();
-		this.addWorkingTimeToFieldset(workForm.counter);
+		var counter = workForm.counter;
+		var newFieldset = this.addWorkingTimeToFieldset(counter);
+		var yPos = newFieldset.element.dom.offsetTop-100;
+		console.log(yPos);
+		var anim = {
+			type: 'slide',
+			duration: 1000,
+			direction: 'down'
+		}
+		setTimeout(function() {	
+			var scroller = workForm.getScrollable().getScroller().scrollToEnd(anim);
+		}, 200, this);
 	},	
 	onDelWorkingTimeCommand: function(form, button){
 		console.log('onDelWorkingTimeCommand');
@@ -434,11 +444,8 @@ Ext.define("studiplaner.controller.Work", {
         store.load();
         var store_wt = Ext.getStore("WorkingTimes");
         store_wt.load();
-
-        console.log("launch");
     },    
     init: function () {
         this.callParent();
-        console.log("init");
     }
 });

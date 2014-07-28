@@ -246,9 +246,15 @@ Ext.define("studiplaner.controller.Modules", {
 	    var scheduleBlocks = currentModule.scheduleBlocks();
 	    var store_sb = Ext.getStore("ScheduleBlocks");
 	    var newValues = moduleForm.getValues();
+	    var updateSheduleBlocks = false;
+	    
+	    if(newValues.ects != currentModule.get('ects') || 
+			newValues.sws != currentModule.get('sws')){
+			updateSheduleBlocks = true;
+		}
 
 	    // Update the current module's fields with form values.
-	    // Hint: SegmentedButton values are saved on toggle
+	    // Hint: SegmentedButton values have been saved on toggle
 	    currentModule.set("name", newValues.name);
 	    currentModule.set("ects", newValues.ects);
 	    currentModule.set("sws", newValues.sws);
@@ -268,26 +274,29 @@ Ext.define("studiplaner.controller.Modules", {
 	        return;
 	    }
 	    
-	    //calculate and store schedule blocks
-	    scheduleBlocks.removeAll(); //TODO https://github.com/thomasbreitbach/studiplaner/issues/9
-	    var presenceBlocksCount = moduleForm.presencePerWeek/H_PER_BLOCK;
-	    var selfStudyBlocksCount = moduleForm.selfStudyPerWeek/H_PER_BLOCK;
-	    
-	    for(var i=0;i<presenceBlocksCount;i++){
-			scheduleBlocks.add({
-				type: 'presence',
-				phase1assigendTo: null,
-				phase2assigendTo: null,
-				phase3assigendTo: null
-			});
-		}
-		for(var i=0;i<selfStudyBlocksCount;i++){
-			scheduleBlocks.add({
-				type: 'self',
-				phase1assigendTo: null,
-				phase2assigendTo: null,
-				phase3assigendTo: null
-			});
+	    if(updateSheduleBlocks){
+			//calculate and store schedule blocks
+			scheduleBlocks.removeAll(); //TODO https://github.com/thomasbreitbach/studiplaner/issues/9
+			var presenceBlocksCount = moduleForm.presencePerWeek/H_PER_BLOCK;
+			var selfStudyBlocksCount = moduleForm.selfStudyPerWeek/H_PER_BLOCK;
+			
+			
+			for(var i=0;i<presenceBlocksCount;i++){
+				scheduleBlocks.add({
+					type: 'presence',
+					phase1assigendTo: null,
+					phase2assigendTo: null,
+					phase3assigendTo: null
+				});
+			}
+			for(var i=0;i<selfStudyBlocksCount;i++){
+				scheduleBlocks.add({
+					type: 'self',
+					phase1assigendTo: null,
+					phase2assigendTo: null,
+					phase3assigendTo: null
+				});
+			}
 		}
 		
 	    var modulesStore = Ext.getStore("Modules");	
@@ -419,7 +428,10 @@ Ext.define("studiplaner.controller.Modules", {
 								localStorage.show_workload_info = false;
 							}
 						}
-					}
+					},
+					showAnimation: {
+						duration: 450
+					} 
 				});	//msg
 			}
 		}//if calc workload
@@ -472,12 +484,9 @@ Ext.define("studiplaner.controller.Modules", {
         store.load();
         var store_sb = Ext.getStore("ScheduleBlocks");
         store_sb.load();
-        
-        console.log("launch");
     },
     
     init: function () {
         this.callParent();
-        console.log("init");
     }
 });

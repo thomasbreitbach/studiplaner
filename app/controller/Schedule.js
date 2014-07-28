@@ -137,23 +137,20 @@ Ext.define("studiplaner.controller.Schedule", {
 		/*
 		 * add working blocks
 		 */
+		//~ TODO!
+		//~ this.addWorkingTimes(workingTimesStore);
+	},
+	
+	addWorkingTimes: function(workingTimesStore){
 		var workingTimesCount = workingTimesStore.getTotalCount();
 		
 		for(var i = 0; i < workingTimesCount; i++){
-			var workingTime = workingTimesStore.getAt(i);
-			var workName = this.getWorknameForWorkingTime(workingTimes);
+			var workingTime = workingTimesStore.getAt(i).getData(true);
+			var workName = workingTime.Work.name;
 			
 			
 			console.log(workName);
-			
 		}
-	},
-	
-	getWorknameForWorkingTime: function (record) {
-		var worksStore = Ext.getStore('Works');
-		var work_id = record.data.work_id;
-		var work = worksStore.findRecord('id', work_id);
-		return (work == null) ? null : work.data.name;
 	},
 	
 	filterBlocksList: function (selection) {
@@ -315,7 +312,6 @@ Ext.define("studiplaner.controller.Schedule", {
 
 	//--------------------------------
     launch: function () {
-		console.log("launch");
         this.callParent();
         //load Store
         var scheduleBlocksStore = Ext.getStore("ScheduleBlocks");		
@@ -330,6 +326,5 @@ Ext.define("studiplaner.controller.Schedule", {
     
     init: function () {
         this.callParent();
-        console.log("init");
     }
 });

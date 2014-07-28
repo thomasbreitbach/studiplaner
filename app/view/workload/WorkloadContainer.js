@@ -89,11 +89,9 @@
 		this.fireEvent("toggleSlideMenuCommand", this);
 	},	
 	onToggleButtonTap: function () {
-        console.log("flipChartCommand");
     	this.fireEvent("flipChartCommand", this);
 	},
 	onOverviewListButtonTap: function(){
-		console.log("overviewListCommand");
 		this.fireEvent("overviewListCommand", this);
 	}
 });

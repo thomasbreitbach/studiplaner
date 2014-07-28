@@ -21,6 +21,10 @@ Ext.Loader.setConfig({
 
 Ext.application({
     name: 'studiplaner',
+    
+    viewport: {
+		autoMaximize: true
+	},
 
     requires: [
         'Ext.MessageBox',
