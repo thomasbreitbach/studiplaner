@@ -19,8 +19,7 @@
         	type: 'fit',
     	},
     	scrollable:'vertical',
-    	items: [
-			{
+    	items: [{
         		xtype: "toolbar",
         		docked: "top",
         		itemId: 'topToolbar',
@@ -45,14 +44,21 @@
         		]
         	}, {
 				xtype: 'chartcontainer',
-				itemId: 'chartcontainer'
+				itemId: 'chartcontainer',
 			}, {
 				xtype: 'button',
 				itemId: 'overviewListButton',
 				ui: 'normal',
 				text: 'Übersicht Arbeitsstunden &gt;',
 				docked: 'bottom',
-				margin: '15px 11px 15px 11px'
+				margin: '0.5em 0.5em 0.5em 0.5em'
+			} ,{
+				xtype: 'fieldset',
+				itemId: 'workloadInfo',
+				docked: 'bottom',
+				styleHtmlContent: true,
+				styleHtmlCls: 'workload-info-txt',				
+				margin: '0.5em 0.5em 0.2em 0.5em'
 			}
     	],
     	listeners: [

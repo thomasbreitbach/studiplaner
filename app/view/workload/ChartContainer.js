@@ -10,13 +10,15 @@
   	config: {
 		layout: {
 			type: 'card',
-			animation: 'flip'
+			animation: 'flip',
+			
 		},
 	
     	items: [
 			{
 				xtype: 'fieldset',
 				itemId: 'gaugeFieldset',
+				margin: '0.5em 0.5em 0.2em 0.5em',
 				items: [{
 						xtype: 'panel',
 						title: 'gauge',
@@ -28,6 +30,7 @@
 			}, {
 				xtype: 'fieldset',
 				itemId: 'ratioFieldset',
+				margin: '0.5em 0.5em 0.2em 0.5em',
 				items: [{
 						xtype: 'panel',
 						title: 'ratio',

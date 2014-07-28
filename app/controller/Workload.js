@@ -238,6 +238,19 @@ Ext.define("studiplaner.controller.Workload", {
 				], true, false, true);
 	},
 	
+	setWorkloadInformationTxt: function(workload){
+		var workloadInfoFieldset = this.getWorkloadContainer().down('#workloadInfo');
+		if(workload >= 0 && workload < 32){ //0 bis 31 zu gering
+			workloadInfoFieldset.setHtml("Dein wöchentlicher Workload ist gering. Du könntest etwas mehr tun.");
+		} else if (workload > 34 && workload < 46){ //35 bis 45 --> gut
+			workloadInfoFieldset.setHtml("Dein wöchentlicher Workload liegt in einem guten Bereich!");
+		} else if ((workload > 45 && workload < 49) || (workload > 31 && workload < 45)){ 
+			workloadInfoFieldset.setHtml("Dein wöchentlicher Workload liegt gerade noch in einem guten Bereich!");
+		} else if (workload > 48){ //47 bis inf. --> zu hoch
+			workloadInfoFieldset.setHtml("Achtung, dein wöchentlicher Workload ist aktuell zu hoch!");
+		}
+	},
+	
 	//************
 	//**COMMANDS**
 	//************ 	
@@ -283,13 +296,20 @@ Ext.define("studiplaner.controller.Workload", {
 			studyWorkload += modules[i].data.workload;
 		}
 		
-		this.setGaugeChartData(jobWorkload+studyWorkload);
+		var overallWorkload = jobWorkload+studyWorkload;
+		if(overallWorkload < 81){
+			this.setGaugeChartData(overallWorkload);
+		} else{
+			this.setGaugeChartData(80);
+		}
 		
 		if(jobWorkload == 0 && studyWorkload == 0){
 			jobWorkload = 1;
 			studyWorkload = 1;
 		}
 		this.setRatioChartData(studyWorkload, jobWorkload);
+		
+		this.setWorkloadInformationTxt(jobWorkload+studyWorkload);
 	},
 	
 	onOverviewListCommand: function () { 
@@ -422,11 +442,9 @@ Ext.define("studiplaner.controller.Workload", {
 	
 	//------------------------------
     launch: function () {
-        this.callParent();        
-        console.log("launch");
+        this.callParent();
     },    
     init: function () {
         this.callParent();
-        console.log("init");
     }
 });
