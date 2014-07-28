@@ -18,22 +18,6 @@
 	background-color: white;
 	background-image: -webkit-linear-gradient(bottom, #697387 0%, #31394A 100%);
 }
-/*
- Increase height of list item so title and narrative lines fit 
-*/
-/*
-.x-list .x-list-item{
-    min-height: 56px !important;
-}
-*/
-/* Move up the disclosure button to account for the list item height increase */
-/*
-.x-list .x-list-disclosure {
-	position: absolute;
-	bottom: 0.85em;
-	right: 0.44em;
-}
-*/
 .overview-list-hidden-disclosure .x-list-disclosure{
 	display: none;
 }
