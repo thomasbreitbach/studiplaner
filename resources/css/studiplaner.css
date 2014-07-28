@@ -59,6 +59,7 @@
 }
 .list-empty-text{
     font-size: 0.9em;
+    padding: 0.2em;
 }
 .workload-overview-list-header{
 	text-align: center;
@@ -67,7 +68,7 @@
 }
 .workload-info-txt{
 	font-size: 0.7em;
-	padding: 0.5em;
+	padding: 0.6em;
 }
 .schedule-block{
 	margin-top: -22px;
