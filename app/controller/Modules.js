@@ -209,7 +209,7 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	checkInputVal: function (input, ll, ul) {
-		var parsed = parseInt(input);
+		var parsed = parseFloat(input);
 		if(isNaN(parsed)) return 0;
 		if(parsed < ll || parsed > ul)  return 0;
 		return parsed;

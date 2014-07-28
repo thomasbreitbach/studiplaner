@@ -115,17 +115,34 @@ Ext.define("studiplaner.controller.Workload", {
 					text: 'Arbeitsstunden<br/>pro Woche'
 				},
 				plotBands: [{
-					from: 0,
-					to: 35,
-					color: '#DDDF0D' // yellow
-				}, {
-					from: 35,
-					to: 45,
-					color: '#55BF3B' // green
-				}, {
-					from: 45,
-					to: 80,
-					color: '#DF5353' // red
+						from: 0,
+						to: 29,
+						color: '#DDDF0D' // yellow
+					},{
+						from: 29,
+						to: 40,
+						//~ color: '#DDDF0D' // yellow
+						color: {
+							linearGradient:  { x1: 0, x2: 0, y1: 0, y2: 1 },
+							stops: [
+								[0, '#55BF3B'], //green
+								[1, '#DDDF0D'] //yellow
+							]
+						}
+					}, {
+						from: 40,
+						to: 51,
+						color: {
+							linearGradient:  { x1: 0, x2: 0, y1: 0, y2: 1 },
+							stops: [
+								[0, '#55BF3B'], //green
+								[1, '#DF5353'] //red
+							]
+						}
+					}, {
+						from: 51,
+						to: 80,
+						color: '#DF5353' // yellow
 				}]        
 			},
 		
