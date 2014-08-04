@@ -44,7 +44,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			left: 0,
 			width: '88%',
 			height: '88%',
-			margin: '5% 0 0 6%',
+			margin: '0.9em 0 0 6%',
 			cls: 'blocks-panel',
 			layout: 'fit',
 			showAnimation: 'fadeIn',
