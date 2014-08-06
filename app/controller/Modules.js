@@ -3,7 +3,7 @@
  */
 const H_PER_ECTS = 25;
 const H_PER_SWS = 0.75;
-const WEEKS_PER_SEM = 17;
+const WEEKS_PER_SEM = 18;
 const H_PER_BLOCK = 1.5;
 const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
 
