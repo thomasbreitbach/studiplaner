@@ -153,7 +153,7 @@ Ext.define("studiplaner.controller.Modules", {
 		var interest = this.getValueForInterestId(interest);	
 		var severity = this.getValueForSeverityId(severity);
 		
-		var workload = (ects * hPerEcts / weeksPerSem) * interest * severity;
+		var workload = Math.round(ects * hPerEcts / weeksPerSem) * interest * severity;
 		console.log(workload);
 		console.log(Math.round(workload));
 		return Math.round(workload);
