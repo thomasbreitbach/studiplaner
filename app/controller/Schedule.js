@@ -106,7 +106,6 @@ Ext.define("studiplaner.controller.Schedule", {
 					type: record.data.type,
 					scheduleBlockId: record.data.id
 				});
-				console.log(c1.getAt(0).getName());
 			}
 			
 			var phase2 = record.get('phase2AssignedTo');
