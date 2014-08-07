@@ -10,6 +10,7 @@ Ext.define("studiplaner.view.workload.WorkloadModulesList", {
         emptyText: '</pre> <div class="list-empty-text">Aktuell liegen keine Module vor.</div> <pre>',
         onItemDisclosure:true,
         grouped: false,
+        ui: 'round',
         itemTpl: 	'</pre><div id="{id}"><span class="list-item-name">{name}</span>'+
 					'<span class="list-item-workload list-item-workload-nopad">{workload} Std./Woche</span><div><pre>'
     }
