@@ -23,7 +23,6 @@ Ext.application({
     name: 'studiplaner',
     
     viewport: {
-		autoMaximize: true
 	},
 
     requires: [
