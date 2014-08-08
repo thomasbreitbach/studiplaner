@@ -77,6 +77,15 @@
 	width: 100%;
 	height: 100%;
 }
+.schedule-block h1{
+	font-size: 1.2em;
+	line-height: 1.25;
+	margin-bottom: 1.25em;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 25px;
+}
 .schedule-block-type{
 	font-size: 0.8em;
 }
@@ -124,6 +133,12 @@
 	color: #E1E1E1;
 	font-size: 0.9em;
 	padding: 0.3em;
+}
+.blocklist-row-1{
+	font-size:95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .blocklist-row-2{
 	font-size: 0.7em;

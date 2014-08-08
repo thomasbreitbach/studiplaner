@@ -10,9 +10,9 @@ Ext.define("studiplaner.view.schedule.BlocksList", {
         emptyText: '</pre> <div class="notes-list-empty-text">Für diese Phase liegen noch keine Module/Blöcke vor.</div> <pre>',
         onItemDisclosure:false,
         grouped: true,
-        
+        ui: 'round',
         itemTpl: 	'</pre>'+
-						'<div>'+
+						'<div class="blocklist-row-1">'+
 							'<span >{Module.name}</span>'+
 						'</div>'+
 						'<div class="blocklist-row-2">'+

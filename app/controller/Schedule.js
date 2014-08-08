@@ -204,7 +204,6 @@ Ext.define("studiplaner.controller.Schedule", {
 		console.log("onBlockLongPressCommand: " + pressedContainer.getItemId());
 		this.lastPressedContainer = pressedContainer;
 		
-		console.log(pressedContainer.getAt(0));
 		var block = pressedContainer.getAt(0);
 		//already assigned to?
 		if(block != undefined){

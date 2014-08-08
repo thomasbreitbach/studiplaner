@@ -24,7 +24,7 @@ Ext.define('studiplaner.view.schedule.ScheduleBlock', {
 			this.setStyle('background-color: rgba(72, 92, 102, 0.8);');
 		}
 		
-		var content = '<h4>' + this.getName() + '</h4>';
+		var content = '<h1>' + this.getName() + '</h1>';
 		var typ = (this.getType() === 'self') ? "Selbststudium" : "Anwesenheit";
 		content += '<p class="schedule-block-type">' + typ + '</p>'; 
 						
