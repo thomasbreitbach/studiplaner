@@ -83,6 +83,33 @@ Ext.define("studiplaner.controller.Export", {
 		  Ext.Msg.alert("Hoppla!", errorMsg);
 		}else{
 			// send mail
+			//~ Ext.Ajax.request({
+				//~ url: '../mail.php',
+				//~ method: 'post',
+				//~ rawData: form.getValues(),
+				//~ scope: this,
+				//~ success: function(r, o){
+					//~ var obj = Ext.decode(r.responseText);
+					//~ console.dir(obj);
+					//~ if (obj.success === 'true') {
+						//~ // Do something...
+					//~ }
+					//~ else {
+					   //~ // Do something else...
+					//~ }
+				//~ },
+			//~ });
+			form.setStandardSubmit(true);
+			form.submit({
+				url: '../mail.php',
+				method: 'Post',
+				success: function() {
+					Ext.Msg.alert("success");
+				}, 
+				failure: function() { 
+					Ext.Msg.alert("error"); 
+				}
+			});
 		}
 	},
 

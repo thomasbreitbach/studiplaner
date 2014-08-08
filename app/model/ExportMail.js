@@ -11,7 +11,7 @@ Ext.define('studiplaner.model.ExportMail', {
     config: {    	
         fields: [
         	{ name: 'sender', type: 'string' },  
-        	{ name: 'receiver', type: 'string' }, 
+        	{ name: 'recipient', type: 'string' }, 
             { name: 'message', type: 'string' },
             { name: 'scheduling', type: 'string' },
         ],
@@ -19,7 +19,7 @@ Ext.define('studiplaner.model.ExportMail', {
         validations: [
 			{
 	    		type: 'email',
-			    field: 'receiver',
+			    field: 'recipient',
 			    message: "Deine Emfänger-Adresse ist keine gültige E-Mail-Adresse."
 		    },
 			{

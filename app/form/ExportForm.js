@@ -51,7 +51,7 @@ Ext.define('studiplaner.form.ExportForm', {
 		                xtype: 'textareafield',
 		                label: 'Planung',
 		                maxRows: 4,
-		                disabled: true
+		                //~ disabled: true
 		            }
 				]
 			}, {
