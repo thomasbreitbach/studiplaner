@@ -39,10 +39,10 @@ Ext.application({
 		'imprint.ImprintContainer'
     ],
     controllers: [
-    	'App', 'Modules', 'Work', 'Workload', "Schedule"
+    	'App', 'Modules', 'Work', 'Workload', "Schedule", "Export"
     ],
-    forms: ['ModuleForm', 'WorkForm'],
-    models: ['BaseModel', 'Module', 'Work', 'WorkingTime', 'ScheduleBlock'],
+    forms: ['ModuleForm', 'WorkForm', 'ExportForm'],
+    models: ['BaseModel', 'Module', 'Work', 'WorkingTime', 'ScheduleBlock', 'ExportMail'],
     stores: ['Modules' , 'Works', 'WorkingTimes', 'ScheduleBlocks'],
 
 
@@ -102,6 +102,7 @@ Ext.application({
 		var scheduleContainer = {
 			xtype: "schedulecontainer"
 		};
+		var exportform = Ext.create("studiplaner.form.ExportForm");
 		var imprintContainer = {
 			xtype: "imprintcontainer"
 		};
@@ -111,7 +112,7 @@ Ext.application({
 		
 		
         // Initialize the main view
-        Ext.Viewport.add([modulesListContainer, workListContainer, workloadContainer, scheduleContainer, imprintContainer]);
+        Ext.Viewport.add([modulesListContainer, workListContainer, workloadContainer, scheduleContainer, exportform, imprintContainer]);
     },
 
     onUpdated: function() {

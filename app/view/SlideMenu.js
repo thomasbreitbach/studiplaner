@@ -55,11 +55,11 @@ Ext.define('studiplaner.view.SlideMenu', {
 						//~ iconCls: 'magic',
 						//~ itemId: 'assistent'
 					//~ }, 
-					//~ {
-						//~ title: 'Export',
-						//~ iconCls: 'upload',
-						//~ itemId: 'export'
-					//~ },
+					{
+						title: 'Export',
+						iconCls: 'upload',
+						itemId: 'export'
+					},
 					{
 						title: 'Impressum',
 						iconCls: 'info',
