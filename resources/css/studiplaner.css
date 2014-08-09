@@ -1,3 +1,6 @@
+.x-mask .x-mask-message{
+	color: #E7E7E7 !important;
+}
 .x-toolbar.two-buttons .x-title {
     max-width: 57%;
 }

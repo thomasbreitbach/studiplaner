@@ -7,7 +7,8 @@ Ext.define('studiplaner.form.ExportForm', {
     
     requires: [
     	"Ext.form.FieldSet",
-    	"Ext.form.TextArea"
+    	"Ext.form.TextArea",
+    	"Ext.field.Email"
     ],
     config: {
         title: 'ExportForm',
@@ -35,12 +36,16 @@ Ext.define('studiplaner.form.ExportForm', {
         		instructions: 'Sende deine Semesterplanung an deinen Mentor.',
         		items: [{
 		                name: 'sender',
-		                xtype: 'textfield',
+		                xtype: 'emailfield',
 		                label: 'Absender'
 		            },{
 		                name: 'recipient',
-		                xtype: 'textfield',
+		                xtype: 'emailfield',
 		                label: 'Empfänger'
+		            },{
+		                name: 'subject',
+		                xtype: 'textfield',
+		                label: 'Betreff'
 		            },{
 		                name: 'message',
 		                xtype: 'textareafield',
@@ -51,7 +56,6 @@ Ext.define('studiplaner.form.ExportForm', {
 		                xtype: 'textareafield',
 		                label: 'Planung',
 		                maxRows: 4,
-		                //~ disabled: true
 		            }
 				]
 			}, {

@@ -5,7 +5,8 @@ Ext.define("studiplaner.controller.Export", {
     extend: "Ext.app.Controller",
     
     requires: [
-		'Ext.ComponentQuery'
+		'Ext.ComponentQuery',
+		'Ext.util.DelayedTask'
     ],
     
     config: {
@@ -19,9 +20,6 @@ Ext.define("studiplaner.controller.Export", {
             }
         }
     },
-    // Transitions
-    slideLeftTransition: { type: 'slide', direction: 'left' },
-    slideRightTransition: { type: 'slide', direction: 'right' },
     
     //*************
     //***HELPER****
@@ -58,9 +56,9 @@ Ext.define("studiplaner.controller.Export", {
     //**COMMANDS***
     //*************
     onGenerateMail: function () {
-		console.log("onShowExportForm");
 		var schedulingTxt = this.buildSchedulingTxt();
 		var newMail = Ext.create("studiplaner.model.ExportMail", {
+			subject: "Studiplaner - Semesterplanung",
 			scheduling: schedulingTxt
 	    });
 	    
@@ -71,7 +69,8 @@ Ext.define("studiplaner.controller.Export", {
 		console.log("onSendMailCommand");
 		var form = this.getExportForm();
 		var currentMail = form.getRecord();
-		currentMail.set(form.getValues());
+		var formValues = form.getValues();
+		currentMail.set(formValues);
 		
 		var errors = currentMail.validate();
 
@@ -82,32 +81,30 @@ Ext.define("studiplaner.controller.Export", {
 		  });
 		  Ext.Msg.alert("Hoppla!", errorMsg);
 		}else{
+
+			Ext.Viewport.setMasked({ 
+				xtype: 'loadmask',
+				message: "Sende E-Mail…",
+			});
+
 			// send mail
-			//~ Ext.Ajax.request({
-				//~ url: '../mail.php',
-				//~ method: 'post',
-				//~ rawData: form.getValues(),
-				//~ scope: this,
-				//~ success: function(r, o){
-					//~ var obj = Ext.decode(r.responseText);
-					//~ console.dir(obj);
-					//~ if (obj.success === 'true') {
-						//~ // Do something...
-					//~ }
-					//~ else {
-					   //~ // Do something else...
-					//~ }
-				//~ },
-			//~ });
-			form.setStandardSubmit(true);
-			form.submit({
+			Ext.Ajax.request({
 				url: '../mail.php',
-				method: 'Post',
-				success: function() {
-					Ext.Msg.alert("success");
-				}, 
-				failure: function() { 
-					Ext.Msg.alert("error"); 
+				method: 'post',
+				params: formValues,
+				scope: this,
+				success: function(r, o){
+					Ext.Viewport.unmask();
+					if (r.status == 200) {
+						Ext.Msg.alert("E-Mail wurde gesendet!");
+					}else {
+						Ext.Msg.alert("Beim Senden der E-Mail ist ein Fehler aufgetreten!\n\nStatus: " + r.status + "\nStatustext: " + r.statusText);
+					}
+				},
+				failure: function(r, o) {
+					Ext.Viewport.unmask();
+					console.log('server-side failure with status code ' + r.status);
+					Ext.Msg.alert("Beim Senden der E-Mail ist ein Fehler aufgetreten!\n\nStatus: " + r.status + "\nStatustext: " + r.statusText);
 				}
 			});
 		}
