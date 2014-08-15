@@ -67,7 +67,7 @@ Ext.define("studiplaner.controller.Schedule", {
 					
 					//delete phasexAssignedTo id
 					var record = store_sb.findRecord('id', block.getScheduleBlockId());
-					var attribute = "phase" + (container.phaseId+1) + "AssignedTo";
+					var attribute = "phase" + (container.config.phaseId+1) + "AssignedTo";
 					record.set(attribute , null);
 					
 					//remove block from container
