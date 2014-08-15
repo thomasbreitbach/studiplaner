@@ -1,14 +1,19 @@
 /**
  * @author Thomas Breitbach
  */
-const H_PER_ECTS = 25;
-const H_PER_SWS = 0.75;
-const WEEKS_PER_SEM = 18;
-const H_PER_BLOCK = 1.5;
-const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
+//~ const H_PER_ECTS = 25;
+//~ const H_PER_SWS = 0.75;
+//~ const WEEKS_PER_SEM = 18;
+//~ const H_PER_BLOCK = 1.5;
+//~ const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
 
 Ext.define("studiplaner.controller.Modules", {
     extend: "Ext.app.Controller",
+    H_PER_ECTS: 25,
+	H_PER_SWS: 0.75,
+	WEEKS_PER_SEM: 18,
+	H_PER_BLOCK: 1.5,
+	WORKLOAD_STRING: ' Arbeitsstunden/Woche',
     
     requires: [
 		'Ext.ComponentQuery',
@@ -46,8 +51,9 @@ Ext.define("studiplaner.controller.Modules", {
     //***********
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
-    	var moduleForm = this.getModuleForm();
-    	if(moduleForm.chart == null) moduleForm.chart = this.buildChart();
+    	var me = this;
+    	var moduleForm = me.getModuleForm();
+    	if(moduleForm.chart == null) moduleForm.chart = me.buildChart();
     	
     	//set form fields
     	moduleForm.setRecord(record);
@@ -81,7 +87,7 @@ Ext.define("studiplaner.controller.Modules", {
 		}
 		
 		moduleForm.getScrollable().getScroller().scrollToTop();
-    	Ext.Viewport.animateActiveItem(moduleForm, this.slideLeftTransition);
+    	Ext.Viewport.animateActiveItem(moduleForm, me.slideLeftTransition);
 	},
 	
 	activateModulesList: function () {
@@ -90,15 +96,16 @@ Ext.define("studiplaner.controller.Modules", {
 	
 	setChartData: function(presencePerWeek, selfStudyPerWeek, workloadPerWeek){
 		console.log("setChartData: " + presencePerWeek + " " + selfStudyPerWeek + " " + workloadPerWeek);
-		var moduleForm = this.getModuleForm();
+		var me = this;
+		var moduleForm = me.getModuleForm();
 		//update ratio serie
 		moduleForm.chart.get('ratio').setData([
 					['Anwesenheit', presencePerWeek],
-					['Selbststudium', selfStudyPerWeek],
+					['Selbststudium', selfStudyPerWeek]
 				], true, false, true);
 		//set workload title
 		moduleForm.chart.setTitle({
-				text: '~' + workloadPerWeek + WORKLOAD_STRING,
+				text: '~' + workloadPerWeek + me.WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
 				y: 85
@@ -150,8 +157,9 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem, interest, severity) {
-		var interest = this.getValueForInterestId(interest);	
-		var severity = this.getValueForSeverityId(severity);
+		var me = this;
+		var interest = me.getValueForInterestId(interest);	
+		var severity = me.getValueForSeverityId(severity);
 		
 		var workload = Math.round(ects * hPerEcts / weeksPerSem) * interest * severity;
 		console.log(workload);
@@ -160,16 +168,17 @@ Ext.define("studiplaner.controller.Modules", {
 	},
     
     buildChart: function(){
+		var me = this;
 		return new Highcharts.Chart({ 
 			chart: {
-				renderTo: this.getModuleForm().down('#chart').element.dom,
+				renderTo: me.getModuleForm().down('#chart').element.dom,
 				backgroundColor:'rgba(255, 255, 255, 0.1)',
 				plotBackgroundImage: null,
 				plotBorderWidth: 0,
 				plotShadow: false
 			},			
 			title: {
-				text: '0' + WORKLOAD_STRING,
+				text: '0' + me.WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
 				y: 85
@@ -202,8 +211,8 @@ Ext.define("studiplaner.controller.Modules", {
 				name: 'Ratio Anwesenheit/Selbststudium',
 				innerSize: '50%',
 				data: [
-					['Anwesenheit',   1],
-					['Selbststudium',       1],
+					['Anwesenheit', 1],
+					['Selbststudium', 1]
 				]
 			}]
 		});
@@ -240,8 +249,9 @@ Ext.define("studiplaner.controller.Modules", {
     
     onSaveModuleCommand: function () {
 	    console.log("onSaveModuleCommand");
+	    var me = this;
 		
-	    var moduleForm = this.getModuleForm();
+	    var moduleForm = me.getModuleForm();
 	    var currentModule = moduleForm.getRecord();
 	    var scheduleBlocks = currentModule.scheduleBlocks();
 	    var store_sb = Ext.getStore("ScheduleBlocks");
@@ -277,8 +287,8 @@ Ext.define("studiplaner.controller.Modules", {
 	    if(updateSheduleBlocks){
 			//calculate and store schedule blocks
 			scheduleBlocks.removeAll(); //TODO https://github.com/thomasbreitbach/studiplaner/issues/9
-			var presenceBlocksCount = Math.round(moduleForm.presencePerWeek/H_PER_BLOCK);
-			var selfStudyBlocksCount = Math.round(moduleForm.selfStudyPerWeek/H_PER_BLOCK);
+			var presenceBlocksCount = Math.round(moduleForm.presencePerWeek/me.H_PER_BLOCK);
+			var selfStudyBlocksCount = Math.round(moduleForm.selfStudyPerWeek/me.H_PER_BLOCK);
 			
 			
 			for(var i=0;i<presenceBlocksCount;i++){
@@ -374,8 +384,8 @@ Ext.define("studiplaner.controller.Modules", {
 	
 	onSegmentedButtonCommand: function (form, container, button) {
 		console.log('onSegmentedButtonCommand');
-
-		var moduleForm = this.getModuleForm();
+		var me = this;
+		var moduleForm = me.getModuleForm();
 		var currentModule = moduleForm.getRecord();
 		
 		var segmentedButton = container.getItemId();
@@ -397,15 +407,16 @@ Ext.define("studiplaner.controller.Modules", {
 		
 		//calc workload
 		if(attribute == "interest" || attribute == "severity"){
-			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
-			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
+			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].config.value;
+			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].config.value;
 			var ects = moduleForm.down('#numberfield_ects').getValue();		
+			
 			if(ects != null){
-				workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
+				workloadPerWeek = me.calculateWorkloadPerWeek(ects, me.H_PER_ECTS, me.WEEKS_PER_SEM, interest, severity);
 				moduleForm.workloadPerWeek = workloadPerWeek;
 				
 				moduleForm.chart.setTitle({
-					text: '~' + workloadPerWeek + WORKLOAD_STRING,
+					text: '~' + moduleForm.workloadPerWeek + me.WORKLOAD_STRING,
 					align: 'center',
 					verticalAlign: 'middle',
 					y: 85 
@@ -413,8 +424,7 @@ Ext.define("studiplaner.controller.Modules", {
 			}
 			
 			//show info dialog
-			var message = this.getMessageForSegmentedButtonId(button.value);
-			console.log(localStorage.show_workload_info);
+			var message = me.getMessageForSegmentedButtonId(button.config.value);
 			if(typeof localStorage.show_workload_info == 'undefined'){
 				Ext.Msg.show({
 					title:    'Info', 
@@ -447,29 +457,30 @@ Ext.define("studiplaner.controller.Modules", {
 		var workloadPerWeek = 0;
 		var presencePerWeek = 1;
 		var selfStudyPerWeek = 1;
+		var me = this;
 		
 		if(field.getItemId() === 'numberfield_ects'){
-			ects = this.checkInputVal(newValue, 0, 50);	
+			ects = me.checkInputVal(newValue, 0, 50);	
 			otherField = moduleForm.down('#numberfield_sws').getValue();
 			if(otherField != null) sws =  otherField;
 		}else{
-			sws = this.checkInputVal(newValue, 0, 50);
+			sws = me.checkInputVal(newValue, 0, 50);
 			otherField = moduleForm.down('#numberfield_ects').getValue();
 			if(otherField != null) ects = otherField;
 		}
 				
 		//calc workload
 		if(ects != 0 || sws != 0){
-			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].value;
-			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].value;
-			
-			workloadPerWeek = this.calculateWorkloadPerWeek(ects, H_PER_ECTS, WEEKS_PER_SEM, interest, severity);
-			presencePerWeek = sws * H_PER_SWS;
+			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].config.value;
+			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].config.value;
+			console.log(me);
+			workloadPerWeek = me.calculateWorkloadPerWeek(ects, me.H_PER_ECTS, me.WEEKS_PER_SEM, interest, severity);
+			presencePerWeek = sws * me.H_PER_SWS;
 			selfStudyPerWeek = workloadPerWeek - presencePerWeek;
 		}		
 		
 		//set series data
-		this.setChartData(presencePerWeek, selfStudyPerWeek, workloadPerWeek);
+		me.setChartData(presencePerWeek, selfStudyPerWeek, workloadPerWeek);
 		
 		//store workload
 		moduleForm.workloadPerWeek = workloadPerWeek;

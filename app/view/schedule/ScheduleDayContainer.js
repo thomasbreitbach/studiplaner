@@ -4,11 +4,7 @@
 Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 	extend: 'Ext.Container',
 	xtype: 'scheduledaycontainer',
-	times: ['8:00 - 9:30',  '9:45 - 11:15', '11:30 - 13:00', '14:00 - 15:30', '15:40 - 17:10', '17:20 - 18:50', '19:00 - 20:30'],
-	name: null,
-	phaseId: null,
-	weekdayId: null,
-	blockCls: null,
+	
 
 	requires: [
 		'Ext.Menu',
@@ -20,32 +16,38 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		layout: {
         	type: 'vbox',
         	align: 'center'
-    	}
+    	},
+    	times: ['8:00 - 9:30',  '9:45 - 11:15', '11:30 - 13:00', '14:00 - 15:30', '15:40 - 17:10', '17:20 - 18:50', '19:00 - 20:30'],
+		name: null,
+		phaseId: null,
+		weekdayId: null,
+		blockCls: null,
   	},
 
   	initialize: function(){
-		this.callParent(arguments);
+		var me = this;
+		me.callParent(arguments);
 		var header = {
 			xtype: 'container',
-			html: '<div class="schedule-weekday-header">' + this.name + '</div>',
+			html: '<div class="schedule-weekday-header">' + me.getName() + '</div>',
             height: 40
 		}
 		
 		var array = new Array();
 		array[0] = header;
 		
-		for(var i=0; i<this.times.length; i++){
+		for(var i=0; i<me.getTimes().length; i++){
 			array[i+1] = {
 				xtype: 'container',
-				itemId: this.getItemId() +'-blockId-' +i,
-				phaseId: this.phaseId,
-				weekdayId: this.weekdayId,
+				itemId: me.getItemId() +'-blockId-' +i,
+				phaseId: me.getPhaseId(),
+				weekdayId: me.getWeekdayId(),
 				blockId: i,
-				name: this.name + ' - ' + (i+1) + '. Block (' + this.times[i] + ')',
+				name: me.getName() + ' - ' + (i+1) + '. Block (' + me.getTimes()[i] + ')',
 				height: 100,
 				width: '100%',
-				cls: this.blockCls,
-				html: '<span class="schedule-block-time">' + this.times[i] + '</span>',
+				cls: me.getBlockCls(),
+				html: '<span class="schedule-block-time">' + me.getTimes()[i] + '</span>',
 				layout: {
 					type: 'vbox',
 					align: 'center'
@@ -55,13 +57,13 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 						element: 'element',
 						event: 'tap',
 						//~ event: 'longpress',
-						fn: this.onBlockTap,
-						scope: this
+						fn: me.onBlockTap,
+						scope: me
 					}
 				]
 			}
 		}
-		this.add(array);
+		me.add(array);
 	},
 	
 	//~ onBlockLongPress: function (event, container, options, eOpts) {

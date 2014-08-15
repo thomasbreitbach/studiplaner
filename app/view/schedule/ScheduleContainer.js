@@ -171,7 +171,7 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 	
 	onSelectFieldChanged: function (element, value) {
 		this.fireEvent("phaseChangedCommand", this, value);
-	},
+	}
 	
 	//~ onBlocksListTap: function (list, index, target, record, evt, options) {
 		//~ console.log("onBlocksListTap");

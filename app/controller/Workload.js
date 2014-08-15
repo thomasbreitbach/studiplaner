@@ -234,7 +234,7 @@ Ext.define("studiplaner.controller.Workload", {
 		//update ratio serie
 		this.getWorkloadContainer().down('#chartcontainer').ratioChart.get('ratio').setData([
 					['Studium', study],
-					['Beruf', job],
+					['Beruf', job]
 				], true, false, true);
 	},
 	

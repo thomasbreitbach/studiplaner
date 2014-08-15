@@ -11,12 +11,12 @@ Ext.define("studiplaner.controller.Export", {
     
     config: {
         refs: {
-            exportForm: "exportform",
+            exportForm: "exportform"
         },
         control: {
             exportForm: {
 				generateMail: "onGenerateMail",
-                sendMailCommand: "onSendMailCommand",
+                sendMailCommand: "onSendMailCommand"
             }
         }
     },
@@ -75,16 +75,16 @@ Ext.define("studiplaner.controller.Export", {
 		var errors = currentMail.validate();
 
 		if (!errors.isValid()) {
-		  var errorMsg = "";
-		  errors.each(function (errorObj) {
-			errorMsg += errorObj.getMessage() + "<br>"; 
-		  });
-		  Ext.Msg.alert("Hoppla!", errorMsg);
+			var errorMsg = "";
+			errors.each(function (errorObj) {
+				errorMsg += errorObj.getMessage() + "<br>"; 
+			});
+			Ext.Msg.alert("Hoppla!", errorMsg);
 		}else{
 
 			Ext.Viewport.setMasked({ 
 				xtype: 'loadmask',
-				message: "Sende E-Mail…",
+				message: "Sende E-Mail…"
 			});
 
 			// send mail

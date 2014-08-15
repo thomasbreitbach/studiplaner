@@ -16,7 +16,7 @@
 
   	config: {
 		layout: {
-        	type: 'fit',
+        	type: 'fit'
     	},
     	scrollable:'vertical',
     	items: [{
@@ -44,7 +44,7 @@
         		]
         	}, {
 				xtype: 'chartcontainer',
-				itemId: 'chartcontainer',
+				itemId: 'chartcontainer'
 			}, {
 				xtype: 'button',
 				itemId: 'overviewListButton',

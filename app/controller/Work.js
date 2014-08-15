@@ -46,7 +46,7 @@ Ext.define("studiplaner.controller.Work", {
 		var label = {
 			title: 'times',
 			html: ['Arbeitszeit'],
-			styleHtmlContent: true,
+			styleHtmlContent: true
 		};	
 		var delButton = {
 			xtype: 'button',
@@ -143,7 +143,7 @@ Ext.define("studiplaner.controller.Work", {
 		};
 		
 		var fieldset = Ext.create('Ext.form.FieldSet', {
-        		itemId: "timeData"+id,
+        		itemId: "timeData"+id
         });
 		fieldset.add([hbox, weekday, begin, end]);		
 		
@@ -284,7 +284,7 @@ Ext.define("studiplaner.controller.Work", {
 			workingTimes = currentWork.workingTimes(),
 			store_wt = Ext.getStore("WorkingTimes"),
 			newValues = workForm.getValues(),
-			timeMode = workForm.down('#modeButton').getPressedButtons()[0].value;
+			timeMode = workForm.down('#modeButton').getPressedButtons()[0].config.value;
 
 	    currentWork.set("name", newValues.name);
 	    currentWork.set("location", newValues.location);
@@ -320,7 +320,7 @@ Ext.define("studiplaner.controller.Work", {
 					workingTimes.add({
 						'day': newValues.picker[i],
 						'begin': begin,
-						'end': end,
+						'end': end
 					});
 				}
 			}	    	
@@ -432,8 +432,8 @@ Ext.define("studiplaner.controller.Work", {
 	},
 	
 	onModeButtonToggle: function (form, container, button){
-		console.log('onModeButtonToggle: ' + button.value);	
-		this.toggleTimeUI(button.value);	
+		console.log('onModeButtonToggle: ' + button.config.value);	
+		this.toggleTimeUI(button.config.value);	
 	},
 	
 	//------------------------------

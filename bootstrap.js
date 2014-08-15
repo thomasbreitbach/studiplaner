@@ -758,29 +758,41 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.viewport.WP"
   ],
   "studiplaner.controller.App": [],
+  "studiplaner.controller.Export": [],
   "studiplaner.controller.Modules": [],
   "studiplaner.controller.Schedule": [],
   "studiplaner.controller.Work": [],
   "studiplaner.controller.Workload": [],
+  "studiplaner.form.ExportForm": [],
   "studiplaner.form.ModuleForm": [],
   "studiplaner.form.WorkForm": [],
+  "studiplaner.model.BaseModel": [],
+  "studiplaner.model.ExportMail": [],
   "studiplaner.model.Module": [],
+  "studiplaner.model.ScheduleBlock": [],
   "studiplaner.model.Work": [],
   "studiplaner.model.WorkingTime": [],
   "studiplaner.store.Modules": [],
-  "studiplaner.store.Work": [],
-  "studiplaner.store.WorkingTime": [],
+  "studiplaner.store.ScheduleBlocks": [],
+  "studiplaner.store.WorkingTimes": [],
+  "studiplaner.store.Works": [],
+  "studiplaner.view.LockableCarousel": [],
   "studiplaner.view.SlideMenu": [],
+  "studiplaner.view.imprint.ImprintContainer": [],
   "studiplaner.view.modules.ModulesList": [],
   "studiplaner.view.modules.ModulesListContainer": [],
+  "studiplaner.view.schedule.BlocksList": [],
+  "studiplaner.view.schedule.ScheduleBlock": [],
   "studiplaner.view.schedule.ScheduleCarousel": [],
   "studiplaner.view.schedule.ScheduleContainer": [],
+  "studiplaner.view.schedule.ScheduleDayContainer": [],
   "studiplaner.view.work.WorkList": [],
   "studiplaner.view.work.WorkListContainer": [],
   "studiplaner.view.workload.ChartContainer": [],
-  "studiplaner.view.workload.OverviewList": [],
   "studiplaner.view.workload.OverviewListContainer": [],
-  "studiplaner.view.workload.WorkloadContainer": []
+  "studiplaner.view.workload.WorkloadContainer": [],
+  "studiplaner.view.workload.WorkloadModulesList": [],
+  "studiplaner.view.workload.WorkloadWorkList": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1733,24 +1745,38 @@ Ext.ClassManager.addNameAliasMappings({
   "studiplaner.controller.App": [
     "widget.appcontroller"
   ],
+  "studiplaner.controller.Export": [],
   "studiplaner.controller.Modules": [],
   "studiplaner.controller.Schedule": [],
   "studiplaner.controller.Work": [],
   "studiplaner.controller.Workload": [],
+  "studiplaner.form.ExportForm": [
+    "widget.exportform"
+  ],
   "studiplaner.form.ModuleForm": [
     "widget.moduleform"
   ],
   "studiplaner.form.WorkForm": [
     "widget.workform"
   ],
+  "studiplaner.model.BaseModel": [],
+  "studiplaner.model.ExportMail": [],
   "studiplaner.model.Module": [],
+  "studiplaner.model.ScheduleBlock": [],
   "studiplaner.model.Work": [],
   "studiplaner.model.WorkingTime": [],
   "studiplaner.store.Modules": [],
-  "studiplaner.store.Work": [],
-  "studiplaner.store.WorkingTime": [],
+  "studiplaner.store.ScheduleBlocks": [],
+  "studiplaner.store.WorkingTimes": [],
+  "studiplaner.store.Works": [],
+  "studiplaner.view.LockableCarousel": [
+    "widget.lockablecarousel"
+  ],
   "studiplaner.view.SlideMenu": [
     "widget.slidemenu"
+  ],
+  "studiplaner.view.imprint.ImprintContainer": [
+    "widget.imprintcontainer"
   ],
   "studiplaner.view.modules.ModulesList": [
     "widget.moduleslist"
@@ -1758,11 +1784,20 @@ Ext.ClassManager.addNameAliasMappings({
   "studiplaner.view.modules.ModulesListContainer": [
     "widget.moduleslistcontainer"
   ],
+  "studiplaner.view.schedule.BlocksList": [
+    "widget.blockslist"
+  ],
+  "studiplaner.view.schedule.ScheduleBlock": [
+    "widget.scheduleblock"
+  ],
   "studiplaner.view.schedule.ScheduleCarousel": [
     "widget.schedulecarousel"
   ],
   "studiplaner.view.schedule.ScheduleContainer": [
     "widget.schedulecontainer"
+  ],
+  "studiplaner.view.schedule.ScheduleDayContainer": [
+    "widget.scheduledaycontainer"
   ],
   "studiplaner.view.work.WorkList": [
     "widget.worklist"
@@ -1773,13 +1808,16 @@ Ext.ClassManager.addNameAliasMappings({
   "studiplaner.view.workload.ChartContainer": [
     "widget.chartcontainer"
   ],
-  "studiplaner.view.workload.OverviewList": [
-    "widget.workloadoverviewlist"
-  ],
   "studiplaner.view.workload.OverviewListContainer": [
     "widget.workloadoverviewlistcontainer"
   ],
   "studiplaner.view.workload.WorkloadContainer": [
     "widget.workloadcontainer"
+  ],
+  "studiplaner.view.workload.WorkloadModulesList": [
+    "widget.workloadmoduleslist"
+  ],
+  "studiplaner.view.workload.WorkloadWorkList": [
+    "widget.workloadworklist"
   ]
 });

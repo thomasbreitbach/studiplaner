@@ -10,8 +10,7 @@
   	config: {
 		layout: {
 			type: 'card',
-			animation: 'flip',
-			
+			animation: 'flip'
 		},
 	
     	items: [

@@ -3,9 +3,7 @@
  */
 Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
     extend: "Ext.carousel.Carousel",
-    alias: "widget.schedulecarousel",
-    weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
-    phaseId: null,
+    alias: "widget.schedulecarousel",   
  
     config: {
 		fullscreen: true,
@@ -13,15 +11,18 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
 		itemLength: (window.innerWidth*80)/100, //80% of the screen
 		defaults: {
 			styleHtmlContent: true
-		}
+		},
+		phaseId: null,
+		weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
     },
     
     initialize: function(){
-		this.callParent(arguments);
+		var me = this;
+		me.callParent(arguments);
 		var blocksArray = new Array();
 		
 		//add blocks for weekdays
-		for(var i=0; i<this.weekdays.length; i++){
+		for(var i=0; i<me.getWeekdays().length; i++){
 			var backgroundColor;
 			var blockCls;
 			if(i%2==0){
@@ -34,14 +35,14 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
 				
 			blocksArray[i] = {
 				xtype: 'scheduledaycontainer',
-				name: this.weekdays[i],
+				name: me.getWeekdays()[i],
 				style: backgroundColor,
-				itemId: 'phaseId-' + this.phaseId + '-weekdayId-' + i,
-				phaseId: this.phaseId,
+				itemId: 'phaseId-' + me.getPhaseId() + '-weekdayId-' + i,
+				phaseId: me.getPhaseId(),
 				weekdayId: i,
 				blockCls: blockCls
 			}
 		}
-		this.add(blocksArray);
+		me.add(blocksArray);
 	}
 });

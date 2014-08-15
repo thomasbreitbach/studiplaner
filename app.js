@@ -21,13 +21,11 @@ Ext.Loader.setConfig({
 
 Ext.application({
     name: 'studiplaner',
-    
-    viewport: {
-	},
 
     requires: [
         'Ext.MessageBox',
-        'Ext.data.Validations'
+        'Ext.data.Validations',
+        'studiplaner.form.ExportForm'
     ],
 
     views: [
@@ -125,5 +123,5 @@ Ext.application({
                 }
             }
         );
-    },
+    }
 });

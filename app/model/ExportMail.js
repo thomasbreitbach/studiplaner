@@ -14,7 +14,7 @@ Ext.define('studiplaner.model.ExportMail', {
         	{ name: 'recipient', type: 'string' }, 
         	{ name: 'subject', type: 'string' }, 
             { name: 'message', type: 'string' },
-            { name: 'scheduling', type: 'string' },
+            { name: 'scheduling', type: 'string' }
         ],
 
         validations: [

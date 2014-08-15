@@ -11,6 +11,6 @@ Ext.define("studiplaner.store.WorkingTimes", {
         proxy: {
             type: 'localstorage',
             id: 'workingTimes-store'
-        },
+        }
     }
 });

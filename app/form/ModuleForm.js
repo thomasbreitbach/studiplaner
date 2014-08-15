@@ -54,9 +54,8 @@ Ext.define('studiplaner.form.ModuleForm', {
 					title: 'typeLabel',
 					html: ['Moduleart'],
 					styleHtmlContent: true,
-					margin: '0 0 0 -8px',
-				},
-        		{
+					margin: '0 0 0 -8px'
+				}, {
 					xtype: 'segmentedbutton',
 					itemId: 'typeButton',
 					margin: '0 4 10px 4',
@@ -122,7 +121,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 					title: 'yourInterest',
 					html: ['Persönliches Interesse'],
 					styleHtmlContent: true,
-					margin: '0 0 0 -8px',
+					margin: '0 0 0 -8px'
 				}, {
 					xtype: 'segmentedbutton',
 					itemId: 'interestButton',
@@ -140,8 +139,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 							width: '32%',
 							value: 0,
 							iconCls: 'happy',
-							iconMask: true,
-							
+							iconMask: true							
 						},
 						{
 							//~ text: 'Mittel',
@@ -166,7 +164,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 					title: 'yourServerity',
 					html: ['Eingeschätzter Schwierigkeitsgrad'],
 					styleHtmlContent: true,
-					margin: '0 0 0 -8px',
+					margin: '0 0 0 -8px'
 				},  {
 					xtype: 'segmentedbutton',
 					itemId: 'severityButton',
@@ -208,7 +206,7 @@ Ext.define('studiplaner.form.ModuleForm', {
                 text: 'Hinzufügen',
                 ui: 'confirm',
                 margin: '40 6 15 6',
-                itemId: "addButton",
+                itemId: "addButton"
             }, {
         		xtype: "toolbar",
         		docked: "bottom",
@@ -220,7 +218,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         				ui: "action",
         				text: '',
         				iconCls: 'trash',
-        				itemId: "deleteButton",
+        				itemId: "deleteButton"
         			}
         		]
         	}      

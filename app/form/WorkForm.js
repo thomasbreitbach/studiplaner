@@ -89,7 +89,7 @@ Ext.define('studiplaner.form.WorkForm', {
                 text: 'Hinzufügen',
                 ui: 'confirm',
                 itemId: "addButton",
-                margin: '15 5 15 5',
+                margin: '15 5 15 5'
             }, {
         		xtype: "toolbar",
         		docked: "bottom",
@@ -101,13 +101,13 @@ Ext.define('studiplaner.form.WorkForm', {
         				ui: "action",
         				text: '',
         				iconCls: 'trash',
-        				itemId: "deleteButton",
+        				itemId: "deleteButton"
         			}, {
         				xtype: "button",
         				ui: "action",
         				text: 'Arbeitszeit',
         				iconCls: 'add',
-        				itemId: "addWorkingTimeButton",
+        				itemId: "addWorkingTimeButton"
         			}
         		]
         	}
@@ -133,7 +133,7 @@ Ext.define('studiplaner.form.WorkForm', {
 				delegate: "#modeButton",
         		event: "toggle",
         		fn: "onModeButtonToggle"
-			}, 
+			}
         ]     
     },
     
@@ -163,5 +163,5 @@ Ext.define('studiplaner.form.WorkForm', {
 		if(isPressed){
 			this.fireEvent('modeButtonCommand', this, container, button);
 		}
-	},
+	}
 });

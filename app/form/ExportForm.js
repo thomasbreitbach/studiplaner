@@ -12,8 +12,7 @@ Ext.define('studiplaner.form.ExportForm', {
     ],
     config: {
         title: 'ExportForm',
-        scrollable:'vertical',
-        
+        scrollable:'vertical',        
         items: [
         	{
         		xtype: "toolbar",
@@ -49,13 +48,13 @@ Ext.define('studiplaner.form.ExportForm', {
 		            },{
 		                name: 'message',
 		                xtype: 'textareafield',
-		                maxRows: 4,
+		                maxRows: 5,
 		                label: 'Nachricht'
 		            },{
 		                name: 'scheduling',
 		                xtype: 'textareafield',
 		                label: 'Planung',
-		                maxRows: 4,
+		                maxRows: 4
 		            }
 				]
 			}, {
@@ -63,7 +62,7 @@ Ext.define('studiplaner.form.ExportForm', {
 				text: 'Senden',
                 ui: 'confirm',
                 margin: '40 6 15 6',
-                itemId: "sendButton",
+                itemId: "sendButton"
 			}
         ],
         listeners: [
@@ -75,7 +74,7 @@ Ext.define('studiplaner.form.ExportForm', {
         		delegate: '#sendButton',
         		event: 'tap',
         		fn: 'onSendButtonTap'
-        	}, 
+        	}
         ]        
     },
     

@@ -37,6 +37,6 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
 				},
 				direction: 'ASC'
 			}
-		],
+		]
     }
 });
