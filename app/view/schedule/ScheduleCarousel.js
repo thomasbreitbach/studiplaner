@@ -13,7 +13,7 @@ Ext.define("studiplaner.view.schedule.ScheduleCarousel", {
 			styleHtmlContent: true
 		},
 		phaseId: null,
-		weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+		weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
     },
     
     initialize: function(){

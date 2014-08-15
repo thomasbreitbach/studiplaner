@@ -50,10 +50,12 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			showAnimation: 'fadeIn',
 			hideAnimation: 'fadeOut'
 		});
+		var sb_store = Ext.getStore("ScheduleBlocks");
+		console.log(sb_store);
 		var blocksList = {
     		xtype: "blockslist",
     		itemId: 'blockslist',
-    		store:  Ext.getStore("ScheduleBlocks"),
+    		store:  sb_store,
     		listeners: {
        		 	//~ itemtap: { fn: this.onBlocksListTap, scope: this }
        		 	//~ itemtap: { 

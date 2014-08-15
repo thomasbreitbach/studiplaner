@@ -210,7 +210,7 @@ Ext.define("studiplaner.controller.Schedule", {
 			this.clearBlockContainer(block, pressedContainer);
 		}else{
 			//no block assigned --> show panel
-			this.showBlocksPanel(pressedContainer.name);
+			this.showBlocksPanel(pressedContainer.config.name);
 		}
 	},
 	
@@ -226,10 +226,10 @@ Ext.define("studiplaner.controller.Schedule", {
 	
 	onAssignBlockCommand: function () {
 		console.log("onAssignBlockCommand");
-
-		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
-		var blocksList = blocksPanel.down('#blockslist');
-		var selection = blocksList.getSelection();
+		var me = this,
+			blocksPanel = this.getScheduleContainer().down('#blocksPanel'),
+			blocksList = blocksPanel.down('#blockslist'),
+			selection = blocksList.getSelection();
 		
 		if(selection.length < 1){
 			//no block selected
@@ -241,7 +241,7 @@ Ext.define("studiplaner.controller.Schedule", {
 	
 		//1. update module block attributes		
 		var attribute;	
-		switch(this.lastPressedContainer.phaseId){
+		switch(me.lastPressedContainer.config.phaseId){
 		case 0: 
 			attribute = "phase1AssignedTo";
 			break;
@@ -259,14 +259,14 @@ Ext.define("studiplaner.controller.Schedule", {
 			return;
 		}
 		
-		selectedScheduleBlock.set(attribute, this.lastPressedContainer.getItemId());
+		selectedScheduleBlock.set(attribute, me.lastPressedContainer.getItemId());
 		
 		var store = Ext.getStore("ScheduleBlocks");
 		store.sync();
 		store.load();
 		
 		//2. add module block to schedule block
-		var curContent = this.lastPressedContainer.getHtml();
+		var curContent = me.lastPressedContainer.getHtml();
 		this.lastPressedContainer.add({
 			xtype: 'scheduleblock',
 			name: selectedScheduleBlock.ModuleBelongsToInstance.data.name,

@@ -1,12 +1,6 @@
 /**
  * @author Thomas Breitbach
  */
-//~ const H_PER_ECTS = 25;
-//~ const H_PER_SWS = 0.75;
-//~ const WEEKS_PER_SEM = 18;
-//~ const H_PER_BLOCK = 1.5;
-//~ const WORKLOAD_STRING = ' Arbeitsstunden/Woche';
-
 Ext.define("studiplaner.controller.Modules", {
     extend: "Ext.app.Controller",
     H_PER_ECTS: 25,
@@ -51,6 +45,7 @@ Ext.define("studiplaner.controller.Modules", {
     //***********
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
+    	console.log(record);
     	var me = this;
     	var moduleForm = me.getModuleForm();
     	if(moduleForm.chart == null) moduleForm.chart = me.buildChart();
@@ -446,7 +441,7 @@ Ext.define("studiplaner.controller.Modules", {
 			}
 		}//if calc workload
 		
-		currentModule.set(attribute, button.value);
+		currentModule.set(attribute, button.config.value);
 	},
 	
 	onNumberFieldChangedCommand: function(moduleForm, field, newValue, oldValue, eOpts){

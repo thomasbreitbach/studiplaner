@@ -21,7 +21,7 @@ Ext.define('studiplaner.view.schedule.ScheduleDayContainer', {
 		name: null,
 		phaseId: null,
 		weekdayId: null,
-		blockCls: null,
+		blockCls: null
   	},
 
   	initialize: function(){

@@ -12,7 +12,6 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
             type: 'localstorage',
             id: 'scheduleBlocks-store'
         },
-        
         grouper: {
             sortProperty: "type",
             direction: "ASC",
@@ -26,8 +25,7 @@ Ext.define("studiplaner.store.ScheduleBlocks", {
                 }
             }
         },
-        sorters: [
-			{
+        sorters: [{
 				// Sort by first letter of last name, in descending order
 				sorterFn: function(record1, record2) {
 					var	name1 = record1.getData(true).Module.name.substr(0, 1),
