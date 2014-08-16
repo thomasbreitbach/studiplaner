@@ -3,7 +3,7 @@ Studiplaner
 
 Dies ist das Repository zur Veranstaltung "EPS" der TH Mittelhessen.
 
-## Web-App zum Organisieren des studentischen Workloads
+#### Web-App zum Organisieren des studentischen Workloads
 
 Studiplaner ist eine plattformunabhängige App für mobile Endgeräte zur Berechnung und Überwachung des
 wöchentlichen Workloads eines Semesters. Hierzu können Module angelegt und verwaltet werden, die im
