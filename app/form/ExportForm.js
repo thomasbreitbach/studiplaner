@@ -61,7 +61,7 @@ Ext.define('studiplaner.form.ExportForm', {
 				xtype: 'button',
 				text: 'Senden',
                 ui: 'confirm',
-                margin: '40 6 15 6',
+                margin: '30 6 15 6',
                 itemId: "sendButton"
 			}
         ],

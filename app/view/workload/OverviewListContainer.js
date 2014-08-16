@@ -52,6 +52,8 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
 		};
 		
 		var moduleListHeader = {
+			xtype: 'container',
+			style: 'background: rgb(228, 228, 228)',
             html: '<div class="workload-overview-list-header">Module</div>',
             height: 35
 		};
@@ -69,6 +71,8 @@ Ext.define('studiplaner.view.workload.OverviewListContainer', {
     	};  
     	
     	var workListHeader = {
+			xtype: 'container',
+			style: 'background: rgb(228, 228, 228)',
             html: '<div class="workload-overview-list-header">Arbeitszeiten</div>',
             height: 35
 		};
