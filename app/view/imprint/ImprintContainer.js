@@ -45,8 +45,8 @@ Ext.define('studiplaner.view.imprint.ImprintContainer', {
 					'<p>Idee:<br>M. H. Edu. Sabine Langkamm<p>'+
 					'<p>Source-Code:<br><a href="https://github.com/thomasbreitbach/studiplaner" title="Studiplaner Source-Code auf GitHub" target="_blank">Studiplaner auf GitHub</a></p>' +	
 					'<h2>Verwendete Bibliotheken:</h2>' +
-					'<ul><li>Sencha Touch unter der <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html" title="GNU GPLv3" target="_blank">GNU GPLv3</a></ul>' + 
-					'<li>Highcharts JS unter der <a href="http://creativecommons.org/licenses/by-nc/3.0/" title="GNU GPLv3" target="_blank">CC BY-NC 3.0</a></li></ul>'
+					'<ul><li>Sencha Touch unter der <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html" title="GNU GPLv3" target="_blank">GNU GPLv3</a> Lizenz</ul>' + 
+					'<li>Highcharts JS unter der <a href="http://creativecommons.org/licenses/by-nc/3.0/" title="GNU GPLv3" target="_blank">CC BY-NC 3.0</a></li> Lizenz</ul>'
 		};
 
     	this.add([topToolbar, content]);
