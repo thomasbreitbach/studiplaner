@@ -3,9 +3,9 @@
  */
 Ext.define("studiplaner.controller.Modules", {
     extend: "Ext.app.Controller",
-    H_PER_ECTS: 25,
+    H_PER_ECTS: 30,
 	H_PER_SWS: 0.75,
-	WEEKS_PER_SEM: 18,
+	WEEKS_PER_SEM: 23,
 	H_PER_BLOCK: 1.5,
 	WORKLOAD_STRING: ' Arbeitsstunden/Woche',
     
@@ -46,8 +46,8 @@ Ext.define("studiplaner.controller.Modules", {
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
     	console.log(record);
-    	var me = this;
-    	var moduleForm = me.getModuleForm();
+    	var me = this,
+			moduleForm = me.getModuleForm();
     	if(moduleForm.chart == null) moduleForm.chart = me.buildChart();
     	
     	//set form fields
@@ -66,9 +66,9 @@ Ext.define("studiplaner.controller.Modules", {
     	severityButton.setPressedButtons([record.data.severity]);   	
     	
     	//Change behaviour in edit mode
-    	var submitButton = moduleForm.down('#addButton');
-    	var topToolbar = moduleForm.getComponent('topToolbar');
-    	var bottomToolbar = moduleForm.getComponent('bottomToolbar');
+    	var submitButton = moduleForm.down('#addButton'),
+			topToolbar = moduleForm.getComponent('topToolbar'),
+			bottomToolbar = moduleForm.getComponent('bottomToolbar');
     	if(record.data.name.length > 0){
 			//edit mode
 			submitButton.setText("Ändern");
@@ -91,8 +91,8 @@ Ext.define("studiplaner.controller.Modules", {
 	
 	setChartData: function(presencePerWeek, selfStudyPerWeek, workloadPerWeek){
 		console.log("setChartData: " + presencePerWeek + " " + selfStudyPerWeek + " " + workloadPerWeek);
-		var me = this;
-		var moduleForm = me.getModuleForm();
+		var me = this,
+			moduleForm = me.getModuleForm();
 		//update ratio serie
 		moduleForm.chart.get('ratio').setData([
 					['Anwesenheit', presencePerWeek],

@@ -45,9 +45,7 @@
         }, {
             "path": "bootstrap.js",
             "x-bootstrap": true
-        }, 
-        
-		{
+        }, {
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
@@ -88,7 +86,8 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            "index.html"
+            "index.html",
+            "resources/js/highcharts-custom.js"
         ],
         /**
          * List of items in the NETWORK section

@@ -37,8 +37,8 @@ Ext.define("studiplaner.controller.Schedule", {
     //**HELPER***
     //***********
     showBlocksPanel: function (headerString) {
-		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
-		var listHeader = blocksPanel.down('#blockList-listHeader');
+		var blocksPanel = this.getScheduleContainer().down('#blocksPanel'),
+			listHeader = blocksPanel.down('#blockList-listHeader');
 		listHeader.setHtml(headerString);
 
 		if(blocksPanel.isHidden()){
@@ -66,8 +66,8 @@ Ext.define("studiplaner.controller.Schedule", {
 					var store_sb = Ext.getStore("ScheduleBlocks");
 					
 					//delete phasexAssignedTo id
-					var record = store_sb.findRecord('id', block.getScheduleBlockId());
-					var attribute = "phase" + (container.config.phaseId+1) + "AssignedTo";
+					var record = store_sb.findRecord('id', block.getScheduleBlockId()),
+						attribute = "phase" + (container.config.phaseId+1) + "AssignedTo";
 					record.set(attribute , null);
 					
 					//remove block from container
@@ -83,7 +83,6 @@ Ext.define("studiplaner.controller.Schedule", {
 	},
 	
 	buildSchedule: function (scheduleBlocksStore, workingTimesStore) {
-		console.log("build schedule/timetable");
 		var scheduleContainer = this.getScheduleContainer();
 		
 		/*
@@ -92,8 +91,8 @@ Ext.define("studiplaner.controller.Schedule", {
 		var scheduleBlocksCount = scheduleBlocksStore.getTotalCount();
 		
 		for(var i = 0; i < scheduleBlocksCount; i++){
-			var record = scheduleBlocksStore.getAt(i);
-			var name = record.data.Module.name;
+			var record = scheduleBlocksStore.getAt(i),
+				name = record.data.Module.name;
 			
 			var phase1 = record.get('phase1AssignedTo');
 			if(phase1 != null){
@@ -189,7 +188,6 @@ Ext.define("studiplaner.controller.Schedule", {
     //**COMMANDS***
     //*************
     onToggleBlocksPanelCommand: function (container, btn) {
-		console.log("onToggleModulesMenuCommand");
 		var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
 		if(blocksPanel.isHidden()){
 			blocksPanel.show();
@@ -286,27 +284,6 @@ Ext.define("studiplaner.controller.Schedule", {
 		//filter BlocksList
 		this.filterBlocksList(value);
 	},
-	
-	//~ onUpdateBlocksCommand: function () {
-		//~ console.log("onUpdateBlocks");
-		//~ var blocksPanel = this.getScheduleContainer().down('#blocksPanel');
-		//~ var blocks = this.scheduleBlocksStore.getData().items;
-		//~ var modulesStore = Ext.getStore('Modules');
-		//~ 
-		//~ for(var i=0; i<blocks.length; i++){
-			//~ var moduleName = modulesStore.getById(blocks[i].get('module_id')).get('name');
-			//~ var type = blocks[i].get('type');
-			//~ blocksPanel.add({
-				//~ xtype: 'component',
-				//~ itemId: 'block' + i,
-				//~ height: 100,
-				//~ width: '80%',
-				//~ cls: "blocks-panel-block",
-				//~ html: '<p>' + moduleName + ' ' + type +'</p>'
-			//~ });
-		//~ }
-		//~ 
-	//~ },
 
 	//--------------------------------
     launch: function () {

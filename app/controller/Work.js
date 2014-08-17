@@ -39,9 +39,9 @@ Ext.define("studiplaner.controller.Work", {
 	//**HELPER**
 	//************
     addWorkingTimeToFieldset: function(id){
-		var workForm = this.getWorkForm();
-		var d = new Date();
-		var dplus2h = new Date();
+		var workForm = this.getWorkForm(),
+			d = new Date(),
+			dplus2h = new Date();
 		dplus2h.setHours((d.getHours()+4));
 		var label = {
 			title: 'times',
@@ -153,9 +153,8 @@ Ext.define("studiplaner.controller.Work", {
 	},
 	
 	toggleTimeUI: function (mode) {
-		var workForm = this.getWorkForm();
-		
-		var modeButton = workForm.down('#modeButton');
+		var workForm = this.getWorkForm(),
+			modeButton = workForm.down('#modeButton');
     	modeButton.setPressedButtons([mode]);
 
 		switch(mode){
@@ -174,8 +173,8 @@ Ext.define("studiplaner.controller.Work", {
     
     activateWorkForm: function (record) {
     	console.log("activateWorkForm");      	  	
-    	var workForm = this.getWorkForm();
-    	var counter = workForm.counter;
+    	var workForm = this.getWorkForm(),
+			counter = workForm.counter;
     	
     	//reset counter
     	counter = 0;
@@ -213,9 +212,9 @@ Ext.define("studiplaner.controller.Work", {
 		workForm.down('#numberfield_hours').setValue(record.data.workload);
 			
     	//Change behaviour in edit mode
-    	var submitButton = workForm.getComponent('addButton');
-    	var topToolbar = workForm.getComponent('topToolbar');
-    	var deleteButton = workForm.down('#deleteButton');
+    	var submitButton = workForm.getComponent('addButton'),
+			topToolbar = workForm.getComponent('topToolbar'),
+			deleteButton = workForm.down('#deleteButton');
     	if(record.data.name.length > 0){
 			//edit mode
 			submitButton.setText("Ändern");
@@ -278,9 +277,8 @@ Ext.define("studiplaner.controller.Work", {
     onSaveWorkCommand: function () {
 	    console.log("onSaveWorkCommand");
 	    
-	    var workForm = this.getWorkForm();
-		console.log(workForm.getValues());
-	    var currentWork = workForm.getRecord(),
+	    var workForm = this.getWorkForm(),
+			currentWork = workForm.getRecord(),
 			workingTimes = currentWork.workingTimes(),
 			store_wt = Ext.getStore("WorkingTimes"),
 			newValues = workForm.getValues(),

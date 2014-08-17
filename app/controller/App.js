@@ -46,8 +46,8 @@ Ext.define('studiplaner.controller.App', {
     },
     
     onSlideMenuCommand: function (list, record){
-		var id = record.data.itemId;
-		var content;
+		var id = record.data.itemId,
+			content;
 		switch(id){
 		case "modules":
 			content = 0;

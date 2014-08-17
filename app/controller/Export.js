@@ -20,15 +20,14 @@ Ext.define("studiplaner.controller.Export", {
             }
         }
     },
-    
     //*************
     //***HELPER****
     //*************
     buildSchedulingTxt: function (){
 		var txt = "";
-		var workload = 0;
-		var modulesStore = Ext.getStore("Modules");
-		var modules = modulesStore.getData().items;
+			workload = 0,
+			modulesStore = Ext.getStore("Modules"),
+			modules = modulesStore.getData().items;
 		
 		txt += "Module:\n"
 		for(var i = 0; i < modules.length; i ++){
@@ -37,8 +36,8 @@ Ext.define("studiplaner.controller.Export", {
 			workload += module.workload;
 		}	
 		
-		var worksStore = Ext.getStore("Works");
-		var works = worksStore.getData().items;
+		var worksStore = Ext.getStore("Works"),
+			works = worksStore.getData().items;
 		
 		txt += "\nArbeitsstellen:\n"
 		for(var i = 0; i < works.length; i ++){
@@ -50,14 +49,13 @@ Ext.define("studiplaner.controller.Export", {
 		txt += "\nWorkload gesamt:\n" + workload + " Std./Woche";
 
 		return txt;
-	},
-    
+	}, 
     //*************
     //**COMMANDS***
     //*************
     onGenerateMail: function () {
-		var schedulingTxt = this.buildSchedulingTxt();
-		var newMail = Ext.create("studiplaner.model.ExportMail", {
+		var schedulingTxt = this.buildSchedulingTxt(),
+			newMail = Ext.create("studiplaner.model.ExportMail", {
 			subject: "Studiplaner - Semesterplanung",
 			scheduling: schedulingTxt
 	    });
@@ -66,10 +64,9 @@ Ext.define("studiplaner.controller.Export", {
 	},
       
     onSendMailCommand: function () {
-		console.log("onSendMailCommand");
-		var form = this.getExportForm();
-		var currentMail = form.getRecord();
-		var formValues = form.getValues();
+		var form = this.getExportForm(),
+			currentMail = form.getRecord(),
+			formValues = form.getValues();
 		currentMail.set(formValues);
 		
 		var errors = currentMail.validate();
@@ -81,12 +78,10 @@ Ext.define("studiplaner.controller.Export", {
 			});
 			Ext.Msg.alert("Hoppla!", errorMsg);
 		}else{
-
 			Ext.Viewport.setMasked({ 
 				xtype: 'loadmask',
 				message: "Sende E-Mail…"
 			});
-
 			// send mail
 			Ext.Ajax.request({
 				url: '../mail.php',
@@ -109,12 +104,10 @@ Ext.define("studiplaner.controller.Export", {
 			});
 		}
 	},
-
 	//--------------------------------
     launch: function () {
         this.callParent();
     },
-    
     init: function () {
         this.callParent();
     }

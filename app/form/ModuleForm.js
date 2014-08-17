@@ -49,7 +49,7 @@ Ext.define('studiplaner.form.ModuleForm', {
         	}, {
 				xtype: "fieldset",
         		itemId: "type",
-        		instructions: '"Normal": Normales Modul - "Block": Blockveranstaltung - "ohne Vorl.": ohne Vorlesung/Nachschreibeklausur',
+        		instructions: '"Normal": Normales Modul - "Block": Blockmodul - "ohne Vorl.": ohne Vorlesung/Nachschreibeklausur',
         		items: [{
 					title: 'typeLabel',
 					html: ['Moduleart'],
