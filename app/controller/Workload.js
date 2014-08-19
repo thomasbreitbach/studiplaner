@@ -150,6 +150,7 @@ Ext.define("studiplaner.controller.Workload", {
 				name: 'Workload',
 				id: 'workload',
 				data: [40],
+				dataLabels: false,
 				tooltip: {
 					valueSuffix: ' Std./Woche'
 				}
@@ -239,15 +240,19 @@ Ext.define("studiplaner.controller.Workload", {
 	},
 	
 	setWorkloadInformationTxt: function(workload){
-		var workloadInfoFieldset = this.getWorkloadContainer().down('#workloadInfo');
+		var wlInfoFs = this.getWorkloadContainer().down('#workloadInfo');
 		if(workload >= 0 && workload < 32){ //0 bis 31 zu gering
-			workloadInfoFieldset.setHtml("Dein wöchentlicher Workload ist gering. Du könntest etwas mehr tun.");
+			wlInfoFs.setHtml("Dein wöchentlicher Workload ist gering. Du könntest etwas mehr tun.");
+			wlInfoFs.setStyleHtmlCls(['workload-info-txt', 'workload-low']);
 		} else if (workload > 34 && workload < 46){ //35 bis 45 --> gut
-			workloadInfoFieldset.setHtml("Dein wöchentlicher Workload liegt in einem guten Bereich!");
+			wlInfoFs.setHtml("Dein wöchentlicher Workload liegt in einem guten Bereich!");
+			wlInfoFs.setStyleHtmlCls(['workload-info-txt', 'workload-medium']);
 		} else if ((workload > 45 && workload < 49) || (workload > 31 && workload < 45)){ 
-			workloadInfoFieldset.setHtml("Dein wöchentlicher Workload liegt gerade noch in einem guten Bereich!");
+			wlInfoFs.setHtml("Dein wöchentlicher Workload liegt gerade noch in einem guten Bereich!");
+			wlInfoFs.setStyleHtmlCls(['workload-info-txt', 'workload-medium-high']);
 		} else if (workload > 48){ //47 bis inf. --> zu hoch
-			workloadInfoFieldset.setHtml("Achtung, dein wöchentlicher Workload ist aktuell zu hoch!");
+			wlInfoFs.setHtml("Achtung, dein wöchentlicher Workload ist aktuell zu hoch!");
+			wlInfoFs.setStyleHtmlCls(['workload-info-txt', 'workload-high']);
 		}
 	},
 	

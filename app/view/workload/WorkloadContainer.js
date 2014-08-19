@@ -57,7 +57,7 @@
 				itemId: 'workloadInfo',
 				docked: 'bottom',
 				styleHtmlContent: true,
-				styleHtmlCls: 'workload-info-txt',				
+				styleHtmlCls: 'workload-info-txt',		
 				margin: '0.5em 0.5em 0.2em 0.5em'
 			}
     	],

@@ -29,7 +29,7 @@
 }
 .list-item-name{
     float:left;
-    width:60%;
+    width:55%;
     font-size:95%;
     white-space: nowrap;
     overflow: hidden;
@@ -38,7 +38,7 @@
 }
 .list-item-workload{
     float:right;
-    width:40%;
+    width:45%;
     color:#666666;
     font-size:80%;
     text-align: right;
@@ -71,8 +71,25 @@
 	background: rgb(228, 228, 228);
 }
 .workload-info-txt{
-	font-size: 0.7em;
+	font-size: 0.8em;
 	padding: 0.6em;
+	text-align: center;
+}
+.workload-low{
+	background-color: #DDDF0D;
+	color: black;
+}
+.workload-medium{
+	background-color: #55BF3B;
+	color: white;
+}
+.workload-medium-high{
+	background-color: darkgreen;
+	color: white;
+}
+.workload-high{
+	background-color: #DF5353;
+	color: white;
 }
 .schedule-block{
 	margin-top: -22px;
@@ -166,7 +183,7 @@
 }
 .imprint-body h2{
 	font-size: 1.2em;
-	margin-top: 0.8em;
+	margin-top: 0.9em;
 	margin-bottom: 0.7em;
 }
 .imprint-body p{
