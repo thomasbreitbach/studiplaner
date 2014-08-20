@@ -263,7 +263,6 @@ Ext.define('studiplaner.form.ModuleForm', {
     initialize: function(){
 		this.callParent(arguments);
 	},
-    
     //Listener functions
     onBackButtonTap: function(){
     	console.log("backToHomeCommand");

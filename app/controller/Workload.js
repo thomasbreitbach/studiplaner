@@ -144,8 +144,7 @@ Ext.define("studiplaner.controller.Workload", {
 						to: 80,
 						color: '#DF5353' // yellow
 				}]        
-			},
-		
+			},	
 			series: [{
 				name: 'Workload',
 				id: 'workload',
@@ -156,12 +155,9 @@ Ext.define("studiplaner.controller.Workload", {
 				}
 			}]
 		});
-		
-	
 	},
 	
 	buildRatioChart: function(){
-		console.log("buildRatioChart");
 		return new Highcharts.Chart({
 			chart: {
 				renderTo: this.getWorkloadContainer().down('#ratiochart').element.dom,

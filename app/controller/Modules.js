@@ -37,8 +37,7 @@ Ext.define("studiplaner.controller.Modules", {
     },
     // Transitions
     slideLeftTransition: { type: 'slide', direction: 'left' },
-    slideRightTransition: { type: 'slide', direction: 'right' },
-    
+    slideRightTransition: { type: 'slide', direction: 'right' }, 
     
     //***********
     //**HELPER***
@@ -80,7 +79,6 @@ Ext.define("studiplaner.controller.Modules", {
 			topToolbar.setTitle("Neues Modul");
 			bottomToolbar.hide();
 		}
-		
 		moduleForm.getScrollable().getScroller().scrollToTop();
     	Ext.Viewport.animateActiveItem(moduleForm, me.slideLeftTransition);
 	},
@@ -92,14 +90,14 @@ Ext.define("studiplaner.controller.Modules", {
 	setChartData: function(presencePerWeek, selfStudyPerWeek, workloadPerWeek){
 		console.log("setChartData: " + presencePerWeek + " " + selfStudyPerWeek + " " + workloadPerWeek);
 		var me = this,
-			moduleForm = me.getModuleForm();
+			mf = me.getModuleForm();
 		//update ratio serie
-		moduleForm.chart.get('ratio').setData([
+		mf.chart.get('ratio').setData([
 					['Anwesenheit', presencePerWeek],
 					['Selbststudium', selfStudyPerWeek]
 				], true, false, true);
 		//set workload title
-		moduleForm.chart.setTitle({
+		mf.chart.setTitle({
 				text: '~' + workloadPerWeek + me.WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
@@ -152,28 +150,26 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	calculateWorkloadPerWeek: function(ects, hPerEcts, weeksPerSem, interest, severity) {
-		var me = this;
-		var interest = me.getValueForInterestId(interest);	
-		var severity = me.getValueForSeverityId(severity);
-		
-		var workload = Math.round(ects * hPerEcts / weeksPerSem) * interest * severity;
-		console.log(workload);
-		console.log(Math.round(workload));
+		var me = this,
+			interest = me.getValueForInterestId(interest),
+			severity = me.getValueForSeverityId(severity),
+			workload = Math.round(ects * hPerEcts / weeksPerSem) * interest * severity;
+		console.log("Workload: " + workload);
+		console.log("Workload (round): " + Math.round(workload));
 		return Math.round(workload);
 	},
     
     buildChart: function(){
-		var me = this;
 		return new Highcharts.Chart({ 
 			chart: {
-				renderTo: me.getModuleForm().down('#chart').element.dom,
+				renderTo: this.getModuleForm().down('#chart').element.dom,
 				backgroundColor:'rgba(255, 255, 255, 0.1)',
 				plotBackgroundImage: null,
 				plotBorderWidth: 0,
 				plotShadow: false
 			},			
 			title: {
-				text: '0' + me.WORKLOAD_STRING,
+				text: '0' + this.WORKLOAD_STRING,
 				align: 'center',
 				verticalAlign: 'middle',
 				y: 85
@@ -219,6 +215,14 @@ Ext.define("studiplaner.controller.Modules", {
 		if(parsed < ll || parsed > ul)  return 0;
 		return parsed;
 	},
+	
+	getValue: function (id, item){
+		var mf = this.getModuleForm();
+		if(item == 'field')
+			return mf.down(id).getValue();
+		if(item == 'segButton')
+			return mf.down(id).getPressedButtons()[0].config.value;
+	},
     
     //*************
     //**COMMANDS***
@@ -244,47 +248,46 @@ Ext.define("studiplaner.controller.Modules", {
     
     onSaveModuleCommand: function () {
 	    console.log("onSaveModuleCommand");
-	    var me = this;
-		
-	    var moduleForm = me.getModuleForm();
-	    var currentModule = moduleForm.getRecord();
-	    var scheduleBlocks = currentModule.scheduleBlocks();
-	    var store_sb = Ext.getStore("ScheduleBlocks");
-	    var newValues = moduleForm.getValues();
-	    var updateSheduleBlocks = false;
+	    var me = this,
+			moduleForm = me.getModuleForm(),
+			currentModule = moduleForm.getRecord(),
+			scheduleBlocks = currentModule.scheduleBlocks(),
+			store_sb = Ext.getStore("ScheduleBlocks"),
+			newValues = moduleForm.getValues(),
+			updateShedBlocks = false;
 	    
 	    if(newValues.ects != currentModule.get('ects') || 
 			newValues.sws != currentModule.get('sws')){
-			updateSheduleBlocks = true;
+			updateShedBlocks = true;
 		}
 
 	    // Update the current module's fields with form values.
-	    // Hint: SegmentedButton values have been saved on toggle
 	    currentModule.set("name", newValues.name);
 	    currentModule.set("ects", newValues.ects);
 	    currentModule.set("sws", newValues.sws);
 	    currentModule.set("workload", moduleForm.workloadPerWeek);
 	    currentModule.set("presencePerWeek", moduleForm.presencePerWeek);
 	    currentModule.set("selfStudyPerWeek", moduleForm.selfStudyPerWeek);
+	    currentModule.set("type", me.getValue('#typeButton', "segButton"));
+	    currentModule.set("interest", me.getValue('#interestButton', "segButton"));
+	    currentModule.set("severity", me.getValue('#severityButton', "segButton"));
 	
 		//Validate!
 	    var errors = currentModule.validate();
-	    console.log(errors)
+	    console.log("Error: " + errors)
 	    if (!errors.isValid()) {
 			errors.each(function (item, index, length){
 				Ext.Msg.alert('Hoppla!', item.getMessage(), Ext.emptyFn);
-			});
-	        
+			}); 
 	        currentModule.reject();
 	        return;
 	    }
 	    
-	    if(updateSheduleBlocks){
+	    if(updateShedBlocks){
 			//calculate and store schedule blocks
 			scheduleBlocks.removeAll(); //TODO https://github.com/thomasbreitbach/studiplaner/issues/9
-			var presenceBlocksCount = Math.round(moduleForm.presencePerWeek/me.H_PER_BLOCK);
-			var selfStudyBlocksCount = Math.round(moduleForm.selfStudyPerWeek/me.H_PER_BLOCK);
-			
+			var presenceBlocksCount = Math.round(moduleForm.presencePerWeek/me.H_PER_BLOCK),
+				selfStudyBlocksCount = Math.round(moduleForm.selfStudyPerWeek/me.H_PER_BLOCK);
 			
 			for(var i=0;i<presenceBlocksCount;i++){
 				scheduleBlocks.add({
@@ -307,10 +310,7 @@ Ext.define("studiplaner.controller.Modules", {
 	    var modulesStore = Ext.getStore("Modules");	
 	    if (null == modulesStore.findRecord('id', currentModule.data.id)) {
 	        modulesStore.add(currentModule);
-	    }	
-	    
-	    
-	    
+	    }
 	    modulesStore.sync();
 	    
 	    scheduleBlocks.sync();
@@ -327,16 +327,15 @@ Ext.define("studiplaner.controller.Modules", {
 	     */
 	    store_sb.clearFilter();
         store_sb.load();
-        studiplaner.app.getController('Schedule').filterBlocksList(0);
-	    
-	    this.activateModulesList();
+        studiplaner.app.getController('Schedule').filterBlocksList(0);    
+	    me.activateModulesList();
 	},
 	
 	onDeleteModuleCommand: function () {
-		var moduleForm = this.getModuleForm();
-		var currentModule = moduleForm.getRecord();
-		var scheduleBlocks = currentModule.scheduleBlocks();
-		var controller = this;
+		var me = this,
+			moduleForm = me.getModuleForm(),
+			currentModule = moduleForm.getRecord(),
+			scheduleBlocks = currentModule.scheduleBlocks();
 		
 		Ext.Msg.show({
 			title: 'Modul löschen?',
@@ -354,18 +353,16 @@ Ext.define("studiplaner.controller.Modules", {
 				if(text == 'yes'){
 					//del related schedule blocks
 					scheduleBlocks.removeAll();			
-					scheduleBlocks.sync();
-					
+					scheduleBlocks.sync();	
 					//del module
 					var modulesStore = Ext.getStore("Modules");		
 					modulesStore.remove(currentModule);
-					modulesStore.sync();
-					
+					modulesStore.sync();		
 					//load new data
 					var store_sb = Ext.getStore("ScheduleBlocks");
 					store_sb.load();
 						
-					controller.activateModulesList();
+					me.activateModulesList();
 				}else{
 					return false;
 				}
@@ -378,48 +375,13 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	onSegmentedButtonCommand: function (form, container, button) {
-		console.log('onSegmentedButtonCommand');
-		var me = this;
-		var moduleForm = me.getModuleForm();
-		var currentModule = moduleForm.getRecord();
+		var me = this,
+			message = me.getMessageForSegmentedButtonId(button.config.value);
+			segButtonId = container.getItemId(),
+		me.updateForm();
 		
-		var segmentedButton = container.getItemId();
-		var attribute;
-		switch(segmentedButton){
-			case "typeButton":
-				console.log("typeButton");
-				attribute = "type";
-				break;
-			case "interestButton":
-				console.log("interestButton");
-				attribute = "interest";
-				break;
-			case "severityButton":
-				console.log("severityButton");
-				attribute = "severity";
-				break;
-		}	
-		
-		//calc workload
-		if(attribute == "interest" || attribute == "severity"){
-			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].config.value;
-			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].config.value;
-			var ects = moduleForm.down('#numberfield_ects').getValue();		
-			
-			if(ects != null){
-				workloadPerWeek = me.calculateWorkloadPerWeek(ects, me.H_PER_ECTS, me.WEEKS_PER_SEM, interest, severity);
-				moduleForm.workloadPerWeek = workloadPerWeek;
-				
-				moduleForm.chart.setTitle({
-					text: '~' + moduleForm.workloadPerWeek + me.WORKLOAD_STRING,
-					align: 'center',
-					verticalAlign: 'middle',
-					y: 85 
-				});
-			}
-			
-			//show info dialog
-			var message = me.getMessageForSegmentedButtonId(button.config.value);
+		if(segButtonId == "interestButton" || segButtonId == "severityButton"){
+			//~ //show info dialog
 			if(typeof localStorage.show_workload_info == 'undefined'){
 				Ext.Msg.show({
 					title:    'Info', 
@@ -439,59 +401,56 @@ Ext.define("studiplaner.controller.Modules", {
 					} 
 				});	//msg
 			}
-		}//if calc workload
-		
-		currentModule.set(attribute, button.config.value);
+		}
 	},
 	
 	onNumberFieldChangedCommand: function(moduleForm, field, newValue, oldValue, eOpts){
-		console.log("--> onNumberFieldChangedCommand <--");
-		var ects = 0;
-		var sws = 0;
-		var otherField;
-		var workloadPerWeek = 0;
-		var presencePerWeek = 1;
-		var selfStudyPerWeek = 1;
-		var me = this;
+		this.updateForm();
+	},
+	
+	updateForm: function (){
+		var me = this,
+			mf = me.getModuleForm(),
+			ects = me.checkInputVal(me.getValue('#numberfield_ects', 'field'), 0, 50),
+			sws = me.checkInputVal(me.getValue('#numberfield_sws', 'field'), 0, 50),
+			interest = me.getValue('#interestButton', 'segButton'),
+			severity = me.getValue('#severityButton', 'segButton'),
+			type = mf.down('#typeButton').getPressedButtons()[0].getItemId(),
+			workloadPerWeek = 0,
+			presencePerWeek = 1,
+			selfStudyPerWeek = 1;
 		
-		if(field.getItemId() === 'numberfield_ects'){
-			ects = me.checkInputVal(newValue, 0, 50);	
-			otherField = moduleForm.down('#numberfield_sws').getValue();
-			if(otherField != null) sws =  otherField;
+		workloadPerWeek = me.calculateWorkloadPerWeek(ects, me.H_PER_ECTS, me.WEEKS_PER_SEM, interest, severity);
+		
+		if(type == 'ov'){
+			presencePerWeek = 0;
+			selfStudyPerWeek = workloadPerWeek;
 		}else{
-			sws = me.checkInputVal(newValue, 0, 50);
-			otherField = moduleForm.down('#numberfield_ects').getValue();
-			if(otherField != null) ects = otherField;
-		}
-				
-		//calc workload
-		if(ects != 0 || sws != 0){
-			var interest = moduleForm.down('#interestButton').getPressedButtons()[0].config.value;
-			var severity = moduleForm.down('#severityButton').getPressedButtons()[0].config.value;
-			console.log(me);
-			workloadPerWeek = me.calculateWorkloadPerWeek(ects, me.H_PER_ECTS, me.WEEKS_PER_SEM, interest, severity);
 			presencePerWeek = sws * me.H_PER_SWS;
 			selfStudyPerWeek = workloadPerWeek - presencePerWeek;
-		}		
+		}
 		
 		//set series data
-		me.setChartData(presencePerWeek, selfStudyPerWeek, workloadPerWeek);
-		
+		if(workloadPerWeek == 0){
+			me.setChartData(1, 1, 0);
+		}else{
+			me.setChartData(presencePerWeek, selfStudyPerWeek, workloadPerWeek);
+		}
+			
 		//store workload
-		moduleForm.workloadPerWeek = workloadPerWeek;
-		moduleForm.selfStudyPerWeek = selfStudyPerWeek;
-		moduleForm.presencePerWeek = presencePerWeek;	
+		mf.workloadPerWeek = workloadPerWeek;
+		mf.selfStudyPerWeek = selfStudyPerWeek;
+		mf.presencePerWeek = presencePerWeek;
 	},
-
+	//------------------
     launch: function () {
         this.callParent();
         //load Store
-        var store = Ext.getStore("Modules");
+        var store = Ext.getStore("Modules")
+			store_sb = Ext.getStore("ScheduleBlocks");
         store.load();
-        var store_sb = Ext.getStore("ScheduleBlocks");
         store_sb.load();
     },
-    
     init: function () {
         this.callParent();
     }

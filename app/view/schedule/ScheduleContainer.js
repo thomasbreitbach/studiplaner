@@ -51,7 +51,6 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			hideAnimation: 'fadeOut'
 		});
 		var sb_store = Ext.getStore("ScheduleBlocks");
-		console.log(sb_store);
 		var blocksList = {
     		xtype: "blockslist",
     		itemId: 'blockslist',
