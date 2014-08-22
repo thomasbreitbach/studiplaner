@@ -223,6 +223,58 @@ Ext.define("studiplaner.controller.Modules", {
 		if(item == 'segButton')
 			return mf.down(id).getPressedButtons()[0].config.value;
 	},
+	
+	generateScheduleBlocks: function (scheduleBlocks){
+		var me = this,
+			mf = me.getModuleForm(),
+			presenceBlocksCount = Math.round(mf.presencePerWeek/me.H_PER_BLOCK),
+			selfStudyBlocksCount = Math.round(mf.selfStudyPerWeek/me.H_PER_BLOCK);
+		
+		var presence = new Array(),
+			self = new Array;
+		for(var i=0; i<scheduleBlocks.data.length; i++){
+			var block = scheduleBlocks.getAt(i);
+			if(block.get('type') == 'presence') presence.push(block);
+			else self.push(block);
+		}
+		
+		var presenceDiff = presenceBlocksCount - presence.length,
+			selfDiff = selfStudyBlocksCount - self.length;
+		
+		if(presenceDiff>0){
+			//blöcke hinzufügen
+			for(var i=0;i<presenceDiff;i++){
+				scheduleBlocks.add({
+					type: 'presence',
+					phase1assigendTo: null,
+					phase2assigendTo: null,
+					phase3assigendTo: null
+				});
+			}
+		}else if(presenceDiff<0){
+			//blöcke löschen
+			for(var i=0;i<Math.abs(presenceDiff);i++){
+				scheduleBlocks.remove(presence[i]);
+			}			
+		}
+		
+		if(selfDiff>0){
+			//blöcke hinzufügen
+			for(var i=0;i<selfDiff;i++){
+				scheduleBlocks.add({
+					type: 'self',
+					phase1assigendTo: null,
+					phase2assigendTo: null,
+					phase3assigendTo: null
+				});
+			}
+		}else if(selfDiff<0){
+			//blöcke löschen
+			for(var i=0;i<Math.abs(presenceDiff);i++){
+				scheduleBlocks.remove(self[i]);
+			}
+		}
+	},
     
     //*************
     //**COMMANDS***
@@ -284,27 +336,9 @@ Ext.define("studiplaner.controller.Modules", {
 	    }
 	    
 	    if(updateShedBlocks){
-			//calculate and store schedule blocks
-			scheduleBlocks.removeAll(); //TODO https://github.com/thomasbreitbach/studiplaner/issues/9
-			var presenceBlocksCount = Math.round(moduleForm.presencePerWeek/me.H_PER_BLOCK),
-				selfStudyBlocksCount = Math.round(moduleForm.selfStudyPerWeek/me.H_PER_BLOCK);
-			
-			for(var i=0;i<presenceBlocksCount;i++){
-				scheduleBlocks.add({
-					type: 'presence',
-					phase1assigendTo: null,
-					phase2assigendTo: null,
-					phase3assigendTo: null
-				});
-			}
-			for(var i=0;i<selfStudyBlocksCount;i++){
-				scheduleBlocks.add({
-					type: 'self',
-					phase1assigendTo: null,
-					phase2assigendTo: null,
-					phase3assigendTo: null
-				});
-			}
+			//gen schedule blocks
+			//~ scheduleBlocks.removeAll(); //TODO https://github.com/thomasbreitbach/studiplaner/issues/9
+			me.generateScheduleBlocks(scheduleBlocks);
 		}
 		
 	    var modulesStore = Ext.getStore("Modules");	
