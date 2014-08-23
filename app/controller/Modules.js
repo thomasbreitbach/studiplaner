@@ -52,16 +52,12 @@ Ext.define("studiplaner.controller.Modules", {
     	//set form fields
     	moduleForm.setRecord(record);
     	
-    	//set typeButton	
-    	var typeButton = moduleForm.down('#typeButton');
-    	typeButton.setPressedButtons([record.data.type]);
+    	var typeButton = moduleForm.down('#typeButton'),
+			interestButton = moduleForm.down('#interestButton'),
+			severityButton = moduleForm.down('#severityButton');
     	
-    	//set interestButton
-    	var interestButton = moduleForm.down('#interestButton');
+    	typeButton.setPressedButtons([record.data.type]);
     	interestButton.setPressedButtons([record.data.interest]);
-
-		//set severityButton
-    	var severityButton = moduleForm.down('#severityButton');
     	severityButton.setPressedButtons([record.data.severity]);   	
     	
     	//Change behaviour in edit mode
@@ -83,8 +79,17 @@ Ext.define("studiplaner.controller.Modules", {
     	Ext.Viewport.animateActiveItem(moduleForm, me.slideLeftTransition);
 	},
 	
-	activateModulesList: function () {
+	activateModulesList: function (deletedBlocks) {
 	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);
+	    
+	    if(deletedBlocks){
+			Ext.Msg.alert(
+				'Änderung im Stundenplan!', "Auf Grund der Moduländerungen musste(n) " + 
+				deletedBlocks + 
+				" zugewiesene(s) Modul(e) im Stundenplan gelöscht werde.",
+				Ext.emptyFn
+			);
+		}
 	},
 	
 	setChartData: function(presencePerWeek, selfStudyPerWeek, workloadPerWeek){
@@ -228,7 +233,8 @@ Ext.define("studiplaner.controller.Modules", {
 		var me = this,
 			mf = me.getModuleForm(),
 			presenceBlocksCount = Math.round(mf.presencePerWeek/me.H_PER_BLOCK),
-			selfStudyBlocksCount = Math.round(mf.selfStudyPerWeek/me.H_PER_BLOCK);
+			selfStudyBlocksCount = Math.round(mf.selfStudyPerWeek/me.H_PER_BLOCK),
+			deletedBlocksInSchedule = 0;
 		
 		var presence = new Array(),
 			self = new Array;
@@ -268,6 +274,7 @@ Ext.define("studiplaner.controller.Modules", {
 			}
 			for(; deleted < presenceAbs; deleted++){
 				scheduleBlocks.remove(presence[deleted]);
+				deletedBlocksInSchedule++;
 			}
 		}
 		
@@ -298,8 +305,10 @@ Ext.define("studiplaner.controller.Modules", {
 			}
 			for(; deleted < selfAbs; deleted++){
 				scheduleBlocks.remove(self[deleted]);
+				deletedBlocksInSchedule++;
 			}
 		}
+		return deletedBlocksInSchedule;
 	},
     
     //*************
@@ -332,7 +341,8 @@ Ext.define("studiplaner.controller.Modules", {
 			scheduleBlocks = currentModule.scheduleBlocks(),
 			store_sb = Ext.getStore("ScheduleBlocks"),
 			newValues = moduleForm.getValues(),
-			updateShedBlocks = false;
+			updateShedBlocks = false,
+			deletedBlocks = 0;
 			
 	    if(newValues.ects != currentModule.get('ects') || 
 			newValues.sws != currentModule.get('sws')){
@@ -362,7 +372,7 @@ Ext.define("studiplaner.controller.Modules", {
 	    }
 	    
 	    if(updateShedBlocks){
-			me.generateScheduleBlocks(scheduleBlocks);
+			deletedBlocks = me.generateScheduleBlocks(scheduleBlocks);
 		}
 		
 	    var modulesStore = Ext.getStore("Modules");	
@@ -386,11 +396,11 @@ Ext.define("studiplaner.controller.Modules", {
         studiplaner.app.getController('Schedule').filterBlocksList(0); 
         
         if(updateShedBlocks){
-			//rebuild timetable because there could be changes
+			//rebuild timetable - there could be changes
 			studiplaner.app.getController('Schedule').rebuildSchedule();
 		}
            
-	    me.activateModulesList();
+	    me.activateModulesList(deletedBlocks);
 	},
 	
 	onDeleteModuleCommand: function () {
