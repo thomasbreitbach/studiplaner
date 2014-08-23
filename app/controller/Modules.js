@@ -44,13 +44,9 @@ Ext.define("studiplaner.controller.Modules", {
     //***********
     activateModuleForm: function (record) {
     	console.log("activateModuleForm");
-    	console.log(record);
     	var me = this,
 			moduleForm = me.getModuleForm();
     	if(moduleForm.chart == null) moduleForm.chart = me.buildChart();
-    	
-    	//set form fields
-    	moduleForm.setRecord(record);
     	
     	var typeButton = moduleForm.down('#typeButton'),
 			interestButton = moduleForm.down('#interestButton'),
@@ -58,7 +54,10 @@ Ext.define("studiplaner.controller.Modules", {
     	
     	typeButton.setPressedButtons([record.data.type]);
     	interestButton.setPressedButtons([record.data.interest]);
-    	severityButton.setPressedButtons([record.data.severity]);   	
+    	severityButton.setPressedButtons([record.data.severity]);   
+    	
+    	//set form fields
+    	moduleForm.setRecord(record);	
     	
     	//Change behaviour in edit mode
     	var submitButton = moduleForm.down('#addButton'),
@@ -80,13 +79,13 @@ Ext.define("studiplaner.controller.Modules", {
 	},
 	
 	activateModulesList: function (deletedBlocks) {
-	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);
-	    
+	    Ext.Viewport.animateActiveItem(this.getModulesListContainer(), this.slideRightTransition);   
 	    if(deletedBlocks){
+			//allocated blocks have been deleted --> notify user
 			Ext.Msg.alert(
-				'Änderung im Stundenplan!', "Auf Grund der Moduländerungen musste(n) " + 
+				'Änderung im Wochenplan!', "Auf Grund deiner Moduländerungen musste(n) " + 
 				deletedBlocks + 
-				" zugewiesene(s) Modul(e) im Stundenplan gelöscht werden.",
+				" bereits zugewiesene(s) Blöcke(e) im Wochenplan gelöscht werden.",
 				Ext.emptyFn
 			);
 		}

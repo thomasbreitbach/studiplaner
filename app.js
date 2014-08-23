@@ -115,8 +115,8 @@ Ext.application({
 
     onUpdated: function() {
         Ext.Msg.confirm(
-            "Application Update",
-            "This application has just successfully been updated to the latest version. Reload now?",
+            "App Update",
+            "Die App wurde gerade auf die neuste Version aktualisiert. Möchtest du das Update jetzt anwenden?",
             function(buttonId) {
                 if (buttonId === 'yes') {
                     window.location.reload();
