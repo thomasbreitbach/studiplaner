@@ -86,7 +86,7 @@ Ext.define("studiplaner.controller.Modules", {
 			Ext.Msg.alert(
 				'Änderung im Stundenplan!', "Auf Grund der Moduländerungen musste(n) " + 
 				deletedBlocks + 
-				" zugewiesene(s) Modul(e) im Stundenplan gelöscht werde.",
+				" zugewiesene(s) Modul(e) im Stundenplan gelöscht werden.",
 				Ext.emptyFn
 			);
 		}
