@@ -242,7 +242,7 @@ Ext.define("studiplaner.controller.Modules", {
 			selfDiff = selfStudyBlocksCount - self.length;
 		
 		if(presenceDiff>0){
-			//blöcke hinzufügen
+			//delete blocks
 			for(var i=0;i<presenceDiff;i++){
 				scheduleBlocks.add({
 					type: 'presence',
@@ -252,14 +252,27 @@ Ext.define("studiplaner.controller.Modules", {
 				});
 			}
 		}else if(presenceDiff<0){
-			//blöcke löschen
-			for(var i=0;i<Math.abs(presenceDiff);i++){
-				scheduleBlocks.remove(presence[i]);
-			}			
+			//delete blocks
+			var presenceAbs = Math.abs(presenceDiff),
+				deleted = 0;
+			for(var i = 0; i < presence.length && deleted < presenceAbs; i++){
+				//try to delete unallocated blocks
+				var block = presence[i];
+				if(	block.get('phase1AssignedTo') === null &&
+					block.get('phase2AssignedTo') === null &&
+					block.get('phase3AssignedTo') === null)
+				{
+						scheduleBlocks.remove(block);
+						deleted++;
+				}
+			}
+			for(; deleted < presenceAbs; deleted++){
+				scheduleBlocks.remove(presence[deleted]);
+			}
 		}
 		
 		if(selfDiff>0){
-			//blöcke hinzufügen
+			//delete blocks
 			for(var i=0;i<selfDiff;i++){
 				scheduleBlocks.add({
 					type: 'self',
@@ -269,9 +282,22 @@ Ext.define("studiplaner.controller.Modules", {
 				});
 			}
 		}else if(selfDiff<0){
-			//blöcke löschen
-			for(var i=0;i<Math.abs(presenceDiff);i++){
-				scheduleBlocks.remove(self[i]);
+			//delete blocks
+			var selfAbs = Math.abs(selfDiff),
+				deleted = 0;
+			for(var i = 0; i < self.length && deleted < selfAbs; i++){
+				//try to delete unallocated blocks
+				var block = self[i];
+				if( block.get('phase1AssignedTo') === null &&
+					block.get('phase2AssignedTo') === null &&
+					block.get('phase3AssignedTo') === null)
+				{
+					scheduleBlocks.remove(block);
+					deleted++;
+				}
+			}
+			for(; deleted < selfAbs; deleted++){
+				scheduleBlocks.remove(self[deleted]);
 			}
 		}
 	},
@@ -307,7 +333,7 @@ Ext.define("studiplaner.controller.Modules", {
 			store_sb = Ext.getStore("ScheduleBlocks"),
 			newValues = moduleForm.getValues(),
 			updateShedBlocks = false;
-	    
+			
 	    if(newValues.ects != currentModule.get('ects') || 
 			newValues.sws != currentModule.get('sws')){
 			updateShedBlocks = true;
@@ -336,8 +362,6 @@ Ext.define("studiplaner.controller.Modules", {
 	    }
 	    
 	    if(updateShedBlocks){
-			//gen schedule blocks
-			//~ scheduleBlocks.removeAll(); //TODO https://github.com/thomasbreitbach/studiplaner/issues/9
 			me.generateScheduleBlocks(scheduleBlocks);
 		}
 		
@@ -345,10 +369,8 @@ Ext.define("studiplaner.controller.Modules", {
 	    if (null == modulesStore.findRecord('id', currentModule.data.id)) {
 	        modulesStore.add(currentModule);
 	    }
-	    modulesStore.sync();
-	    
+	    modulesStore.sync(); 
 	    scheduleBlocks.sync();
-	    console.log("before sync");
 	    /*
 	     * Important!
 	     * Load new data into ScheduleBlocks-Store
@@ -361,7 +383,13 @@ Ext.define("studiplaner.controller.Modules", {
 	     */
 	    store_sb.clearFilter();
         store_sb.load();
-        studiplaner.app.getController('Schedule').filterBlocksList(0);    
+        studiplaner.app.getController('Schedule').filterBlocksList(0); 
+        
+        if(updateShedBlocks){
+			//rebuild timetable because there could be changes
+			studiplaner.app.getController('Schedule').rebuildSchedule();
+		}
+           
 	    me.activateModulesList();
 	},
 	
@@ -449,10 +477,13 @@ Ext.define("studiplaner.controller.Modules", {
 			sws = me.checkInputVal(me.getValue('#numberfield_sws', 'field'), 0, 50),
 			interest = me.getValue('#interestButton', 'segButton'),
 			severity = me.getValue('#severityButton', 'segButton'),
-			type = mf.down('#typeButton').getPressedButtons()[0].getItemId(),
 			workloadPerWeek = 0,
 			presencePerWeek = 1,
 			selfStudyPerWeek = 1;
+			
+		var typeButton = mf.down('#typeButton');
+		var pressed = typeButton.getPressedButtons()[0];
+		var type = pressed.getItemId(),
 		
 		workloadPerWeek = me.calculateWorkloadPerWeek(ects, me.H_PER_ECTS, me.WEEKS_PER_SEM, interest, severity);
 		

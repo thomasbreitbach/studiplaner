@@ -17,7 +17,6 @@ Ext.define("studiplaner.controller.Schedule", {
         control: {
             scheduleContainer: {
                 toggleBlocksPanelCommand: "onToggleBlocksPanelCommand",
-                //~ updateBlocksCommand: "onUpdateBlocksCommand",
                 hideBlocksPanelCommand: 'onHideBlocksPanelCommand',
                 selectBlockCommand: 'onSelectBlockCommand',
                 assignBlockCommand: 'onAssignBlockCommand',
@@ -41,14 +40,12 @@ Ext.define("studiplaner.controller.Schedule", {
 			listHeader = blocksPanel.down('#blockList-listHeader');
 		listHeader.setHtml(headerString);
 
-		if(blocksPanel.isHidden()){
-			blocksPanel.show();
-		}else{
-			blocksPanel.hide();
-		}
+		if(blocksPanel.isHidden()) blocksPanel.show();
+		else blocksPanel.hide();
 	},
 	
 	clearBlockContainer: function (block, container) {
+		console.log(container);
 		Ext.Msg.show({
 			title: 'Block löschen?',
 			message: 'Möchtest du den Block wirklich löschen?',
@@ -71,6 +68,8 @@ Ext.define("studiplaner.controller.Schedule", {
 					record.set(attribute , null);
 					
 					//remove block from container
+					
+					console.log("remove first item on: " + container.getItemId());
 					container.removeAt(0);
 					
 					//sync data
@@ -82,22 +81,40 @@ Ext.define("studiplaner.controller.Schedule", {
 		});
 	},
 	
+	clearSchedule: function(){
+		var scheduleContainer = this.getScheduleContainer(),
+			phasesCarousel = scheduleContainer.down('#phasesCarousel');
+		
+		for(var i = 0; i < phasesCarousel.getItems().length; i++){
+			var scheduleCarousel = phasesCarousel.getAt(i);
+			
+			for(var j = 1; j < scheduleCarousel.getItems().length; j++){
+				var day = scheduleCarousel.getAt(j);
+				
+				for(var k = 1; k < day.getItems().length; k++){
+					var block = day.getAt(k);
+					
+					if(block.getAt(0) != null)
+						block.removeAt(0);
+				}//blocks			
+			}//days
+		}//phases
+	},
+	
 	buildSchedule: function (scheduleBlocksStore, workingTimesStore) {
-		var scheduleContainer = this.getScheduleContainer();
-		
-		/*
-		 * add study blocks
-		 */
-		var scheduleBlocksCount = scheduleBlocksStore.getTotalCount();
-		
+		var scheduleContainer = this.getScheduleContainer(),
+			scheduleBlocksCount = scheduleBlocksStore.getTotalCount();
+	
 		for(var i = 0; i < scheduleBlocksCount; i++){
 			var record = scheduleBlocksStore.getAt(i),
-				name = record.data.Module.name;
+				name = record.data.Module.name,
+				phase1 = record.get('phase1AssignedTo'),
+				phase2 = record.get('phase2AssignedTo'),
+				phase3 = record.get('phase3AssignedTo');
 			
-			var phase1 = record.get('phase1AssignedTo');
 			if(phase1 != null){
-				var phase1Id = "#" + phase1;
-				var c1 = scheduleContainer.down(phase1Id);
+				var phase1Id = "#" + phase1,
+					c1 = scheduleContainer.down(phase1Id);
 				
 				c1.add({
 					xtype: 'scheduleblock',
@@ -107,7 +124,6 @@ Ext.define("studiplaner.controller.Schedule", {
 				});
 			}
 			
-			var phase2 = record.get('phase2AssignedTo');
 			if(phase2 != null){
 				var phase2Id = "#" + phase2;
 				var c2 = scheduleContainer.down(phase2Id);
@@ -119,7 +135,6 @@ Ext.define("studiplaner.controller.Schedule", {
 				});
 			}
 			
-			var phase3 = record.get('phase3AssignedTo');
 			if(phase3 != null){
 				var phase3Id = "#" + phase3;
 				var c3 = scheduleContainer.down(phase3Id);
@@ -131,7 +146,6 @@ Ext.define("studiplaner.controller.Schedule", {
 				});
 			}	
 		}    
-		
 		/*
 		 * add working blocks
 		 */
@@ -139,14 +153,20 @@ Ext.define("studiplaner.controller.Schedule", {
 		//~ this.addWorkingTimes(workingTimesStore);
 	},
 	
+	rebuildSchedule: function(){
+		var me = this,
+			sb = Ext.getStore("ScheduleBlocks"),
+			wt = Ext.getStore("WorkingTimes");
+		me.clearSchedule();
+		me.buildSchedule(sb, wt);
+	},
+	
 	addWorkingTimes: function(workingTimesStore){
 		var workingTimesCount = workingTimesStore.getTotalCount();
 		
 		for(var i = 0; i < workingTimesCount; i++){
-			var workingTime = workingTimesStore.getAt(i).getData(true);
-			var workName = workingTime.Work.name;
-			
-			
+			var workingTime = workingTimesStore.getAt(i).getData(true),
+				workName = workingTime.Work.name;
 			console.log(workName);
 		}
 	},
@@ -288,14 +308,9 @@ Ext.define("studiplaner.controller.Schedule", {
 	//--------------------------------
     launch: function () {
         this.callParent();
-        //load Store
-        var scheduleBlocksStore = Ext.getStore("ScheduleBlocks");		
-		var workingTimesStore = Ext.getStore("WorkingTimes");
-
-		//build schedule/timetable
+        var scheduleBlocksStore = Ext.getStore("ScheduleBlocks"),	
+			workingTimesStore = Ext.getStore("WorkingTimes");
 		this.buildSchedule(scheduleBlocksStore, workingTimesStore);
-		
-		//filter blocks list (schedule blocks)
 		this.filterBlocksList(0);
     },
     
