@@ -11,10 +11,14 @@ Ext.define("studiplaner.controller.Schedule", {
     
     config: {
         refs: {
+			viewPort: 'viewport',
             scheduleContainer: "schedulecontainer",
             scheduleDayContainer: "scheduledaycontainer"
         },
         control: {
+			viewPort: {
+				moduleDeleted: 'rebuildSchedule'
+			},
             scheduleContainer: {
                 toggleBlocksPanelCommand: "onToggleBlocksPanelCommand",
                 hideBlocksPanelCommand: 'onHideBlocksPanelCommand',
@@ -154,6 +158,7 @@ Ext.define("studiplaner.controller.Schedule", {
 	},
 	
 	rebuildSchedule: function(){
+		console.log('rebuildSchedule');
 		var me = this,
 			sb = Ext.getStore("ScheduleBlocks"),
 			wt = Ext.getStore("WorkingTimes");
@@ -297,7 +302,6 @@ Ext.define("studiplaner.controller.Schedule", {
 	},
 	
 	onPhaseChangedCommand: function (container, value) {
-		console.log("onPhaseChangedCommand " + value);
 		var phasesCarousel = this.getScheduleContainer().down('#phasesCarousel');
 		phasesCarousel.animateActiveItem(value, {type: 'fade'});
 		

@@ -433,6 +433,7 @@ Ext.define("studiplaner.controller.Modules", {
 					var store_sb = Ext.getStore("ScheduleBlocks");
 					store_sb.load();
 						
+					Ext.Viewport.fireEvent('moduleDeleted');
 					me.activateModulesList();
 				}else{
 					return false;

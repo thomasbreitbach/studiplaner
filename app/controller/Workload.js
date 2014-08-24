@@ -11,13 +11,18 @@ Ext.define("studiplaner.controller.Workload", {
     
     config: {
         refs: {
-            workloadContainer: "workloadcontainer",
-            workloadOverviewListContainer: "workloadoverviewlistcontainer"
+			viewPort: 'viewport',
+            workloadContainer: 'workloadcontainer',
+            workloadOverviewListContainer: 'workloadoverviewlistcontainer'
         },
         control: {
+			viewPort: {
+				moduleDeleted: 'onUpdateChartDataCommand',
+				workDeleted: 'onUpdateChartDataCommand'
+			},
             workloadContainer: {
             	// The commands fired by the modules list container.
-                flipChartCommand: "onflipCardCommand",
+                flipChartCommand: 'onflipCardCommand',
                 buildChartsCommand: 'onBuildChartsCommand',
                 updateChartDataCommand: 'onUpdateChartDataCommand',
                 overviewListCommand: 'onOverviewListCommand'
@@ -223,7 +228,6 @@ Ext.define("studiplaner.controller.Workload", {
 				'fontSize': '2.0em'
 			}
 		});
-		
 	},
 	
 	setRatioChartData: function(study, job){
@@ -261,9 +265,9 @@ Ext.define("studiplaner.controller.Workload", {
 	},
 	
 	onflipCardCommand: function(container){
-		var chartContainer = container.down('#chartcontainer');
-		var toggleButton = container.down('#toggleButton');
-		var activeItem = chartContainer.getActiveItem().getItemId();
+		var chartContainer = container.down('#chartcontainer'),
+			toggleButton = container.down('#toggleButton'),
+			activeItem = chartContainer.getActiveItem().getItemId();
 
 		switch(activeItem){
 		case "gaugeFieldset":
@@ -279,36 +283,32 @@ Ext.define("studiplaner.controller.Workload", {
 	
 	onUpdateChartDataCommand: function(){
 		console.log("onUpdateChartDataCommand");
-		var jobWorkload = 0;
-		var studyWorkload = 0;
-		
-		var workStore = Ext.getStore("Works");
-		var modulesStore = Ext.getStore("Modules");
-		
-		var work = workStore.getData().items;
+		var me = this,
+			jobWorkload = 0,
+			studyWorkload = 0,
+			workStore = Ext.getStore("Works"),
+			modulesStore = Ext.getStore("Modules"),
+			work = workStore.getData().items,
+			modules = modulesStore.getData().items;
+			
 		for(var i=0; i<work.length; i++){
 			jobWorkload += work[i].data.workload;
 		}	
-		
-		var modules = modulesStore.getData().items;
 		for(var i=0; i<modules.length; i++){
 			studyWorkload += modules[i].data.workload;
 		}
 		
 		var overallWorkload = jobWorkload+studyWorkload;
-		if(overallWorkload < 81){
-			this.setGaugeChartData(overallWorkload);
-		} else{
-			this.setGaugeChartData(80);
-		}
+		if(overallWorkload < 81) this.setGaugeChartData(overallWorkload);
+		else me.setGaugeChartData(80);
 		
 		if(jobWorkload == 0 && studyWorkload == 0){
 			jobWorkload = 1;
 			studyWorkload = 1;
 		}
-		this.setRatioChartData(studyWorkload, jobWorkload);
 		
-		this.setWorkloadInformationTxt(jobWorkload+studyWorkload);
+		me.setRatioChartData(studyWorkload, jobWorkload);
+		me.setWorkloadInformationTxt(jobWorkload+studyWorkload);
 	},
 	
 	onOverviewListCommand: function () { 
@@ -360,7 +360,6 @@ Ext.define("studiplaner.controller.Workload", {
 				moduleslistViewItems[i].innerHtmlElement.dom.children[0].children[1].className = "list-item-workload";
 			}		
 		}
-		console.log(container.inEditMode);
 	},
 	onDeleteModuleCommand: function (list, record) {
 		console.log("onDeleteModuleCommand");
@@ -393,8 +392,10 @@ Ext.define("studiplaner.controller.Workload", {
 						var store_sb = Ext.getStore("ScheduleBlocks");
 						store_sb.load();
 						
-						//update workload chart
-						studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
+						//update workload chart and schedule
+						Ext.Viewport.fireEvent('moduleDeleted');
+						//~ studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
+						//~ studiplaner.app.getController('Schedule').rebuildSchedule();
 					}else{
 						return false;
 					}
@@ -425,11 +426,11 @@ Ext.define("studiplaner.controller.Workload", {
 						record.workingTimes().removeAll();
 						record.workingTimes().sync();
 						
-						var workStore = Ext.getStore("Works");		
+						var workStore = Ext.getStore('Works');		
 						workStore.remove(record);
 						workStore.sync();
 						//update workload chart
-						studiplaner.app.getController('Workload').onUpdateChartDataCommand();  
+						Ext.Viewport.fireEvent('workDeleted');
 					}else{
 						return false;
 					}

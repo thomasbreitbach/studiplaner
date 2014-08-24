@@ -362,7 +362,7 @@ Ext.define("studiplaner.controller.Work", {
 	
 		var workForm = this.getWorkForm();
 		var currentWork = workForm.getRecord();
-		var controller = this;
+		var me = this;
 		
 		Ext.Msg.show({
 			title: 'Arbeitsstelle löschen?',
@@ -378,15 +378,16 @@ Ext.define("studiplaner.controller.Work", {
 			}],	
 			fn: function(text,btn) {
 				if(text == 'yes'){
-					var workStore = Ext.getStore("Works");		
+					var workStore = Ext.getStore("Works"),
+						workingTimes = currentWork.workingTimes();	
 					workStore.remove(currentWork);
-					var workingTimes = currentWork.workingTimes();
 					workingTimes.removeAll(true, true)
 					
 					workingTimes.sync();
 					workStore.sync();
 					
-					controller.activateWorkList();
+					Ext.Viewport.fireEvent('workDeleted'); 
+					me.activateWorkList();
 				}else{
 					return false;
 				}
