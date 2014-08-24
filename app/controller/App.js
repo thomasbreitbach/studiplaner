@@ -11,37 +11,13 @@ Ext.define('studiplaner.controller.App', {
   
   config: {
         refs: {
-            viewPort: "viewport",
-            modulesListContainer: "moduleslistcontainer",
-            workListContainer: "worklistcontainer",
-            workloadContainer: 'workloadcontainer',
-            scheduleContainer: "schedulecontainer",
-            exportForm: "exportform",
-            imprintContainer: "imprintcontainer"
+            viewPort: "viewport"
         },
         control: {
             viewPort: {
-            	// The commands fired by the sliding menu
-                slideMenuCommand: "onSlideMenuCommand"
-            },
-			modulesListContainer: {
-				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			},
-            workListContainer: {
-				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			},
-			workloadContainer: {
-				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			},
-			scheduleContainer: {
-				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			},
-			exportForm: {
-				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			},
-			imprintContainer: {
-				toggleSlideMenuCommand: "onToggleSlideMenuCommand"
-			}		
+                slideMenuCommand: 'onSlideMenuCommand',
+                toggleSlideMenuCommand: 'onToggleSlideMenuCommand'
+            }	
         }
     },
     
@@ -57,7 +33,7 @@ Ext.define('studiplaner.controller.App', {
 			break;
 		case "workload":
 			content = 2;
-			studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
+			//~ studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
 			break;
 		case "calendar":
 			content = 3;
@@ -81,5 +57,9 @@ Ext.define('studiplaner.controller.App', {
 		}else{
 			Ext.Viewport.hideMenu('left');
 		}
-	}
+	},
+	
+	init: function () {
+        this.callParent();
+    }
 });

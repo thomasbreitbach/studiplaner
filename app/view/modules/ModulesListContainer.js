@@ -58,7 +58,7 @@ Ext.define('studiplaner.view.modules.ModulesListContainer', {
 	},
 	
 	onMenuButtonTap: function (){
-		this.fireEvent("toggleSlideMenuCommand", this);
+		Ext.Viewport.fireEvent("toggleSlideMenuCommand", this);
 	},
 	  
   	onNewButtonTap: function () {

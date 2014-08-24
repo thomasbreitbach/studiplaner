@@ -137,16 +137,13 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
 			direction: "vertical",
 			itemId: "phasesCarousel",
 			indicator: false,
-			items: [
-				{
+			items: [{
 					xtype: "schedulecarousel",
 					phaseId: 0
-				},
-				{
+				},{
 					xtype: "schedulecarousel",
 					phaseId: 1
-				},
-				{
+				},{
 					xtype: "schedulecarousel",
 					phaseId: 2
 				}
@@ -157,8 +154,9 @@ Ext.define('studiplaner.view.schedule.ScheduleContainer', {
     	this.add([topToolbar, phasesChooser, carousel, blocksPanel]);
 	},
 	
+	//Listener functions
 	onMenuButtonTap: function (){
-		this.fireEvent("toggleSlideMenuCommand", this);
+		Ext.Viewport.fireEvent("toggleSlideMenuCommand", this);
 	},
 	
 	onCancelButtonTap: function (){

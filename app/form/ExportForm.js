@@ -84,7 +84,7 @@ Ext.define('studiplaner.form.ExportForm', {
     
     //Listener functions
 	onMenuButtonTap: function (){
-		this.fireEvent("toggleSlideMenuCommand", this);
+		Ext.Viewport.fireEvent("toggleSlideMenuCommand", this);
 	},
     onSendButtonTap: function(){
     	console.log('sendMailCommand');

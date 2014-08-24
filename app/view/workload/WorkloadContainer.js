@@ -86,7 +86,7 @@
 	
 	//Listener functions    
 	onMenuButtonTap: function (){
-		this.fireEvent("toggleSlideMenuCommand", this);
+		Ext.Viewport.fireEvent("toggleSlideMenuCommand", this);
 	},	
 	onToggleButtonTap: function () {
     	this.fireEvent("flipChartCommand", this);

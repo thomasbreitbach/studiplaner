@@ -42,5 +42,26 @@
 				]
 			}
     	]
-  	}
+  	},
+  	
+  	initialize: function () {
+        // Add a Listener. Listen for [Viewport ~ Orientation] Change.
+        //~ Ext.Viewport.on('orientationchange', 'handleOrientationChange', this, {buffer: 100 });
+        this.callParent(arguments);
+    },
+    
+    //~ handleOrientationChange: function(){
+        //~ console.log('handleOrientationChange');
+        //~ // Execute the code that needs to fire on Orientation Change.
+        //~ var me = this,
+			//~ gaugeChart = me.down('#gaugechart'),
+			//~ ratioChart = me.down('#ratiochart'),
+			//~ percent96 = (80*window.innerWidth)/100,
+			//~ percent65 = (30*window.innerWidth)/100;
+			//~ 
+//~ 
+		//~ gaugeChart.setHeight(percent65);
+//~ 
+		//~ ratioChart.setHeight(percent65);
+    //~ }
 });

@@ -52,7 +52,8 @@ Ext.define('studiplaner.view.imprint.ImprintContainer', {
     	this.add([topToolbar, content]);
 	},
 	
+	//Listener functions
 	onMenuButtonTap: function (){
-		this.fireEvent("toggleSlideMenuCommand", this);
+		Ext.Viewport.fireEvent("toggleSlideMenuCommand", this);
 	}
 });
