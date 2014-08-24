@@ -386,7 +386,6 @@ Ext.define("studiplaner.controller.Work", {
 					workingTimes.sync();
 					workStore.sync();
 					
-					Ext.Viewport.fireEvent('workDeleted'); 
 					me.activateWorkList();
 				}else{
 					return false;

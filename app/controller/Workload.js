@@ -11,15 +11,10 @@ Ext.define("studiplaner.controller.Workload", {
     
     config: {
         refs: {
-			viewPort: 'viewport',
             workloadContainer: 'workloadcontainer',
             workloadOverviewListContainer: 'workloadoverviewlistcontainer'
         },
         control: {
-			viewPort: {
-				moduleDeleted: 'onUpdateChartDataCommand',
-				workDeleted: 'onUpdateChartDataCommand'
-			},
             workloadContainer: {
             	// The commands fired by the modules list container.
                 flipChartCommand: 'onflipCardCommand',
@@ -153,7 +148,7 @@ Ext.define("studiplaner.controller.Workload", {
 			series: [{
 				name: 'Workload',
 				id: 'workload',
-				data: [40],
+				data: [0],
 				dataLabels: false,
 				tooltip: {
 					valueSuffix: ' Std./Woche'
@@ -320,12 +315,10 @@ Ext.define("studiplaner.controller.Workload", {
 	//**OverviewContainer**
 	//*********************
 	onOverviewListContainerBackCommand: function () {
-		console.log("onOverviewListContainerBackCommand");
 		workloadContainer = this.getWorkloadContainer();
 		Ext.Viewport.animateActiveItem(workloadContainer, this.slideRightTransition);
 	},
 	onEditListCommand:function () {
-		console.log("onEditListCommand");
 		var container = this.getWorkloadOverviewListContainer(),
 			editButton = container.down('#editButton'),
 			worklist = container.down('#workList'),
@@ -362,12 +355,12 @@ Ext.define("studiplaner.controller.Workload", {
 		}
 	},
 	onDeleteModuleCommand: function (list, record) {
-		console.log("onDeleteModuleCommand");
-		var container = this.getWorkloadOverviewListContainer();
+		var me = this,
+			container = me.getWorkloadOverviewListContainer();
 		if(container.inEditMode){
 			Ext.Msg.show({
 				title: 'Modul löschen?',
-				message: 'Möchtest du das Modul "' + record.data.name + '" wirklich löschen?',
+				message: 'Möchtest du das Modul "' + record.get('name') + '" wirklich löschen?',
 				buttons: [{
 					itemId: 'no',
 					text: 'Nein',
@@ -394,23 +387,24 @@ Ext.define("studiplaner.controller.Workload", {
 						
 						//update workload chart and schedule
 						Ext.Viewport.fireEvent('moduleDeleted');
-						//~ studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
-						//~ studiplaner.app.getController('Schedule').rebuildSchedule();
+						me.onUpdateChartDataCommand();
 					}else{
 						return false;
 					}
 				}
-			});
+			}, me);
 		}	
 	},
 	onDeleteWorkCommand: function (list, record) {
 		console.log("onDeleteWorkCommand");
-		var container = this.getWorkloadOverviewListContainer();
+		var me = this,
+			container = me.getWorkloadOverviewListContainer();
+			
 
 		if(container.inEditMode){
 			Ext.Msg.show({
 				title: 'Arbeitsstelle löschen?',
-				message: 'Möchtest du die Arbeitsstelle "' + record.data.name + '" wirklich löschen?',
+				message: 'Möchtest du die Arbeitsstelle "' + record.get('name') + '" wirklich löschen?',
 				buttons: [{
 					itemId: 'no',
 					text: 'Nein',
@@ -422,20 +416,20 @@ Ext.define("studiplaner.controller.Workload", {
 				}],		
 				fn: function(text,btn) {
 					if(text == 'yes'){
-						//TODO delete related workintimes!!
 						record.workingTimes().removeAll();
 						record.workingTimes().sync();
 						
 						var workStore = Ext.getStore('Works');		
 						workStore.remove(record);
 						workStore.sync();
+						
 						//update workload chart
-						Ext.Viewport.fireEvent('workDeleted');
+						me.onUpdateChartDataCommand();
 					}else{
 						return false;
 					}
 				}
-			});
+			}, me);
 		}
 	},
 	

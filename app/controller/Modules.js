@@ -398,7 +398,7 @@ Ext.define("studiplaner.controller.Modules", {
 			//rebuild timetable - there could be changes
 			studiplaner.app.getController('Schedule').rebuildSchedule();
 		}
-           
+          
 	    me.activateModulesList(deletedBlocks);
 	},
 	

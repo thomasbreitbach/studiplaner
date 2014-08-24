@@ -33,7 +33,7 @@ Ext.define('studiplaner.controller.App', {
 			break;
 		case "workload":
 			content = 2;
-			//~ studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
+			studiplaner.app.getController('Workload').onUpdateChartDataCommand(); 
 			break;
 		case "calendar":
 			content = 3;
