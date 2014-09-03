@@ -1,7 +1,7 @@
 Studiplaner
 ===========
 
-Dies ist das Repository zur Veranstaltung "EPS" der TH Mittelhessen.
+Dies ist das Repository zur Veranstaltung "EPS" an der TH Mittelhessen.
 
 #### Web-App zum Organisieren des studentischen Workloads
 
