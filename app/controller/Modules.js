@@ -278,7 +278,7 @@ Ext.define("studiplaner.controller.Modules", {
 		}
 		
 		if(selfDiff>0){
-			//delete blocks
+			//add blocks
 			for(var i=0;i<selfDiff;i++){
 				scheduleBlocks.add({
 					type: 'self',
