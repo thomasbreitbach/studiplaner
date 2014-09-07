@@ -481,12 +481,12 @@ footer a:hover {
 #phone{
 	background-image: url("../images/640px-IPhone_5.png");
 	background-repeat: no-repeat;
-	width: 330px;
-	height: 650px;
+	width: 380px;
+	height: 720px;
 }
 #live-demo-iframe{
-	margin-top: 98px;
-	margin-left: 43px;
-	width: 256px;
-	height: 450px;
+	margin-top: 110px;
+	margin-left: 50px;
+	width: 285px;
+	height: 510px;
 }
