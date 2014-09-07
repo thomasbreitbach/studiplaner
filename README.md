@@ -14,6 +14,11 @@ aus Anwesenheit und Selbststudium zusammensetzt.
 Neben Modulen können auch Arbeitszeiten (periodisch oder fixe Stunden pro Woche) angelegt werden, die ebenfalls in
 die Workloadberechnung einbezogen werden.
 
+#### Live-Demo
+
+Eine Live-Demo ist auf der Github-Pages des Projekts verfügbar:
+https://thomasbreitbach.github.io/studiplaner/
+
 #### Screenshots
 ![Modulverwaltung](https://github.com/thomasbreitbach/studiplaner/blob/master/screenshots/modulverwaltung.png)
 ![Nebenjobs](https://github.com/thomasbreitbach/studiplaner/blob/master/screenshots/jobs.png)
