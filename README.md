@@ -17,6 +17,7 @@ die Workloadberechnung einbezogen werden.
 #### Live-Demo
 
 Eine Live-Demo ist auf der Github-Pages des Projekts verfügbar:
+
 https://thomasbreitbach.github.io/studiplaner/
 
 #### Screenshots
