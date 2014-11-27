@@ -112,12 +112,12 @@ Ext.define("studiplaner.controller.Modules", {
 	getValueForInterestId: function (interest) {
 		switch(interest){
 		case 0:
-			interest = 0.9;
+			interest = 1.1;
 			break;
 		case 1:
 			break;
 		case 2:
-			interest = 1.1;
+			interest = 0.9;
 			break;
 		}
 		return interest;
@@ -448,8 +448,8 @@ Ext.define("studiplaner.controller.Modules", {
 	
 	onSegmentedButtonCommand: function (form, container, button) {
 		var me = this,
-			message = me.getMessageForSegmentedButtonId(button.config.value);
-			segButtonId = container.getItemId(),
+			message = me.getMessageForSegmentedButtonId(button.config.value),
+			segButtonId = container.getItemId();
 		me.updateForm();
 		
 		if(segButtonId == "interestButton" || segButtonId == "severityButton"){

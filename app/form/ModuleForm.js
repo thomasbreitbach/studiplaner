@@ -180,7 +180,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 							//~ text: 'Hoch',
 							id: 'severity_good',
 							width: '32%',
-							value: 0,
+							value: 2,
 							iconCls: 'happy'
 						},
 						{
@@ -195,7 +195,7 @@ Ext.define('studiplaner.form.ModuleForm', {
 							//~ text: 'Niedrig',
 							id: 'severity_bad',
 							width: '32%',
-							value: 2,
+							value: 0,
 							iconCls: 'sad'
 						}
 					]
