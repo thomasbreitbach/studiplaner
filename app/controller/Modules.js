@@ -112,12 +112,12 @@ Ext.define("studiplaner.controller.Modules", {
 	getValueForInterestId: function (interest) {
 		switch(interest){
 		case 0:
-			interest = 1.1;
+			interest = 0.9;
 			break;
 		case 1:
 			break;
 		case 2:
-			interest = 0.9;
+			interest = 1.1;
 			break;
 		}
 		return interest;
